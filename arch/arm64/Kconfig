@@ -812,6 +812,17 @@ config ULYSSE
 config UTER
 	    bool "Based on Platform msm8953"
 
+config MACH_XIAOMI_UGGLITE
+	select UGGLITE
+
+config MACH_XIAOMI_UGGLITE_TREBLE
+	select UGGLITE
+
+config MACH_XIAOMI_UGG
+	select UGG
+
+config MACH_XIAOMI_UGG_TREBLE
+	select UGG
 config ARCH_HAS_CACHE_LINE_SIZE
 	def_bool y
 

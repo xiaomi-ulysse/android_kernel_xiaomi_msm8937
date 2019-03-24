@@ -73,3 +73,5 @@ obj-$(CONFIG_MEMORY_STATE_TIME) += memory_state_time.o
 obj-$(CONFIG_APDS9930)		+= apds993x.o
 obj-$(CONFIG_UID_SYS_STATS) += uid_sys_stats.o
 obj-$(CONFIG_MEMORY_STATE_TIME) += memory_state_time.o
+obj-$(CONFIG_VIB_GPIO)		+= vibrator_gpio.o
+obj-$(CONFIG_ANT_CHECK)		+= ant_check.o

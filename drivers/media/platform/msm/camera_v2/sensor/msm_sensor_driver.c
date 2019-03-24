@@ -1,4 +1,5 @@
 /* Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
+ * Copyright (C) 2018 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1124,7 +1125,6 @@ int32_t msm_sensor_driver_probe(void *setting,
 	struct msm_camera_cci_client        *cci_client = NULL;
 	struct msm_camera_sensor_slave_info *slave_info = NULL;
 	struct msm_camera_slave_info        *camera_info = NULL;
-
 	unsigned long                        mount_pos = 0;
 	uint32_t                             is_yuv;
 #if	(defined CONFIG_KERNEL_CUSTOM_CM895) \
@@ -1294,20 +1294,6 @@ printk("hjl reading to enter L6200\n");
 	}
 #endif
 
-	if (strlen(slave_info->sensor_name) >= MAX_SENSOR_NAME ||
-		strlen(slave_info->eeprom_name) >= MAX_SENSOR_NAME ||
-		strlen(slave_info->actuator_name) >= MAX_SENSOR_NAME ||
-		strlen(slave_info->ois_name) >= MAX_SENSOR_NAME) {
-		pr_err("failed: name len greater than 32.\n");
-		pr_err("sensor name len:%zu, eeprom name len: %zu.\n",
-			strlen(slave_info->sensor_name),
-			strlen(slave_info->eeprom_name));
-		pr_err("actuator name len: %zu, ois name len:%zu.\n",
-			strlen(slave_info->actuator_name),
-			strlen(slave_info->ois_name));
-		rc = -EINVAL;
-		goto free_slave_info;
-	}
 
 	/* Print slave info */
 	CDBG("camera id %d Slave addr 0x%X addr_type %d\n",
@@ -1498,6 +1484,9 @@ CSID_TG:
 	msm_sensorid_init_device_name();
 	msm_sensor_set_sesnor_id(s_ctrl);
 
+	msm_sensorid_init_device_name();
+	msm_sensor_set_sesnor_id(s_ctrl);
+
 	/*
 	 * Update the subdevice id of flash-src based on availability in kernel.
 	 */
@@ -1549,12 +1538,6 @@ CSID_TG:
 	s_ctrl->sensordata->cam_slave_info = slave_info;
 
 	msm_sensor_fill_sensor_info(s_ctrl, probed_info, entity_name);
-
-	/*
-	 * Set probe succeeded flag to 1 so that no other camera shall
-	 * probed on this slot
-	 */
-	s_ctrl->is_probe_succeed = 1;
 
 	msm_sensor_init_device_name();
 	msm_sensor_set_module_info(s_ctrl);

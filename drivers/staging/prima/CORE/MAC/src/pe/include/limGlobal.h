@@ -184,7 +184,10 @@ typedef enum eLimMlmStates
     eLIM_MLM_WT_FT_REASSOC_RSP_STATE,
 #endif
     eLIM_MLM_P2P_LISTEN_STATE,
+<<<<<<< HEAD
     eLIM_MLM_WT_SAE_AUTH_STATE,
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 } tLimMlmStates;
 
 // 11h channel quiet states

@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2011-2019 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2011-2018 The Linux Foundation. All rights reserved.
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
  *
  * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
  *
@@ -1141,9 +1145,12 @@ limCleanupMlm(tpAniSirGlobal pMac)
         tx_timer_deactivate(&pMac->lim.limTimers.g_lim_ap_ecsa_timer);
         tx_timer_delete(&pMac->lim.limTimers.g_lim_ap_ecsa_timer);
 
+<<<<<<< HEAD
         tx_timer_deactivate(&pMac->lim.limTimers.sae_auth_timer);
         tx_timer_delete(&pMac->lim.limTimers.sae_auth_timer);
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         pMac->lim.gLimTimersCreated = 0;
     }
 
@@ -4044,6 +4051,7 @@ limEnable11aProtection(tpAniSirGlobal pMac, tANI_U8 enable,
     {
         PELOG3(limLog(pMac, LOG3, FL("psessionEntry is NULL"));)
         return eSIR_FAILURE;
+<<<<<<< HEAD
     }
 
     //overlapping protection configuration check.
@@ -4058,6 +4066,24 @@ limEnable11aProtection(tpAniSirGlobal pMac, tANI_U8 enable,
             return eSIR_SUCCESS;
         }
     }
+=======
+    }        
+        //overlapping protection configuration check.
+        if(overlap)
+        {
+        }
+        else
+        {
+            //normal protection config check
+            if ((psessionEntry->limSystemRole == eLIM_AP_ROLE) &&
+                (!psessionEntry->cfgProtection.fromlla))
+            {
+                // protection disabled.
+                PELOG3(limLog(pMac, LOG3, FL("protection from 11a is disabled"));)
+                return eSIR_SUCCESS;
+            }
+        }
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     if (enable)
     {
@@ -4201,8 +4227,17 @@ tSirRetStatus
 limEnable11gProtection(tpAniSirGlobal pMac, tANI_U8 enable,
     tANI_U8 overlap, tpUpdateBeaconParams pBeaconParams,tpPESession psessionEntry)
 {
+<<<<<<< HEAD
     //overlapping protection configuration check.
     if(!overlap)
+=======
+
+    //overlapping protection configuration check.
+    if(overlap)
+    {
+    }
+    else
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     {
         //normal protection config check
         if((psessionEntry->limSystemRole == eLIM_AP_ROLE ) &&
@@ -4212,7 +4247,11 @@ limEnable11gProtection(tpAniSirGlobal pMac, tANI_U8 enable,
             PELOG1(limLog(pMac, LOG1, FL("protection from 11b is disabled"));)
             return eSIR_SUCCESS;
         }else if(psessionEntry->limSystemRole != eLIM_AP_ROLE)
+<<<<<<< HEAD
         {
+=======
+        {   
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
             if(!pMac->lim.cfgProtection.fromllb)
             {
                 // protection disabled.
@@ -4754,21 +4793,41 @@ tSirRetStatus
 limEnableHtOBSSProtection(tpAniSirGlobal pMac, tANI_U8 enable,
     tANI_U8 overlap, tpUpdateBeaconParams pBeaconParams,tpPESession psessionEntry)
 {
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     if(!psessionEntry->htCapability)
         return eSIR_SUCCESS; // this protection  is only for HT stations.
 
     //overlapping protection configuration check.
+<<<<<<< HEAD
     if(!overlap)
     {
         //normal protection config check
         if((psessionEntry->limSystemRole == eLIM_AP_ROLE) && !psessionEntry->cfgProtection.obss)
+=======
+    if(overlap)
+    {
+        //overlapping protection configuration check.
+    } 
+    else 
+    {
+        //normal protection config check
+        if((psessionEntry->limSystemRole == eLIM_AP_ROLE) && !psessionEntry->cfgProtection.obss) 
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         { //ToDo Update this field
             // protection disabled.
             PELOG1(limLog(pMac, LOG1, FL("protection from Obss is disabled"));)
             return eSIR_SUCCESS;
         }else if(psessionEntry->limSystemRole != eLIM_AP_ROLE)
         {
+<<<<<<< HEAD
             if(!pMac->lim.cfgProtection.obss)
+=======
+            if(!pMac->lim.cfgProtection.obss) 
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
             { //ToDo Update this field
                 // protection disabled.
                 PELOG1(limLog(pMac, LOG1, FL("protection from Obss is disabled"));)
@@ -4833,6 +4892,7 @@ limEnableHT20Protection(tpAniSirGlobal pMac, tANI_U8 enable,
     if(!psessionEntry->htCapability)
         return eSIR_SUCCESS; // this protection  is only for HT stations.
 
+<<<<<<< HEAD
     //overlapping protection configuration check.
     if(!overlap)
     {
@@ -4846,13 +4906,37 @@ limEnableHT20Protection(tpAniSirGlobal pMac, tANI_U8 enable,
         }else if(psessionEntry->limSystemRole != eLIM_AP_ROLE )
         {
             if(!pMac->lim.cfgProtection.ht20)
+=======
+        //overlapping protection configuration check.
+        if(overlap)
+        {
+        }
+        else
+        {
+            //normal protection config check
+            if((psessionEntry->limSystemRole == eLIM_AP_ROLE ) &&
+                !psessionEntry->cfgProtection.ht20)
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
             {
                 // protection disabled.
                 PELOG3(limLog(pMac, LOG3, FL("protection from HT20 is disabled"));)
                 return eSIR_SUCCESS;
+<<<<<<< HEAD
             }
         }
     }
+=======
+            }else if(psessionEntry->limSystemRole != eLIM_AP_ROLE )
+            {
+                if(!pMac->lim.cfgProtection.ht20)
+                {
+                    // protection disabled.
+                    PELOG3(limLog(pMac, LOG3, FL("protection from HT20 is disabled"));)
+                    return eSIR_SUCCESS;
+                }
+            }
+        }
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     if (enable)
     {
@@ -5040,6 +5124,7 @@ limEnableHTNonGfProtection(tpAniSirGlobal pMac, tANI_U8 enable,
     if(!psessionEntry->htCapability)
         return eSIR_SUCCESS; // this protection  is only for HT stations.
 
+<<<<<<< HEAD
     //overlapping protection configuration check.
     if(!overlap)
     {
@@ -5054,13 +5139,38 @@ limEnableHTNonGfProtection(tpAniSirGlobal pMac, tANI_U8 enable,
         {
             //normal protection config check
             if(!pMac->lim.cfgProtection.nonGf)
+=======
+        //overlapping protection configuration check.
+        if(overlap)
+        {
+        }
+        else
+        {
+            //normal protection config check
+            if((psessionEntry->limSystemRole == eLIM_AP_ROLE ) &&
+                !psessionEntry->cfgProtection.nonGf)
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
             {
                 // protection disabled.
                 PELOG3(limLog(pMac, LOG3, FL("protection from NonGf is disabled"));)
                 return eSIR_SUCCESS;
+<<<<<<< HEAD
             }
         }
     }
+=======
+            }else if(psessionEntry->limSystemRole != eLIM_AP_ROLE)
+            {
+                //normal protection config check
+                if(!pMac->lim.cfgProtection.nonGf)
+                {
+                    // protection disabled.
+                    PELOG3(limLog(pMac, LOG3, FL("protection from NonGf is disabled"));)
+                    return eSIR_SUCCESS;
+                 }
+            }
+        }
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     if(psessionEntry->limSystemRole == eLIM_AP_ROLE){
         if ((enable) && (false == psessionEntry->beaconParams.llnNonGFCoexist))
         {
@@ -5108,6 +5218,7 @@ limEnableHTLsigTxopProtection(tpAniSirGlobal pMac, tANI_U8 enable,
     if(!psessionEntry->htCapability)
         return eSIR_SUCCESS; // this protection  is only for HT stations.
 
+<<<<<<< HEAD
     //overlapping protection configuration check.
     if(!overlap)
     {
@@ -5122,13 +5233,39 @@ limEnableHTLsigTxopProtection(tpAniSirGlobal pMac, tANI_U8 enable,
         {
             //normal protection config check
             if(!pMac->lim.cfgProtection.lsigTxop)
+=======
+        //overlapping protection configuration check.
+        if(overlap)
+        {
+        }
+        else
+        {
+            //normal protection config check
+            if((psessionEntry->limSystemRole == eLIM_AP_ROLE ) &&
+               !psessionEntry->cfgProtection.lsigTxop)
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
             {
                 // protection disabled.
                 PELOG3(limLog(pMac, LOG3, FL(" protection from LsigTxop not supported is disabled"));)
                 return eSIR_SUCCESS;
+<<<<<<< HEAD
             }
         }
     }
+=======
+            }else if(psessionEntry->limSystemRole != eLIM_AP_ROLE)
+            {
+                //normal protection config check
+                if(!pMac->lim.cfgProtection.lsigTxop)
+                {
+                    // protection disabled.
+                    PELOG3(limLog(pMac, LOG3, FL(" protection from LsigTxop not supported is disabled"));)
+                    return eSIR_SUCCESS;
+                }
+            }
+        }
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     if(psessionEntry->limSystemRole == eLIM_AP_ROLE){
         if ((enable) && (false == psessionEntry->beaconParams.fLsigTXOPProtectionFullSupport))
@@ -5177,6 +5314,7 @@ limEnableHtRifsProtection(tpAniSirGlobal pMac, tANI_U8 enable,
     if(!psessionEntry->htCapability)
         return eSIR_SUCCESS; // this protection  is only for HT stations.
 
+<<<<<<< HEAD
     //overlapping protection configuration check.
     if(!overlap)
     {
@@ -5198,6 +5336,33 @@ limEnableHtRifsProtection(tpAniSirGlobal pMac, tANI_U8 enable,
            }
         }
     }
+=======
+
+        //overlapping protection configuration check.
+        if(overlap)
+        {
+        }
+        else
+        {
+             //normal protection config check
+            if((psessionEntry->limSystemRole == eLIM_AP_ROLE) &&
+               !psessionEntry->cfgProtection.rifs)
+            {
+                // protection disabled.
+                PELOG3(limLog(pMac, LOG3, FL(" protection from Rifs is disabled"));)
+                return eSIR_SUCCESS;
+            }else if(psessionEntry->limSystemRole != eLIM_AP_ROLE )
+            {
+               //normal protection config check
+               if(!pMac->lim.cfgProtection.rifs)
+               {
+                  // protection disabled.
+                  PELOG3(limLog(pMac, LOG3, FL(" protection from Rifs is disabled"));)
+                  return eSIR_SUCCESS;
+               }
+            }
+        }
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     if(psessionEntry->limSystemRole == eLIM_AP_ROLE){
         // Disabling the RIFS Protection means Enable the RIFS mode of operation in the BSS

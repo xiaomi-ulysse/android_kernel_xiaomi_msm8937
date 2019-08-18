@@ -347,7 +347,10 @@ wlan_hdd_txrx_stypes[NUM_NL80211_IFTYPES] = {
     [NL80211_IFTYPE_STATION] = {
         .tx = 0xffff,
         .rx = BIT(SIR_MAC_MGMT_ACTION) |
+<<<<<<< HEAD
             BIT(SIR_MAC_MGMT_AUTH) |
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
             BIT(SIR_MAC_MGMT_PROBE_REQ),
     },
     [NL80211_IFTYPE_AP] = {
@@ -1683,8 +1686,12 @@ static int hdd_get_cached_station_remote(hdd_context_t *hdd_ctx,
 			  MAC_ADDR_ARRAY(mac_addr.bytes));
 		return -EINVAL;
 	}
+<<<<<<< HEAD
 	if (sap_ctx->aStaInfo[stainfo->ucSTAId].isUsed == TRUE &&
 		!sap_ctx->aStaInfo[stainfo->ucSTAId].isDeauthInProgress) {
+=======
+	if (sap_ctx->aStaInfo[stainfo->ucSTAId].isUsed == TRUE) {
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 		VOS_TRACE(VOS_MODULE_ID_HDD, VOS_TRACE_LEVEL_ERROR,
 			  "peer " MAC_ADDRESS_STR " is in connected state",
 			  MAC_ADDR_ARRAY(mac_addr.bytes));
@@ -4746,6 +4753,7 @@ static int __wlan_hdd_cfg80211_extscan_get_valid_channels(struct wiphy *wiphy,
     int ret,len = 0;;
 
     ENTER();
+<<<<<<< HEAD
     ret = wlan_hdd_validate_context(pHddCtx);
     if (ret)
         return false;
@@ -4765,6 +4773,11 @@ static int __wlan_hdd_cfg80211_extscan_get_valid_channels(struct wiphy *wiphy,
         hddLog(VOS_TRACE_LEVEL_DEBUG, FL("Command not allowed in FTM mode"));
         return false;
     }
+=======
+
+    if (!wlan_hdd_is_extscan_supported(pAdapter, pHddCtx))
+        return -EINVAL;
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     if (nla_parse(tb, QCA_WLAN_VENDOR_ATTR_EXTSCAN_SUBCMD_CONFIG_PARAM_MAX,
                   data, dataLen,
@@ -6365,6 +6378,74 @@ wlan_hdd_cfg80211_get_concurrency_matrix(struct wiphy *wiphy,
     return ret;
 }
 
+<<<<<<< HEAD
+=======
+
+static int
+__wlan_hdd_cfg80211_get_fw_mem_dump(struct wiphy *wiphy,
+                                    struct wireless_dev *wdev,
+                                    const void *data, int data_len)
+{
+    hdd_context_t *pHddCtx = wiphy_priv(wiphy);
+    int ret;
+    ENTER();
+
+    ret = wlan_hdd_validate_context(pHddCtx);
+    if (0 != ret)
+    {
+        return ret;
+    }
+
+    if( !pHddCtx->cfg_ini->enableFwrMemDump ||
+       (FALSE == sme_IsFeatureSupportedByFW(MEMORY_DUMP_SUPPORTED)))
+    {
+       hddLog(VOS_TRACE_LEVEL_INFO, FL("FW dump Logging not supported"));
+       return -EOPNOTSUPP;
+    }
+    /*call common API for FW mem dump req*/
+    ret = wlan_hdd_fw_mem_dump_req(pHddCtx);
+
+    if (!ret)
+    {
+        /*indicate to userspace the status of fw mem dump */
+        wlan_indicate_mem_dump_complete(true);
+    }
+    else
+    {
+        /*else send failure to userspace */
+        wlan_indicate_mem_dump_complete(false);
+    }
+    EXIT();
+    return ret;
+}
+
+/**
+ * wlan_hdd_cfg80211_get_fw_mem_dump() - Get FW memory dump
+ * @wiphy:   pointer to wireless wiphy structure.
+ * @wdev:    pointer to wireless_dev structure.
+ * @data:    Pointer to the NL data.
+ * @data_len:Length of @data
+ *
+ * This is called when wlan driver needs to get the firmware memory dump
+ * via vendor specific command.
+ *
+ * Return:   0 on success, error number otherwise.
+ */
+
+static int
+wlan_hdd_cfg80211_get_fw_mem_dump(struct wiphy *wiphy,
+                                              struct wireless_dev *wdev,
+                                         const void *data, int data_len)
+{
+    int ret = 0;
+    vos_ssr_protect(__func__);
+    ret = __wlan_hdd_cfg80211_get_fw_mem_dump(wiphy, wdev, data,
+                                        data_len);
+    vos_ssr_unprotect(__func__);
+    return ret;
+}
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 static const struct
 nla_policy
 qca_wlan_vendor_wifi_logger_start_policy
@@ -8491,6 +8572,19 @@ __wlan_hdd_cfg80211_get_logger_supp_feature(struct wiphy *wiphy,
 
 	features = 0;
 
+<<<<<<< HEAD
+=======
+	if (hdd_is_memdump_supported())
+		features |= WIFI_LOGGER_MEMORY_DUMP_SUPPORTED;
+
+	if (hdd_ctx->cfg_ini->wlanLoggingEnable &&
+	    hdd_ctx->cfg_ini->enableFatalEvent &&
+	    hdd_ctx->is_fatal_event_log_sup) {
+		features |= WIFI_LOGGER_PER_PACKET_TX_RX_STATUS_SUPPORTED;
+		features |= WIFI_LOGGER_CONNECT_EVENT_SUPPORTED;
+	}
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 	reply_skb = cfg80211_vendor_cmd_alloc_reply_skb(wiphy,
 			sizeof(uint32_t) + NLA_HDRLEN + NLMSG_HDRLEN);
 	if (!reply_skb) {
@@ -8694,6 +8788,17 @@ const struct wiphy_vendor_command hdd_wiphy_vendor_commands[] =
     },
     {
         .info.vendor_id = QCA_NL80211_VENDOR_ID,
+<<<<<<< HEAD
+=======
+        .info.subcmd = QCA_NL80211_VENDOR_SUBCMD_WIFI_LOGGER_MEMORY_DUMP,
+        .flags = WIPHY_VENDOR_CMD_NEED_WDEV |
+                 WIPHY_VENDOR_CMD_NEED_NETDEV |
+                 WIPHY_VENDOR_CMD_NEED_RUNNING,
+        .doit = wlan_hdd_cfg80211_get_fw_mem_dump
+    },
+    {
+        .info.vendor_id = QCA_NL80211_VENDOR_ID,
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         .info.subcmd = QCA_NL80211_VENDOR_SUBCMD_SETBAND,
         .flags = WIPHY_VENDOR_CMD_NEED_WDEV |
             WIPHY_VENDOR_CMD_NEED_NETDEV |
@@ -8888,6 +8993,15 @@ struct nl80211_vendor_cmd_info wlan_hdd_cfg80211_vendor_events[] =
         .vendor_id = QCA_NL80211_VENDOR_ID,
         .subcmd = QCA_NL80211_VENDOR_SUBCMD_TDLS_STATE
     },
+<<<<<<< HEAD
+=======
+    [QCA_NL80211_VENDOR_SUBCMD_WIFI_LOGGER_MEMORY_DUMP_INDEX] = {
+        .vendor_id = QCA_NL80211_VENDOR_ID,
+        .subcmd = QCA_NL80211_VENDOR_SUBCMD_WIFI_LOGGER_MEMORY_DUMP
+    },
+
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     [QCA_NL80211_VENDOR_SUBCMD_NAN_INDEX] = {
         .vendor_id = QCA_NL80211_VENDOR_ID,
         .subcmd = QCA_NL80211_VENDOR_SUBCMD_NAN
@@ -9068,6 +9182,7 @@ void wlan_hdd_cfg80211_scan_randomization_init(struct wiphy *wiphy)
 }
 #endif
 
+<<<<<<< HEAD
 #if defined(WLAN_FEATURE_SAE) && \
         defined(CFG80211_EXTERNAL_AUTH_SUPPORT)
 /**
@@ -9094,6 +9209,8 @@ void wlan_hdd_cfg80211_set_wiphy_sae_feature(struct wiphy *wiphy,
 }
 #endif
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 /*
  * FUNCTION: wlan_hdd_cfg80211_init
  * This function is called by hdd_wlan_startup()
@@ -9333,7 +9450,10 @@ int wlan_hdd_cfg80211_init(struct device *dev,
     wiphy->n_vendor_events = ARRAY_SIZE(wlan_hdd_cfg80211_vendor_events);
 
     hdd_config_sched_scan_plans_to_wiphy(wiphy, pCfg);
+<<<<<<< HEAD
     wlan_hdd_cfg80211_set_wiphy_sae_feature(wiphy, pCfg);
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     EXIT();
     return 0;
@@ -16252,10 +16372,14 @@ static int wlan_hdd_cfg80211_set_auth_type(hdd_adapter_t *pAdapter,
             pHddStaCtx->conn_info.authType = eCSR_AUTH_TYPE_CCKM_WPA;//eCSR_AUTH_TYPE_CCKM_RSN needs to be handled as well if required.
             break;
 #endif
+<<<<<<< HEAD
         case NL80211_AUTHTYPE_SAE:
              hddLog(LOG1, "set authentication type to SAE");
              pHddStaCtx->conn_info.authType = eCSR_AUTH_TYPE_SAE;
              break;
+=======
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
         default:
             hddLog(VOS_TRACE_LEVEL_ERROR,
@@ -16327,6 +16451,7 @@ static int wlan_hdd_set_akm_suite( hdd_adapter_t *pAdapter,
             pWextState->authKeyMgmt |= IW_AUTH_KEY_MGMT_802_1X;
             break;
 #endif
+<<<<<<< HEAD
         case WLAN_AKM_SUITE_SAE:
              hddLog(LOG1, "setting key mgmt type to SAE");
              pWextState->authKeyMgmt |= IW_AUTH_KEY_MGMT_802_1X;
@@ -16339,6 +16464,11 @@ static int wlan_hdd_set_akm_suite( hdd_adapter_t *pAdapter,
 
         default:
             hddLog(VOS_TRACE_LEVEL_ERROR, "%s: Unsupported key mgmt type %x",
+=======
+
+        default:
+            hddLog(VOS_TRACE_LEVEL_ERROR, "%s: Unsupported key mgmt type %d",
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
                     __func__, key_mgmt);
             return -EINVAL;
 
@@ -16812,6 +16942,7 @@ int wlan_hdd_cfg80211_set_ie( hdd_adapter_t *pAdapter,
                 }
                 break;
 #endif
+<<<<<<< HEAD
             case SIR_MAC_REQUEST_EID_MAX:
                  if (genie[0] == SIR_DH_PARAMETER_ELEMENT_EXT_EID)
                  {
@@ -16838,6 +16969,8 @@ int wlan_hdd_cfg80211_set_ie( hdd_adapter_t *pAdapter,
                 }
                 break;
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
             default:
                 hddLog (VOS_TRACE_LEVEL_ERROR,
                         "%s Set UNKNOWN IE %X", __func__, elementId);
@@ -18354,6 +18487,10 @@ static int __wlan_hdd_cfg80211_get_station(struct wiphy *wiphy, struct net_devic
 {
     hdd_adapter_t *pAdapter = WLAN_HDD_GET_PRIV_PTR( dev );
     hdd_station_ctx_t *pHddStaCtx = WLAN_HDD_GET_STATION_CTX_PTR(pAdapter);
+<<<<<<< HEAD
+=======
+    int ssidlen = pHddStaCtx->conn_info.SSID.SSID.length;
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     tANI_U32 rate_flags;
 
     hdd_context_t *pHddCtx = (hdd_context_t*) wiphy_priv(wiphy);
@@ -18392,9 +18529,17 @@ static int __wlan_hdd_cfg80211_get_station(struct wiphy *wiphy, struct net_devic
     if (pAdapter->device_mode == WLAN_HDD_SOFTAP)
         return wlan_hdd_get_sap_stats(pAdapter, mac, sinfo);
 
+<<<<<<< HEAD
     if ((eConnectionState_Associated != pHddStaCtx->conn_info.connState))
     {
         hddLog(VOS_TRACE_LEVEL_INFO, "%s: Not associated", __func__);
+=======
+    if ((eConnectionState_Associated != pHddStaCtx->conn_info.connState) ||
+            (0 == ssidlen))
+    {
+        hddLog(VOS_TRACE_LEVEL_INFO, "%s: Not associated or"
+                    " Invalid ssidlen, %d", __func__, ssidlen);
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         /*To keep GUI happy*/
         return 0;
     }
@@ -19034,7 +19179,10 @@ static int __wlan_hdd_cfg80211_del_station(struct wiphy *wiphy,
     v_U8_t staId;
     v_CONTEXT_t pVosContext = NULL;
     ptSapContext pSapCtx = NULL;
+<<<<<<< HEAD
     hdd_hostapd_state_t *hostap_state;
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     ENTER();
 
@@ -19059,7 +19207,10 @@ static int __wlan_hdd_cfg80211_del_station(struct wiphy *wiphy,
        || (WLAN_HDD_P2P_GO == pAdapter->device_mode)
        )
     {
+<<<<<<< HEAD
         hostap_state =  WLAN_HDD_GET_HOSTAP_STATE_PTR(pAdapter);
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         pVosContext = ( WLAN_HDD_GET_CTX(pAdapter))->pvosContext;
         pSapCtx = VOS_GET_SAP_CB(pVosContext);
         if(pSapCtx == NULL){
@@ -19090,6 +19241,7 @@ static int __wlan_hdd_cfg80211_del_station(struct wiphy *wiphy,
                             MAC_ADDRESS_STR,
                             __func__,
                             MAC_ADDR_ARRAY(pDelStaParams->peerMacAddr));
+<<<<<<< HEAD
                     vos_event_reset(&hostap_state->sta_discon_event);
                     vos_status = hdd_softap_sta_deauth(pAdapter, pDelStaParams);
                     if (VOS_IS_STATUS_SUCCESS(vos_status))
@@ -19103,6 +19255,11 @@ static int __wlan_hdd_cfg80211_del_station(struct wiphy *wiphy,
                                  hddLog(LOGE,"!!%s: ERROR: Deauth wait expired!!",
                                         __func__);
                     }
+=======
+                    vos_status = hdd_softap_sta_deauth(pAdapter, pDelStaParams);
+                    if (VOS_IS_STATUS_SUCCESS(vos_status))
+                        pSapCtx->aStaInfo[i].isDeauthInProgress = TRUE;
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
                 }
             }
         }
@@ -19137,7 +19294,10 @@ static int __wlan_hdd_cfg80211_del_station(struct wiphy *wiphy,
                                 __func__,
                                 MAC_ADDR_ARRAY(pDelStaParams->peerMacAddr));
 
+<<<<<<< HEAD
             vos_event_reset(&hostap_state->sta_discon_event);
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
             vos_status = hdd_softap_sta_deauth(pAdapter, pDelStaParams);
             if (!VOS_IS_STATUS_SUCCESS(vos_status))
             {
@@ -19149,11 +19309,15 @@ static int __wlan_hdd_cfg80211_del_station(struct wiphy *wiphy,
                                 MAC_ADDR_ARRAY(pDelStaParams->peerMacAddr));
                 return -ENOENT;
             }
+<<<<<<< HEAD
             vos_status =
                  vos_wait_single_event(&hostap_state->sta_discon_event,
                                        WLAN_WAIT_TIME_DISCONNECT);
             if (!VOS_IS_STATUS_SUCCESS(vos_status))
                 hddLog(LOGE,"!!%s: ERROR: Deauth wait expired!!", __func__);
+=======
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         }
     }
 
@@ -19271,6 +19435,7 @@ static int wlan_hdd_cfg80211_add_station(struct wiphy *wiphy,
 
     return ret;
 }
+<<<<<<< HEAD
 
 #if defined(WLAN_FEATURE_SAE) && \
 		defined(CFG80211_EXTERNAL_AUTH_SUPPORT)
@@ -19357,6 +19522,8 @@ static void hdd_update_pmksa_info(tPmkidCacheInfo *pmk_cache,
 }
 #endif
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #ifdef FEATURE_WLAN_LFR
 
 static int __wlan_hdd_cfg80211_set_pmksa(struct wiphy *wiphy, struct net_device *dev,
@@ -19367,7 +19534,11 @@ static int __wlan_hdd_cfg80211_set_pmksa(struct wiphy *wiphy, struct net_device 
     eHalStatus result;
     int status;
     hdd_context_t *pHddCtx;
+<<<<<<< HEAD
     tPmkidCacheInfo pmk_cache;
+=======
+    tPmkidCacheInfo pmk_id;
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     ENTER();
 
@@ -19383,6 +19554,7 @@ static int __wlan_hdd_cfg80211_set_pmksa(struct wiphy *wiphy, struct net_device 
         return -EINVAL;
     }
 
+<<<<<<< HEAD
     if (!pmksa->pmkid) {
        hddLog(LOGE, FL("pmksa->pmkid(%p) is NULL"), pmksa->pmkid);
        return -EINVAL;
@@ -19390,6 +19562,16 @@ static int __wlan_hdd_cfg80211_set_pmksa(struct wiphy *wiphy, struct net_device 
 
     if (!wlan_hdd_is_pmksa_valid(pmksa))
         return -EINVAL;
+=======
+    if (!pmksa->bssid || !pmksa->pmkid) {
+       hddLog(LOGE, FL("pmksa->bssid(%pK) or pmksa->pmkid(%pK) is NULL"),
+              pmksa->bssid, pmksa->pmkid);
+       return -EINVAL;
+    }
+
+    hddLog(VOS_TRACE_LEVEL_DEBUG, "%s: set PMKSA for " MAC_ADDRESS_STR,
+           __func__, MAC_ADDR_ARRAY(pmksa->bssid));
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     pHddCtx = WLAN_HDD_GET_CTX(pAdapter);
     status = wlan_hdd_validate_context(pHddCtx);
@@ -19401,6 +19583,7 @@ static int __wlan_hdd_cfg80211_set_pmksa(struct wiphy *wiphy, struct net_device 
     // Retrieve halHandle
     halHandle = WLAN_HDD_GET_HAL_CTX(pAdapter);
 
+<<<<<<< HEAD
     vos_mem_zero(&pmk_cache, sizeof(pmk_cache));
 
     hdd_update_pmksa_info(&pmk_cache, pmksa, false);
@@ -19414,6 +19597,14 @@ static int __wlan_hdd_cfg80211_set_pmksa(struct wiphy *wiphy, struct net_device 
      */
      result = sme_RoamSetPMKIDCache(halHandle,pAdapter->sessionId,
                                    &pmk_cache, 1, FALSE);
+=======
+    vos_mem_copy(pmk_id.BSSID, pmksa->bssid, ETHER_ADDR_LEN);
+    vos_mem_copy(pmk_id.PMKID, pmksa->pmkid, CSR_RSN_PMKID_SIZE);
+
+    /* Add to the PMKSA ID Cache in CSR */
+    result = sme_RoamSetPMKIDCache(halHandle,pAdapter->sessionId,
+                                   &pmk_id, 1, FALSE);
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     MTRACE(vos_trace(VOS_MODULE_ID_HDD,
                      TRACE_CODE_HDD_CFG80211_SET_PMKSA,
@@ -19443,7 +19634,10 @@ static int __wlan_hdd_cfg80211_del_pmksa(struct wiphy *wiphy, struct net_device 
     tHalHandle halHandle;
     hdd_context_t *pHddCtx;
     int status = 0;
+<<<<<<< HEAD
     tPmkidCacheInfo pmk_cache;
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     ENTER();
 
@@ -19459,9 +19653,19 @@ static int __wlan_hdd_cfg80211_del_pmksa(struct wiphy *wiphy, struct net_device 
         return -EINVAL;
     }
 
+<<<<<<< HEAD
     if (!wlan_hdd_is_pmksa_valid(pmksa))
         return -EINVAL;
 
+=======
+    if (!pmksa->bssid) {
+       hddLog(LOGE, FL("pmksa->bssid is NULL"));
+       return -EINVAL;
+    }
+
+    hddLog(VOS_TRACE_LEVEL_DEBUG, "%s: deleting PMKSA for " MAC_ADDRESS_STR,
+           __func__, MAC_ADDR_ARRAY(pmksa->bssid));
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     pHddCtx = WLAN_HDD_GET_CTX(pAdapter);
     status = wlan_hdd_validate_context(pHddCtx);
@@ -19476,6 +19680,7 @@ static int __wlan_hdd_cfg80211_del_pmksa(struct wiphy *wiphy, struct net_device 
     MTRACE(vos_trace(VOS_MODULE_ID_HDD,
                      TRACE_CODE_HDD_CFG80211_DEL_PMKSA,
                      pAdapter->sessionId, 0));
+<<<<<<< HEAD
 
      vos_mem_zero(&pmk_cache, sizeof(pmk_cache));
 
@@ -19485,6 +19690,12 @@ static int __wlan_hdd_cfg80211_del_pmksa(struct wiphy *wiphy, struct net_device 
     if (eHAL_STATUS_SUCCESS !=
         sme_RoamDelPMKIDfromCache(halHandle,
                                   pAdapter->sessionId, &pmk_cache, FALSE)) {
+=======
+    /* Delete the PMKID CSR cache */
+    if (eHAL_STATUS_SUCCESS !=
+        sme_RoamDelPMKIDfromCache(halHandle,
+                                  pAdapter->sessionId, pmksa->bssid, FALSE)) {
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         hddLog(LOGE, FL("Failed to delete PMKSA for "MAC_ADDRESS_STR),
                      MAC_ADDR_ARRAY(pmksa->bssid));
         status = -EINVAL;
@@ -19557,6 +19768,7 @@ static int wlan_hdd_cfg80211_flush_pmksa(struct wiphy *wiphy, struct net_device 
 }
 #endif
 
+<<<<<<< HEAD
 #if defined(WLAN_FEATURE_SAE) && \
          defined(CFG80211_EXTERNAL_AUTH_SUPPORT)
 /**
@@ -19615,6 +19827,8 @@ wlan_hdd_cfg80211_external_auth(struct wiphy *wiphy,
 }
 #endif
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #if defined(WLAN_FEATURE_VOWIFI_11R) && defined(KERNEL_SUPPORT_11R_CFG80211)
 static int __wlan_hdd_cfg80211_update_ft_ies(struct wiphy *wiphy,
                                              struct net_device *dev,
@@ -22656,9 +22870,12 @@ static struct cfg80211_ops wlan_hdd_cfg80211_ops =
 	.channel_switch = wlan_hdd_cfg80211_channel_switch,
 #endif
 
+<<<<<<< HEAD
 #if defined(WLAN_FEATURE_SAE) && \
       defined(CFG80211_EXTERNAL_AUTH_SUPPORT)
       .external_auth = wlan_hdd_cfg80211_external_auth,
 #endif
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 };
 

@@ -1145,7 +1145,11 @@ sapFsm
     switch (stateVar)
     {
         case eSAP_DISCONNECTED:
+<<<<<<< HEAD
             if (msg == eSAP_HDD_START_INFRA_BSS)
+=======
+            if ((msg == eSAP_HDD_START_INFRA_BSS))
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
             {
                 /* Transition from eSAP_DISCONNECTED to eSAP_CH_SELECT (both without substates) */
                 VOS_TRACE( VOS_MODULE_ID_SAP, VOS_TRACE_LEVEL_INFO_HIGH, "In %s, new from state %s => %s",
@@ -2175,8 +2179,13 @@ static VOS_STATUS sapGetChannelList(ptSapContext sapContext,
 #ifdef FEATURE_WLAN_CH_AVOID
                 for( i = 0; i < NUM_20MHZ_RF_CHANNELS; i++ )
                 {
+<<<<<<< HEAD
                     if( safeChannels[i].channelNumber ==
                                 rfChannels[loopCount].channelNum )
+=======
+                    if( (safeChannels[i].channelNumber ==
+                                rfChannels[loopCount].channelNum) )
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
                     {
                         /* Check if channel is safe */
                         if(VOS_TRUE == safeChannels[i].isSafe)

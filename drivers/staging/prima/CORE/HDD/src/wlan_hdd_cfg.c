@@ -3592,6 +3592,16 @@ REG_VARIABLE( CFG_EXTSCAN_ENABLE, WLAN_PARAM_Integer,
                  CFG_OPTIMIZE_CA_EVENT_DISABLE,
                  CFG_OPTIMIZE_CA_EVENT_ENABLE ),
 
+<<<<<<< HEAD
+=======
+   REG_VARIABLE(CFG_FWR_MEM_DUMP_NAME, WLAN_PARAM_Integer,
+                 hdd_config_t,enableFwrMemDump,
+                 VAR_FLAGS_OPTIONAL | VAR_FLAGS_RANGE_CHECK_ASSUME_DEFAULT,
+                 CFG_FWR_MEM_DUMP_DEF,
+                 CFG_FWR_MEM_DUMP_MIN,
+                 CFG_FWR_MEM_DUMP_MAX),
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
    REG_VARIABLE( CFG_ACTIVE_PASSIVE_CHAN_CONV_NAME, WLAN_PARAM_Integer,
                  hdd_config_t, gActivePassiveChCon,
                  VAR_FLAGS_OPTIONAL | VAR_FLAGS_RANGE_CHECK_ASSUME_DEFAULT,
@@ -4033,6 +4043,7 @@ REG_VARIABLE( CFG_EXTSCAN_ENABLE, WLAN_PARAM_Integer,
                       VAR_FLAGS_NONE,
                       (void *)CFG_ENABLE_DEFAULT_SAP_DEFAULT),
 
+<<<<<<< HEAD
 #ifdef WLAN_FEATURE_SAE
   REG_VARIABLE(CFG_IS_SAE_ENABLED_NAME, WLAN_PARAM_Integer,
                hdd_config_t, is_sae_enabled,
@@ -4041,6 +4052,8 @@ REG_VARIABLE( CFG_EXTSCAN_ENABLE, WLAN_PARAM_Integer,
                CFG_IS_SAE_ENABLED_MIN,
                CFG_IS_SAE_ENABLED_MAX),
 #endif
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 };
 
 /*
@@ -4100,8 +4113,13 @@ static char *i_trim(char *str)
 
    /* Find the first non white-space*/
    for (ptr = str; i_isspace(*ptr); ptr++);
+<<<<<<< HEAD
    if (*ptr == '\0')
       return str;
+=======
+      if (*ptr == '\0')
+         return str;
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
    /* This is the new start of the string*/
    str = ptr;
@@ -4109,8 +4127,13 @@ static char *i_trim(char *str)
    /* Find the last non white-space */
    ptr += strlen(ptr) - 1;
    for (; ptr != str && i_isspace(*ptr); ptr--);
+<<<<<<< HEAD
    /* Null terminate the following character */
    ptr[1] = '\0';
+=======
+      /* Null terminate the following character */
+      ptr[1] = '\0';
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
    return str;
 }
@@ -4257,6 +4280,7 @@ config_exit:
    return vos_status;
 }
 
+<<<<<<< HEAD
 #ifdef WLAN_FEATURE_SAE
 static void hdd_cfg_print_sae(hdd_context_t *hdd_ctx)
 {
@@ -4268,6 +4292,8 @@ static void hdd_cfg_print_sae(hdd_context_t *hdd_ctx)
 {
 }
 #endif
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
 static void print_hdd_cfg(hdd_context_t *pHddCtx)
 {
@@ -4729,7 +4755,10 @@ static void print_hdd_cfg(hdd_context_t *pHddCtx)
             "Name = [%s] Value = [%s] ",
             CFG_ENABLE_DEFAULT_SAP,
             pHddCtx->cfg_ini->enabledefaultSAP);
+<<<<<<< HEAD
     hdd_cfg_print_sae(pHddCtx);
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 }
 
 
@@ -5641,10 +5670,13 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
 
     if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_MCAST_BCAST_FILTER_SETTING, pConfig->mcastBcastFilterSetting,
                      NULL, eANI_BOOLEAN_FALSE)==eHAL_STATUS_FAILURE)
+<<<<<<< HEAD
      {
         fStatus = FALSE;
         hddLog(LOGE,"Failure: Could not pass on WNI_CFG_MCAST_BCAST_FILTER_SETTING configuration info to CCM");
      }
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #endif
 
      if (ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_SINGLE_TID_RC, pConfig->bSingleTidRc,

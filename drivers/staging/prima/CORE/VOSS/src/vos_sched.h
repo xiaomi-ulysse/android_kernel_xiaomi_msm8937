@@ -550,6 +550,7 @@ void vos_wd_reset_thread_stuck_count(int threadId);
 bool vos_is_wd_thread(int threadId);
 void vos_dump_stack(uint8_t value);
 void vos_dump_thread_stacks(int threadId);
+<<<<<<< HEAD
 /**
  * vos_get_gfp_flags(): get GFP flags
  *
@@ -557,4 +558,7 @@ void vos_dump_thread_stacks(int threadId);
  * Return: gfp flags
  */
 int vos_get_gfp_flags(void);
+=======
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #endif // #if !defined __VOSS_SCHED_H

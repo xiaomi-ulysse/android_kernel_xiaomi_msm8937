@@ -277,7 +277,11 @@ eHalStatus sme_FTSendUpdateKeyInd(tHalHandle hHal, tCsrRoamSetKey * pFTKeyInfo)
 
     keymaterial->key[ 0 ].keyLength = pFTKeyInfo->keyLength;
 
+<<<<<<< HEAD
     if ( pFTKeyInfo->keyLength )
+=======
+    if ( pFTKeyInfo->keyLength && pFTKeyInfo->Key )
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         vos_mem_copy(&keymaterial->key[ 0 ].key, pFTKeyInfo->Key, pFTKeyInfo->keyLength);
 
     vos_mem_copy( &pMsg->bssId[ 0 ],

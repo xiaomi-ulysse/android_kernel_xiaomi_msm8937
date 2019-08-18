@@ -429,7 +429,12 @@ limCheckAndAddBssDescription(tpAniSirGlobal pMac,
            ( pMac->lim.gLimReturnAfterFirstMatch & 0x01 ) &&
            (pMac->lim.gpLimMlmScanReq->numSsid) &&
            !limIsScanRequestedSSID(pMac, &pBPR->ssId)) ||
+<<<<<<< HEAD
           (!fFound && pMac->lim.gpLimMlmScanReq &&
+=======
+          (!fFound && (pMac->lim.gpLimMlmScanReq &&
+                       pMac->lim.gpLimMlmScanReq->bssId) &&
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
            !vos_mem_compare(bssid,
                            &pMac->lim.gpLimMlmScanReq->bssId, 6))))
     {

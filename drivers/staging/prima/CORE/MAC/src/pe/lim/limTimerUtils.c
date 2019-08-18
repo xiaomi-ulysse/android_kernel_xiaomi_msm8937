@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2012-2017, 2019 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2012-2017 The Linux Foundation. All rights reserved.
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
  *
  * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
  *
@@ -56,11 +60,14 @@
 #define LIM_JOIN_PROBE_REQ_TIMER_MS              200
 #define LIM_AUTH_RETRY_TIMER_MS              60
 
+<<<<<<< HEAD
 /*
  * SAE auth timer of 5secs. This is required for duration of entire SAE
  * authentication.
  */
 #define LIM_AUTH_SAE_TIMER_MS 5000
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
 //default beacon interval value used in HB timer interval calculation
 #define LIM_HB_TIMER_BEACON_INTERVAL             100
@@ -436,6 +443,7 @@ limCreateTimers(tpAniSirGlobal pMac)
             goto err_timer;
         }
 
+<<<<<<< HEAD
        /*
         * SAE auth timer of 5secs. This is required for duration of entire SAE
         * authentication.
@@ -448,6 +456,8 @@ limCreateTimers(tpAniSirGlobal pMac)
            goto err_timer;
        }
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         if (wlan_cfgGetInt(pMac, WNI_CFG_BACKGROUND_SCAN_PERIOD,
                       &cfgValue) != eSIR_SUCCESS)
         {
@@ -801,7 +811,10 @@ limCreateTimers(tpAniSirGlobal pMac)
         tx_timer_delete(&pMac->lim.limTimers.gLimP2pSingleShotNoaInsertTimer);
         tx_timer_delete(&pMac->lim.limTimers.gLimActiveToPassiveChannelTimer);
         tx_timer_delete(&pMac->lim.limTimers.g_lim_ap_ecsa_timer);
+<<<<<<< HEAD
         tx_timer_delete(&pMac->lim.limTimers.sae_auth_timer);
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
         if(NULL != pMac->lim.gLimPreAuthTimerTable.pTable)
         {
@@ -1952,6 +1965,7 @@ limDeactivateAndChangeTimer(tpAniSirGlobal pMac, tANI_U32 timerId)
         {
                 limLog(pMac, LOGE, FL("Unable to change g_lim_ap_ecsa_timer timer"));
         }
+<<<<<<< HEAD
         break;
 
 #ifdef WLAN_FEATURE_LFR_MBB
@@ -1971,6 +1985,10 @@ limDeactivateAndChangeTimer(tpAniSirGlobal pMac, tANI_U32 timerId)
         break;
 #endif
 
+=======
+
+        break;
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
      default:
             // Invalid timerId. Log error
             break;

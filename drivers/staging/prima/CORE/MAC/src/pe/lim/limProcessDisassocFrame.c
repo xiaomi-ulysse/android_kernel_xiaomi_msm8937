@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2012-2017, 2019 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2012-2017 The Linux Foundation. All rights reserved.
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
  *
  * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
  *
@@ -80,6 +84,7 @@ limProcessDisassocFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo, tpPESession
     tpSirMacMgmtHdr    pHdr;
     tpDphHashNode      pStaDs;
     tLimMlmDisassocInd mlmDisassocInd;
+<<<<<<< HEAD
     tANI_U32            frame_len;
 
     pHdr = WDA_GET_RX_MAC_HEADER(pRxPacketInfo);
@@ -90,6 +95,14 @@ limProcessDisassocFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo, tpPESession
         limLog(pMac, LOGE, FL("frame len less than 2"));
         return;
     }
+=======
+#ifdef WLAN_FEATURE_11W
+    tANI_U32            frameLen;
+#endif
+
+    pHdr = WDA_GET_RX_MAC_HEADER(pRxPacketInfo);
+    pBody = WDA_GET_RX_MPDU_DATA(pRxPacketInfo);
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     if (limIsGroupAddr(pHdr->sa))
     {
@@ -128,9 +141,16 @@ limProcessDisassocFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo, tpPESession
         PELOGE(limLog(pMac, LOG1, FL("received an unprotected disassoc from AP"));)
         // If the frame received is unprotected, forward it to the supplicant to initiate
         // an SA query
+<<<<<<< HEAD
         //send the unprotected frame indication to SME
         limSendSmeUnprotectedMgmtFrameInd( pMac, pHdr->fc.subType,
                                            (tANI_U8*)pHdr, (frame_len + sizeof(tSirMacMgmtHdr)),
+=======
+        frameLen = WDA_GET_RX_PAYLOAD_LEN(pRxPacketInfo);
+        //send the unprotected frame indication to SME
+        limSendSmeUnprotectedMgmtFrameInd( pMac, pHdr->fc.subType,
+                                           (tANI_U8*)pHdr, (frameLen + sizeof(tSirMacMgmtHdr)),
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
                                            psessionEntry->smeSessionId, psessionEntry);
         return;
     }
@@ -300,8 +320,12 @@ limProcessDisassocFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo, tpPESession
     }
 
     if ((pStaDs->mlmStaContext.mlmState == eLIM_MLM_WT_DEL_STA_RSP_STATE) ||
+<<<<<<< HEAD
         (pStaDs->mlmStaContext.mlmState == eLIM_MLM_WT_DEL_BSS_RSP_STATE) ||
          pStaDs->sta_deletion_in_progress)
+=======
+        (pStaDs->mlmStaContext.mlmState == eLIM_MLM_WT_DEL_BSS_RSP_STATE))
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     {
         /**
          * Already in the process of deleting context for the peer
@@ -315,7 +339,11 @@ limProcessDisassocFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo, tpPESession
 
         return;
     } 
+<<<<<<< HEAD
     pStaDs->sta_deletion_in_progress = true;
+=======
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     if (pStaDs->mlmStaContext.mlmState != eLIM_MLM_LINK_ESTABLISHED_STATE)
     {
         /**

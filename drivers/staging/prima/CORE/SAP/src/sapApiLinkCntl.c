@@ -650,7 +650,11 @@ eHalStatus sapCheckHT40SecondaryIsNotAllowed(ptSapContext psapCtx)
 
     for (i = 0; i < unsafeChannelCount; i++)
     {
+<<<<<<< HEAD
         if (psapCtx->sap_sec_chan == unsafeChannelList[i])
+=======
+        if ((psapCtx->sap_sec_chan == unsafeChannelList[i]))
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         {
             VOS_TRACE(VOS_MODULE_ID_SAP, VOS_TRACE_LEVEL_INFO,
                 FL("Unsafe Channel %d SAP Secondary Channel: %d"),

@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2011-2016, 2017, 2019 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2011-2016, 2017 The Linux Foundation. All rights reserved.
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
  *
  * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
  *
@@ -463,9 +467,12 @@
 
 #define SIR_MAC_OUI_VERSION_1         1
 
+<<<<<<< HEAD
 /* OWE DH Parameter element https://tools.ietf.org/html/rfc8110 */
 #define SIR_DH_PARAMETER_ELEMENT_EXT_EID 32
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 // OUI and type definition for WPA IE in network byte order
 #define SIR_MAC_WPA_OUI             0x01F25000
 #define SIR_MAC_WME_OUI             0x02F25000
@@ -1103,11 +1110,19 @@ typedef __ani_attr_pre_packed struct sSirMacRateSet
     tANI_U8  rate[SIR_MAC_RATESET_EID_MAX];
 } __ani_attr_packed tSirMacRateSet;
 
+<<<<<<< HEAD
 //Reserve 1 byte for NULL character in the SSID name field to print in %s
 typedef __ani_attr_pre_packed struct sSirMacSSid
 {
     tANI_U8        length;
     tANI_U8        ssId[SIR_MAC_MAX_SSID_LENGTH + 1];
+=======
+
+typedef __ani_attr_pre_packed struct sSirMacSSid
+{
+    tANI_U8        length;
+    tANI_U8        ssId[32];
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 } __ani_attr_packed tSirMacSSid;
 
 typedef __ani_attr_pre_packed struct sSirMacWpaInfo

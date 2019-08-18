@@ -11877,6 +11877,7 @@ WLAN_TLAPGetNextTxIds
   if ( WLAN_MAX_STA_COUNT <= ucNextSTA )
     ucNextSTA = 0;
 
+<<<<<<< HEAD
   isServed = FALSE;
   if ( 0 == pTLCb->ucCurLeftWeight )
   {
@@ -11894,6 +11895,25 @@ WLAN_TLAPGetNextTxIds
     pTLCb->ucCurLeftWeight =  pTLCb->tlConfigInfo.ucAcWeights[pTLCb->uCurServedAC];
 
   } // (0 == pTLCb->ucCurLeftWeight)
+=======
+    isServed = FALSE;
+    if ( 0 == pTLCb->ucCurLeftWeight )
+    {
+      //current prioirty is done
+      if ( WLANTL_AC_BK == (WLANTL_ACEnumType)pTLCb->uCurServedAC )
+      {
+        //end of current VO, VI, BE, BK loop. Reset priority.
+        pTLCb->uCurServedAC = WLANTL_AC_HIGH_PRIO;
+      }
+      else 
+      {
+        pTLCb->uCurServedAC --;
+      }
+
+      pTLCb->ucCurLeftWeight =  pTLCb->tlConfigInfo.ucAcWeights[pTLCb->uCurServedAC];
+ 
+    } // (0 == pTLCb->ucCurLeftWeight)
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
   ucTempSTA = ucNextSTA;
   minWeightSta = ucNextSTA;

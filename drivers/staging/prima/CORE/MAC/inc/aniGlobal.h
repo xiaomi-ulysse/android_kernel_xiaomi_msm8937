@@ -244,8 +244,11 @@ typedef struct sLimTimers
      */
     TX_TIMER           gLimActiveToPassiveChannelTimer;
     TX_TIMER           g_lim_ap_ecsa_timer;
+<<<<<<< HEAD
     /* SAE authentication related timer */
     TX_TIMER           sae_auth_timer;
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 //********************TIMER SECTION ENDS**************************************************
 // ALL THE FIELDS BELOW THIS CAN BE ZEROED OUT in limInitialize
 //****************************************************************************************

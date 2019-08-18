@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2011-2015, 2017-2019 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2011-2015, 2017 The Linux Foundation. All rights reserved.
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
  *
  * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
  *
@@ -136,7 +140,11 @@ tSirRetStatus ConvertWscOpaque( tpAniSirGlobal      pMac,
 {
     // This is awful, I know, but the old code just rammed the IE into
     // an opaque array.  Note that we need to explicitly add the vendorIE and OUI !
+<<<<<<< HEAD
     tANI_U16 curAddIELen = pOld->length;
+=======
+    tANI_U8 curAddIELen = pOld->length; 
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     pOld->length    = curAddIELen + pNew->num_data + 6;
     pOld->addIEdata[ curAddIELen++ ] = 0xdd;
@@ -156,7 +164,11 @@ tSirRetStatus ConvertP2POpaque( tpAniSirGlobal      pMac,
 {
     // This is awful, I know, but the old code just rammed the IE into
     // an opaque array.  Note that we need to explicitly add the vendorIE and OUI !
+<<<<<<< HEAD
     tANI_U16 curAddIELen = pOld->length;
+=======
+    tANI_U8 curAddIELen = pOld->length; 
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     pOld->length    = curAddIELen + pNew->num_data + 6;
     pOld->addIEdata[ curAddIELen++ ] = 0xdd;
@@ -177,7 +189,11 @@ tSirRetStatus ConvertWFDOpaque( tpAniSirGlobal      pMac,
 {
     // This is awful, I know, but the old code just rammed the IE into
     // an opaque array.  Note that we need to explicitly add the vendorIE and OUI !
+<<<<<<< HEAD
     tANI_U16 curAddIELen = pOld->length;
+=======
+    tANI_U8 curAddIELen = pOld->length; 
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     pOld->length    = curAddIELen + pNew->num_data + 6;
     pOld->addIEdata[ curAddIELen++ ] = 0xdd;

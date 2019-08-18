@@ -149,8 +149,11 @@ typedef tANI_U8 tSirVersionString[SIR_VERSION_STRING_LEN];
 #define PERIODIC_TX_PTRN_MAX_SIZE 1536
 #define MAXNUM_PERIODIC_TX_PTRNS 6
 
+<<<<<<< HEAD
 /* Cache ID length */
 #define CACHE_ID_LEN 2
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
 #ifdef WLAN_FEATURE_EXTSCAN
 
@@ -1079,7 +1082,10 @@ typedef struct sSirSmeJoinReq
     tSirBssType         bsstype;                // add new type for BT -AMP STA and AP Modules
     tANI_U8             dot11mode;              // to support BT-AMP     
     tVOS_CON_MODE       staPersona;             //Persona
+<<<<<<< HEAD
     bool                sae_pmk_cached;
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     tANI_BOOLEAN        bOSENAssociation;       //HS2.0
     tANI_BOOLEAN        bWPSAssociation;       //WPS
     ePhyChanBondState   cbMode;                 // Pass CB mode value in Join.
@@ -6452,6 +6458,7 @@ struct sir_feature_caps_params {
 	void *user_data;
 };
 
+<<<<<<< HEAD
 /**
  * struct sae_info - SAE info used for commit/confirm messages
  * @msg_type: Message type
@@ -6481,4 +6488,6 @@ struct sir_sae_msg {
     uint16_t session_id;
     uint8_t sae_status;
 };
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #endif /* __SIR_API_H */

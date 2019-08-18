@@ -120,6 +120,7 @@ const EID_EXT_CAP           	     =  127;
 const EID_OPERATING_MODE             =  199;
 const EID_WIDER_BW_CHANNEL_SWITCH_ANN=  194;
 const EID_VENDOR_SPECIFIC            = 221;
+<<<<<<< HEAD
 /**
  * Extended Element ID
  *
@@ -136,6 +137,8 @@ const EID_VENDOR_SPECIFIC            = 221;
  * value of 255
  */
 const EID_EXTN_ID_ELEMENT            = 255;
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
 const SIR_MAC_PROP_EXT_RATES_TYPE    =   0;
 const SIR_MAC_PROP_AP_NAME_TYPE      =   1;
@@ -2906,11 +2909,14 @@ CONTAINERIE RICDataDesc
   OPTIE  WMMSchedule;
 }
 
+<<<<<<< HEAD
 IE dh_parameter_element (EID_EXTN_ID_ELEMENT) OUI ( 0x20 )
 {
   group[2];
   public_key[0..255];
 }
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 /////////////////////////////////////////////////////////////////////////////
 //                                MULTIIEs                                 //
 /////////////////////////////////////////////////////////////////////////////
@@ -3560,7 +3566,10 @@ FRAME AssocRequest                        // 7.2.3.4
     OPTIE  QOSCapsStation;
     OPTIE  RRMEnabledCap;
     OPTIE  MobilityDomain;
+<<<<<<< HEAD
     OPTIE  dh_parameter_element;
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     OPTIE  WPAOpaque;
     OPTIE  HTCaps;
     OPTIE  WMMCaps;

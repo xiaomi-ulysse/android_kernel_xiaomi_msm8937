@@ -12807,7 +12807,10 @@ WDI_ProcessAddPeriodicTxPtrnInd
   wpt_uint8                      selfStaIdx          = 0;
   wpt_uint8                    ucCurrentBSSSesIdx;
   WDI_BSSSessionType*          pBSSSes             = NULL;
+<<<<<<< HEAD
   wpt_macAddr                  dst_addr;
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
   /*-------------------------------------------------------------------------
      Sanity check
@@ -12851,12 +12854,18 @@ WDI_ProcessAddPeriodicTxPtrnInd
     return WDI_STATUS_E_FAILURE;
   }
 
+<<<<<<< HEAD
   vos_mem_copy(dst_addr,
                &pAddPeriodicTxPtrnParams->wdiAddPeriodicTxPtrnParams.ucPattern[0],
                VOS_MAC_ADDR_SIZE);
 
   ucCurrentBSSSesIdx = WDI_FindAssocSession( pWDICtx,
                                 dst_addr,
+=======
+  ucCurrentBSSSesIdx = WDI_FindAssocSession( pWDICtx,
+                                pAddPeriodicTxPtrnParams->
+                                       wdiAddPeriodicTxPtrnParams.macAddr,
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
                                 &pBSSSes);
   if ( NULL == pBSSSes )
   {
@@ -12864,7 +12873,12 @@ WDI_ProcessAddPeriodicTxPtrnInd
               "%s: Association sequence for this BSS does not exist. macBSSID "
               MAC_ADDRESS_STR,
               __func__,
+<<<<<<< HEAD
              MAC_ADDR_ARRAY(dst_addr));
+=======
+             MAC_ADDR_ARRAY(pAddPeriodicTxPtrnParams->
+                            wdiAddPeriodicTxPtrnParams.macAddr));
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     wpalMemoryFree(pSendBuffer);
     return WDI_STATUS_E_NOT_ALLOWED;
   }

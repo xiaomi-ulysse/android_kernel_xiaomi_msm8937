@@ -1364,6 +1364,11 @@ eHalStatus WDA_SetRegDomain(void * clientCtxt, v_REGDOMAIN_t regId,
 #define WDA_HIGH_PRIORITY_DATA_INFO_IND         SIR_HAL_HIGH_PRIORITY_DATA_INFO_IND
 #endif /* WLAN_FEATURE_EXTSCAN */
 
+<<<<<<< HEAD
+=======
+#define WDA_FW_MEM_DUMP_REQ                  SIR_HAL_FW_MEM_DUMP_REQ
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #define WDA_WIFI_CONFIG_REQ                    SIR_HAL_WIFI_CONFIG_PARAMS
 
 #define WDA_ANTENNA_DIVERSITY_SELECTION_REQ    SIR_HAL_ANTENNA_DIVERSITY_SELECTION_REQ

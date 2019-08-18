@@ -3731,9 +3731,15 @@ eHalStatus smeIssueFastRoamNeighborAPEvent (tHalHandle hHal,
 
 eHalStatus sme_RoamDelPMKIDfromCache( tHalHandle hHal, tANI_U8 sessionId,
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,18,0))
+<<<<<<< HEAD
                                       tPmkidCacheInfo *pmksa,
 #else
                                       tPmkidCacheInfo *pmksa,
+=======
+                                      const tANI_U8 *pBSSId,
+#else
+                                      tANI_U8 *pBSSId,
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #endif
                                       tANI_BOOLEAN flush_cache );
 
@@ -3855,6 +3861,12 @@ eHalStatus sme_set_rssi_threshold_breached_cb(tHalHandle hal,
 
 void sme_disable_dfs_channel(tHalHandle hHal, bool disable_dfs);
 
+<<<<<<< HEAD
+=======
+/* HDD Callback function */
+typedef void(*pEncryptMsgRSPCb)(void *pUserData, void *infoParam);
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 eHalStatus sme_Encryptmsgsend (tHalHandle hHal,
                                u8 *pCmd,
                                int length,
@@ -4112,6 +4124,7 @@ bool sme_is_sta_key_exchange_in_progress(tHalHandle hal, uint8_t session_id);
  */
 VOS_STATUS sme_process_msg_callback(tHalHandle hal, vos_msg_t *msg);
 
+<<<<<<< HEAD
 /**
  * sme_send_mgmt_tx() - Sends mgmt frame from CSR to LIM
  * @hal: The handle returned by mac_open
@@ -4143,4 +4156,6 @@ static inline eHalStatus sme_handle_sae_msg(tHalHandle hal, uint8_t session_id,
 }
 #endif
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #endif //#if !defined( __SME_API_H )

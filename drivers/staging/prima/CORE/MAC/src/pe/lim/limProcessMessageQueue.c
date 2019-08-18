@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2011-2017, 2019 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2011-2017 The Linux Foundation. All rights reserved.
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
  *
  * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
  *
@@ -82,7 +86,10 @@
 #include "vos_types.h"
 #include "vos_packet.h"
 #include "vos_memory.h"
+<<<<<<< HEAD
 #include "limSecurityUtils.h"
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
 /* This value corresponds to 500 ms */
 #define MAX_PROBEREQ_TIME 50
@@ -93,6 +100,7 @@
 
 #define CHECK_BIT(value, mask)    ((value) & (1 << (mask)))
 
+<<<<<<< HEAD
 #define IEEE80211_STATUS_SUCCESS            0
 
 void limLogSessionStates(tpAniSirGlobal pMac);
@@ -156,6 +164,10 @@ static void lim_process_sae_msg(tpAniSirGlobal mac, struct sir_sae_msg *body)
 {}
 #endif
 
+=======
+void limLogSessionStates(tpAniSirGlobal pMac);
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 /** -------------------------------------------------------------
 \fn defMsgDecision
 \brief The function decides whether to defer a message or not in limProcessMessage function
@@ -291,7 +303,11 @@ __limHandleBeacon(tpAniSirGlobal pMac, tpSirMsgQ pMsg, tpPESession psessionEntry
      else
         limProcessBeaconFrame(pMac, pRxPacketInfo, psessionEntry);
 
+<<<<<<< HEAD
     return;
+=======
+        return;
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 }
 
 
@@ -1831,12 +1847,15 @@ limProcessMessages(tpAniSirGlobal pMac, tpSirMsgQ  limMsg)
             limMsg->bodyptr = NULL;
             break;
 
+<<<<<<< HEAD
         case eWNI_SME_SEND_MGMT_FRAME_TX:
             lim_send_mgmt_frame_tx(pMac, limMsg);
             vos_mem_free(limMsg->bodyptr);
             limMsg->bodyptr = NULL;
             break;
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #ifdef WLAN_FEATURE_RMC
         case eWNI_SME_ENABLE_RMC_REQ:
         case eWNI_SME_DISABLE_RMC_REQ:
@@ -2090,7 +2109,10 @@ limProcessMessages(tpAniSirGlobal pMac, tpSirMsgQ  limMsg)
 #ifdef WLAN_FEATURE_LFR_MBB
         case SIR_LIM_PREAUTH_MBB_RSP_TIMEOUT:
         case SIR_LIM_REASSOC_MBB_RSP_TIMEOUT:
+<<<<<<< HEAD
         case SIR_LIM_AUTH_SAE_TIMEOUT:
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #endif
             // These timeout messages are handled by MLM sub module
 
@@ -2622,11 +2644,14 @@ send_chan_switch_resp:
     case eWNI_SME_STA_DEL_BA_REQ:
         limStaDelBASession(pMac);
         break;
+<<<<<<< HEAD
     case eWNI_SME_SEND_SAE_MSG:
         lim_process_sae_msg(pMac, limMsg->bodyptr);
         vos_mem_free((v_VOID_t*)limMsg->bodyptr);
         limMsg->bodyptr = NULL;
         break;
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     default:
         vos_mem_free((v_VOID_t*)limMsg->bodyptr);
         limMsg->bodyptr = NULL;

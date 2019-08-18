@@ -191,7 +191,11 @@ __limFreshScanReqd(tpAniSirGlobal pMac, tANI_U8 returnFreshResults)
    if( (validState) && (returnFreshResults & SIR_BG_SCAN_RETURN_FRESH_RESULTS))
     return TRUE;
 
+<<<<<<< HEAD
    return FALSE;
+=======
+    return FALSE;
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 }
 
 
@@ -1685,6 +1689,7 @@ static void __limProcessClearDfsChannelList(tpAniSirGlobal pMac,
                   sizeof(tSirDFSChannelList), 0);
 }
 
+<<<<<<< HEAD
 #ifdef WLAN_FEATURE_SAE
 /**
  * lim_update_sae_config()- This API update SAE session info to csr config
@@ -1710,6 +1715,8 @@ static inline void lim_update_sae_config(tpPESession session,
 {}
 #endif
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 /**
  * __limProcessSmeJoinReq()
  *
@@ -2028,8 +2035,11 @@ __limProcessSmeJoinReq(tpAniSirGlobal pMac, tANI_U32 *pMsgBuf)
 #endif
         psessionEntry->txLdpcIniFeatureEnabled = pSmeJoinReq->txLdpcIniFeatureEnabled;
 
+<<<<<<< HEAD
         lim_update_sae_config(psessionEntry, pSmeJoinReq);
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         if (psessionEntry->bssType == eSIR_INFRASTRUCTURE_MODE)
         {
             psessionEntry->limSystemRole = eLIM_STA_ROLE;
@@ -3893,7 +3903,11 @@ __limHandleSmeStopBssRequest(tpAniSirGlobal pMac, tANI_U32 *pMsgBuf)
        )
     {
         tSirMacAddr   bcAddr = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+<<<<<<< HEAD
         if (stopBssReq.reasonCode == eSIR_SME_MIC_COUNTER_MEASURES)
+=======
+        if ((stopBssReq.reasonCode == eSIR_SME_MIC_COUNTER_MEASURES))
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
             // Send disassoc all stations associated thru TKIP
             __limCounterMeasures(pMac,psessionEntry);
         else
@@ -5836,7 +5850,11 @@ static void lim_process_sme_channel_change_request(tpAniSirGlobal mac_ctx,
    max_tx_pwr = cfgGetRegulatoryMaxTransmitPower(mac_ctx,
                      ch_change_req->new_chan);
 
+<<<<<<< HEAD
    if (max_tx_pwr == WDA_MAX_TXPOWER_INVALID) {
+=======
+   if ((max_tx_pwr == WDA_MAX_TXPOWER_INVALID)) {
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
        limLog(mac_ctx, LOGE, FL("Invalid Request/max_tx_pwr"));
        return;
    }

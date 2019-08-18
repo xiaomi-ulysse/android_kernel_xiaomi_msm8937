@@ -759,6 +759,13 @@ void schBeaconProcess(tpAniSirGlobal pMac, tANI_U8* pRxPacketInfo, tpPESession p
 
         return;
     }
+<<<<<<< HEAD
+=======
+    if (beaconStruct.ssidPresent)
+    {
+        beaconStruct.ssId.ssId[beaconStruct.ssId.length] = 0;
+    }
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     /*
     * First process the beacon in the context of any existing AP or BTAP session.

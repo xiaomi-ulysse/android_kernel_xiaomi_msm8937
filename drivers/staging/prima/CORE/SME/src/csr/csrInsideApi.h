@@ -1112,9 +1112,15 @@ eHalStatus csrScanCreateEntryInScanCache(tpAniSirGlobal pMac, tANI_U32 sessionId
 eHalStatus csrUpdateChannelList(tpAniSirGlobal pMac);
 eHalStatus csrRoamDelPMKIDfromCache( tpAniSirGlobal pMac, tANI_U32 sessionId,
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,18,0))
+<<<<<<< HEAD
                                      tPmkidCacheInfo *pmksa,
 #else
                                      tPmkidCacheInfo *pmksa,
+=======
+                                     const tANI_U8 *pBSSId,
+#else
+                                     tANI_U8 *pBSSId,
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #endif
                                      tANI_BOOLEAN flush_cache );
 tANI_BOOLEAN csrElectedCountryInfo(tpAniSirGlobal pMac);
@@ -1123,6 +1129,7 @@ void csrClearVotesForCountryInfo(tpAniSirGlobal pMac);
 void csr_remove_bssid_from_scan_list(tpAniSirGlobal pMac,
        tSirMacAddr bssid);
 
+<<<<<<< HEAD
 /**
  * csr_lookup_pmkid_using_bssid() - lookup pmkid using bssid
  * @mac: pointer to mac
@@ -1135,6 +1142,8 @@ void csr_remove_bssid_from_scan_list(tpAniSirGlobal pMac,
 bool csr_lookup_pmkid_using_bssid(tpAniSirGlobal mac, tCsrRoamSession *session,
                                   tPmkidCacheInfo *pmk_cache, uint32_t *index);
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #ifdef WLAN_FEATURE_AP_HT40_24G
 eHalStatus csrSetHT2040Mode(tpAniSirGlobal pMac, tANI_U32 sessionId, tANI_U8 cbMode);
 #endif

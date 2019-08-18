@@ -1602,9 +1602,13 @@ eHalStatus sme_Open(tHalHandle hHal)
 
       sme_p2pOpen(pMac);
       smeTraceInit(pMac);
+<<<<<<< HEAD
 #ifdef SME_TRACE_RECORD
       sme_register_debug_callback();
 #endif
+=======
+      sme_register_debug_callback();
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
    }while (0);
 
@@ -4489,9 +4493,15 @@ eHalStatus sme_RoamSetPMKIDCache( tHalHandle hHal, tANI_U8 sessionId,
 
 eHalStatus sme_RoamDelPMKIDfromCache( tHalHandle hHal, tANI_U8 sessionId,
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,18,0))
+<<<<<<< HEAD
                                       tPmkidCacheInfo *pmksa,
 #else
                                       tPmkidCacheInfo *pmksa,
+=======
+                                      const tANI_U8 *pBSSId,
+#else
+                                      tANI_U8 *pBSSId,
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #endif
                                       tANI_BOOLEAN flush_cache )
 {
@@ -4506,7 +4516,11 @@ eHalStatus sme_RoamDelPMKIDfromCache( tHalHandle hHal, tANI_U8 sessionId,
       if( CSR_IS_SESSION_VALID( pMac, sessionId ) )
       {
          status = csrRoamDelPMKIDfromCache( pMac, sessionId,
+<<<<<<< HEAD
                                             pmksa, flush_cache );
+=======
+                                            pBSSId, flush_cache );
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
       }
       else
       {
@@ -7041,7 +7055,10 @@ VOS_STATUS sme_DbgWriteMemory(tHalHandle hHal, v_U32_t memAddr, v_U8_t *pBuf, v_
 }
 
 
+<<<<<<< HEAD
 #ifdef WLAN_DEBUG
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 void pmcLog(tpAniSirGlobal pMac, tANI_U32 loglevel, const char *pString, ...)
 {
     VOS_TRACE_LEVEL  vosDebugLevel;
@@ -7062,6 +7079,10 @@ void pmcLog(tpAniSirGlobal pMac, tANI_U32 loglevel, const char *pString, ...)
 
 void smsLog(tpAniSirGlobal pMac, tANI_U32 loglevel, const char *pString,...)
 {
+<<<<<<< HEAD
+=======
+#ifdef WLAN_DEBUG
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     // Verify against current log level
     if ( loglevel > pMac->utils.gLogDbgLevel[LOG_INDEX_FOR_MODULE( SIR_SMS_MODULE_ID )] )
         return;
@@ -7075,8 +7096,13 @@ void smsLog(tpAniSirGlobal pMac, tANI_U32 loglevel, const char *pString,...)
 
         va_end( marker );              /* Reset variable arguments.      */
     }
+<<<<<<< HEAD
 }
 #endif
+=======
+#endif
+}
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
 /* ---------------------------------------------------------------------------
     \fn sme_GetWcnssWlanCompiledVersion
@@ -13246,6 +13272,7 @@ VOS_STATUS sme_UpdateDSCPtoUPMapping( tHalHandle hHal,
             for (i = 0; i < SME_QOS_WMM_UP_MAX; i++)
             {
                 for (j = pSession->QosMapSet.dscp_range[i][0];
+<<<<<<< HEAD
                                j <= pSession->QosMapSet.dscp_range[i][1] &&
                                j <= WLAN_MAX_DSCP; j++)
                        dscpmapping[j]= i;
@@ -13253,6 +13280,27 @@ VOS_STATUS sme_UpdateDSCPtoUPMapping( tHalHandle hHal,
             for (i = 0; i< pSession->QosMapSet.num_dscp_exceptions; i++)
             {
                 if (pSession->QosMapSet.dscp_exceptions[i][0] <= WLAN_MAX_DSCP)
+=======
+                               j <= pSession->QosMapSet.dscp_range[i][1]; j++)
+                {
+                   if ((pSession->QosMapSet.dscp_range[i][0] == 255) &&
+                                (pSession->QosMapSet.dscp_range[i][1] == 255))
+                   {
+                       VOS_TRACE(VOS_MODULE_ID_SME, VOS_TRACE_LEVEL_ERROR,
+                               "%s: User Priority %d is not used in mapping",
+                                __func__, i);
+                       break;
+                   }
+                   else
+                   {
+                       dscpmapping[j]= i;
+                   }
+                }
+            }
+            for (i = 0; i< pSession->QosMapSet.num_dscp_exceptions; i++)
+            {
+                if (pSession->QosMapSet.dscp_exceptions[i][0] != 255)
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
                 {
                     dscpmapping[pSession->QosMapSet.dscp_exceptions[i][0] ] =
                                          pSession->QosMapSet.dscp_exceptions[i][1];
@@ -14377,6 +14425,61 @@ eHalStatus sme_DeleteAllTDLSPeers(tHalHandle hHal, uint8_t sessionId)
     return status;
 }
 
+<<<<<<< HEAD
+=======
+
+/**
+ * sme_FwMemDumpReq() - Send Fwr mem Dump Request
+ * @hal: HAL pointer
+ *
+ * Return: eHalStatus
+ */
+
+eHalStatus sme_FwMemDumpReq(tHalHandle hHal, tAniFwrDumpReq *recv_req)
+{
+
+    eHalStatus status = eHAL_STATUS_SUCCESS;
+    tpAniSirGlobal pMac = PMAC_STRUCT(hHal);
+    vos_msg_t msg;
+    tAniFwrDumpReq * send_req;
+
+    send_req = vos_mem_malloc(sizeof(*send_req));
+    if(!send_req) {
+        VOS_TRACE(VOS_MODULE_ID_SME, VOS_TRACE_LEVEL_ERROR,
+            FL("Mem allo failed for FW_MEM_DUMP"));
+        return eHAL_STATUS_FAILURE;
+    }
+
+    send_req->fwMemDumpReqCallback = recv_req->fwMemDumpReqCallback;
+    send_req->fwMemDumpReqContext = recv_req->fwMemDumpReqContext;
+
+    if (eHAL_STATUS_SUCCESS == sme_AcquireGlobalLock(&pMac->sme))
+    {
+        msg.bodyptr = send_req;
+        msg.type = WDA_FW_MEM_DUMP_REQ;
+        msg.reserved = 0;
+
+        if (VOS_STATUS_SUCCESS != vos_mq_post_message(VOS_MODULE_ID_WDA, &msg))
+        {
+            VOS_TRACE(VOS_MODULE_ID_SME, VOS_TRACE_LEVEL_ERROR,
+            FL("Not able to post WDA_FW_MEM_DUMP"));
+            vos_mem_free(send_req);
+            status = eHAL_STATUS_FAILURE;
+        }
+        sme_ReleaseGlobalLock(&pMac->sme);
+    }
+    else
+    {
+        VOS_TRACE(VOS_MODULE_ID_SME, VOS_TRACE_LEVEL_ERROR,
+        FL("Failed to acquire SME Global Lock"));
+        vos_mem_free(send_req);
+        status = eHAL_STATUS_FAILURE;
+    }
+
+    return status;
+}
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 eHalStatus sme_set_wificonfig_params(tHalHandle hHal, tSetWifiConfigParams *req)
 {
    eHalStatus status = eHAL_STATUS_SUCCESS;
@@ -15325,6 +15428,7 @@ uint32_t sme_unpack_rsn_ie(tHalHandle hal, uint8_t *buf,
 
          return dot11fUnpackIeRSN(mac_ctx, buf, buf_len, rsn_ie);
 }
+<<<<<<< HEAD
 
 /**
  * sme_prepare_mgmt_tx() - Prepares mgmt frame
@@ -15426,3 +15530,5 @@ eHalStatus sme_handle_sae_msg(tHalHandle hal, uint8_t session_id,
 return hal_status;
 }
 #endif
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0

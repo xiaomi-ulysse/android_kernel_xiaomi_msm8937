@@ -57,7 +57,10 @@
 #define SME_QOS_UAPSD_VI      0x02
 #define SME_QOS_UAPSD_BE      0x08
 #define SME_QOS_UAPSD_BK      0x04
+<<<<<<< HEAD
 #define WLAN_MAX_DSCP 0x3f
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
 /*-------------------------------------------------------------------------- 
   Type declarations

@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2012-2013, 2016-2017, 2019 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2012-2013, 2016-2017 The Linux Foundation. All rights reserved.
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
  *
  * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
  *
@@ -401,9 +405,12 @@ enum eWniMsgTypes
     eWNI_SME_ECSA_CHAN_CHANGE_REQ,
     eWNI_SME_ECSA_CHAN_CHANGE_RSP,
     eWNI_SME_STA_DEL_BA_REQ,
+<<<<<<< HEAD
     eWNI_SME_TRIGGER_SAE,
     eWNI_SME_SEND_MGMT_FRAME_TX,
     eWNI_SME_SEND_SAE_MSG,
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     eWNI_SME_MSG_TYPES_END
 };
 

@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2012-2017, 2019 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2012-2017 The Linux Foundation. All rights reserved.
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
  *
  * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
  *
@@ -372,7 +376,10 @@ typedef struct sPESession           // Added to Support BT-AMP
     tDot11fIEVHTOperation vht_operation;
     bool force_24ghz_in_ht20;
     int8_t def_max_tx_pwr;
+<<<<<<< HEAD
     bool sae_pmk_cached;
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 }tPESession, *tpPESession;
 
 #define LIM_MAX_ACTIVE_SESSIONS 4
@@ -481,6 +488,7 @@ tpPESession peFindSessionByPeerSta(tpAniSirGlobal pMac, tANI_U8*  sa, tANI_U8* s
 
 --------------------------------------------------------------------------*/
  tpPESession peFindSessionByStaId(tpAniSirGlobal pMac,  tANI_U8  staid,    tANI_U8* sessionId);
+<<<<<<< HEAD
 
 /**
  * pe_find_session_by_sme_session_id() - looks up the PE session for given sme
@@ -494,6 +502,11 @@ tpPESession peFindSessionByPeerSta(tpAniSirGlobal pMac, tANI_U8*  sa, tANI_U8* s
  */
 tpPESession pe_find_session_by_sme_session_id(tpAniSirGlobal mac_ctx,
                                               uint8_t sme_session_id);
+=======
+ 
+
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
 
 /*--------------------------------------------------------------------------

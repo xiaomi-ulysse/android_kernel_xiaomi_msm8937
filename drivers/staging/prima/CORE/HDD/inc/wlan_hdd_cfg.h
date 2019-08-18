@@ -3008,6 +3008,14 @@ This feature requires the dependent cfg.ini "gRoamPrefer5GHz" set to 1 */
 #define CFG_OPTIMIZE_CA_EVENT_ENABLE     ( 1 )
 #define CFG_OPTIMIZE_CA_EVENT_DEFAULT    ( 0 )
 
+<<<<<<< HEAD
+=======
+#define CFG_FWR_MEM_DUMP_NAME       "gEnableFwrMemDump"
+#define CFG_FWR_MEM_DUMP_MAX        ( 1 )
+#define CFG_FWR_MEM_DUMP_MIN        ( 0 )
+#define CFG_FWR_MEM_DUMP_DEF        ( 1 )
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #define CFG_ACTIVE_PASSIVE_CHAN_CONV_NAME "gActivePassiveChCon"
 #define CFG_ACTIVE_PASSIVE_CHAN_CONV_MIN  (0)
 #define CFG_ACTIVE_PASSIVE_CHAN_CONV_MAX  (1)
@@ -3266,6 +3274,7 @@ This feature requires the dependent cfg.ini "gRoamPrefer5GHz" set to 1 */
 #define CFG_ENABLE_DEFAULT_SAP           "gEnabledefaultSAP"
 #define CFG_ENABLE_DEFAULT_SAP_DEFAULT   ""
 
+<<<<<<< HEAD
 /*
  * <ini>
  * sae_enabled - Enable/Disable SAE support in driver
@@ -3289,6 +3298,8 @@ This feature requires the dependent cfg.ini "gRoamPrefer5GHz" set to 1 */
 #define CFG_IS_SAE_ENABLED_MIN     (0)
 #define CFG_IS_SAE_ENABLED_MAX     (1)
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 /*--------------------------------------------------------------------------- 
   Type declarations
   -------------------------------------------------------------------------*/ 
@@ -3832,6 +3843,10 @@ typedef struct
    v_U32_t                     linkFailTxCnt;
    v_BOOL_t                    ignorePeerHTopMode;
    v_U8_t                      gOptimizeCAevent;
+<<<<<<< HEAD
+=======
+   v_BOOL_t                    enableFwrMemDump;
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
    v_U8_t                      gActivePassiveChCon;
    v_U32_t                     cfgExtScanConcMode;
    v_U16_t                     rps_mask;
@@ -3905,9 +3920,12 @@ typedef struct
    bool                        indoor_channel_support;
    bool                        force_rsne_override;
    char enabledefaultSAP[CFG_CONCURRENT_IFACE_MAX_LEN];
+<<<<<<< HEAD
 #ifdef WLAN_FEATURE_SAE
    bool                        is_sae_enabled;
 #endif
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 } hdd_config_t;
 
 /*--------------------------------------------------------------------------- 

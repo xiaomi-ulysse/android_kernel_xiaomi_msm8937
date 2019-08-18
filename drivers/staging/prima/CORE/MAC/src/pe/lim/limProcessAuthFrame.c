@@ -101,6 +101,7 @@ static inline unsigned int isAuthValid(tpAniSirGlobal pMac, tpSirMacAuthFrameBod
     return valid;
 }
 
+<<<<<<< HEAD
 #ifdef WLAN_FEATURE_SAE
 /**
  * lim_process_sae_auth_frame()-Process SAE authentication frame
@@ -136,6 +137,8 @@ static void lim_process_sae_auth_frame(tpAniSirGlobal mac_ctx,
                                        tpPESession pe_session)
 {}
 #endif
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
 /**
  * limProcessAuthFrame
@@ -197,7 +200,10 @@ limProcessAuthFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo, tpPESession pse
     tpDphHashNode           pStaDs = NULL;
     tANI_U16                assocId = 0;
     tANI_U16                currSeqNo = 0;
+<<<<<<< HEAD
     tANI_U16                auth_alg = 0;
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     /* Added For BT -AMP support */
     // Get pointer to Authentication frame header and body
  
@@ -235,9 +241,12 @@ limProcessAuthFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo, tpPESession pse
 
     pBody = WDA_GET_RX_MPDU_DATA(pRxPacketInfo);
 
+<<<<<<< HEAD
     auth_alg = *(uint16_t *)pBody;
     limLog(pMac, LOG1, FL("auth_alg %d "), auth_alg);
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     //PELOG3(sirDumpBuf(pMac, SIR_LIM_MODULE_ID, LOG3, (tANI_U8*)pBd, ((tpHalBufDesc) pBd)->mpduDataOffset + frameLen);)
 
     //Restore default failure timeout
@@ -627,10 +636,13 @@ limProcessAuthFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo, tpPESession pse
 
             goto free;
         } // else if (wlan_cfgGetInt(CFG_PRIVACY_OPTION_IMPLEMENTED))
+<<<<<<< HEAD
     } else if ((auth_alg ==
         eSIR_AUTH_TYPE_SAE) && (LIM_IS_STA_ROLE(psessionEntry))) {
         lim_process_sae_auth_frame(pMac, pRxPacketInfo, psessionEntry);
         goto free;
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     } // if (fc.wep)
     else
     {
@@ -726,6 +738,7 @@ limProcessAuthFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo, tpPESession pse
                    )
                 {
                     limLog(pMac, LOGE,
+<<<<<<< HEAD
                             FL("Auth frame received in mlm state: %d(staId: %d, assocId: %d)"),
                             pStaDs->mlmStaContext.mlmState,
                             pStaDs->staIndex, assocId);
@@ -742,6 +755,15 @@ limProcessAuthFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo, tpPESession pse
                                                psessionEntry, FALSE);
                         limTriggerSTAdeletion(pMac, pStaDs, psessionEntry);
                     }
+=======
+                            FL("STA is already connected but received auth frame"
+                                "Send the Deauth and lim Delete Station Context"
+                                "(staId: %d, assocId: %d) "),
+                            pStaDs->staIndex, assocId);
+                    limSendDeauthMgmtFrame(pMac, eSIR_MAC_UNSPEC_FAILURE_REASON,
+                            (tANI_U8 *) pHdr->sa, psessionEntry, FALSE);
+                    limTriggerSTAdeletion(pMac, pStaDs, psessionEntry);
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
                     goto free;
                 }
             }
@@ -1205,6 +1227,7 @@ limProcessAuthFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo, tpPESession pse
             if (pRxAuthFrameBody->authAlgoNumber !=
                 pMac->lim.gpLimMlmAuthReq->authType)
             {
+<<<<<<< HEAD
                 /*
                  * Auth algo is open in rx auth frame when auth type is SAE and
                  * PMK is cached as driver sent auth algo as open in tx frame
@@ -1228,6 +1251,21 @@ limProcessAuthFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo, tpPESession pse
                            MAC_ADDR_ARRAY(pHdr->sa));)
                     break;
                 }
+=======
+                /**
+                 * Received Authentication frame with an auth
+                 * algorithm other than one requested.
+                 * Wait until Authentication Failure Timeout.
+                 */
+
+                // Log error
+                PELOGW(limLog(pMac, LOGW,
+                       FL("received Auth frame2 for unexpected auth algo number %d "
+                       MAC_ADDRESS_STR), pRxAuthFrameBody->authAlgoNumber,
+                       MAC_ADDR_ARRAY(pHdr->sa));)
+
+                break;
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
             }
 
             if (pRxAuthFrameBody->authStatusCode ==

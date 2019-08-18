@@ -99,10 +99,13 @@ when           who        what, where, why
 // How do I get SAP context from voss context? 
 #define VOS_GET_SAP_CB(ctx) vos_get_context( VOS_MODULE_ID_SAP, ctx) 
 
+<<<<<<< HEAD
 #ifdef VOS_GET_HAL_CB
 #undef VOS_GET_HAL_CB
 #endif
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #define VOS_GET_HAL_CB(ctx) vos_get_context( VOS_MODULE_ID_PE, ctx) 
 //MAC Address length
 #define ANI_EAPOL_KEY_RSN_NONCE_SIZE      32

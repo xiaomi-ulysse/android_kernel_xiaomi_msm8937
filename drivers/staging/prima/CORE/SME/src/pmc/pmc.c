@@ -1604,7 +1604,11 @@ eHalStatus pmcRequestEnterWowlState(tHalHandle hHal, tpSirSmeWowlEnterParams wow
     pmcLog(pMac, LOG1, FL("Enter. PMC State is %d"),pMac->pmc.pmcState);
 
    /* Incase of SAP send command directly */
+<<<<<<< HEAD
    if (pSessionEntry->operMode == BSS_OPERATIONAL_MODE_AP)
+=======
+   if ((pSessionEntry->operMode == BSS_OPERATIONAL_MODE_AP))
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
    {
        if (pmcIssueCommand(hHal, eSmeCommandEnterWowl, wowlEnterParams,
             sizeof(tSirSmeWowlEnterParams), FALSE) != eHAL_STATUS_SUCCESS)

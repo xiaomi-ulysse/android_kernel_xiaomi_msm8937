@@ -43,6 +43,12 @@
 
 #include "aniGlobal.h"
 
+<<<<<<< HEAD
+=======
+
+#ifdef TRACE_RECORD
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #define MAC_TRACE_GET_MODULE_ID(data) ((data >> 8) & 0xff)
 #define MAC_TRACE_GET_MSG_ID(data)       (data & 0xffff)
 
@@ -77,3 +83,8 @@ tANI_U8* macTraceGetTLState(tANI_U16 tlState);
 
 #endif
 
+<<<<<<< HEAD
+=======
+#endif
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0

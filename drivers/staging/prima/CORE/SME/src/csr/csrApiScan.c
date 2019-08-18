@@ -5875,7 +5875,11 @@ static tANI_BOOLEAN csrScanProcessScanResults( tpAniSirGlobal pMac, tSmeCmd *pCo
         if (eHAL_STATUS_SUCCESS != status)
             smsLog(pMac, LOGE,
                    FL( "failed to update the supported channel list"));
+<<<<<<< HEAD
         pMac->scan.defer_update_channel_list = false;
+=======
+            pMac->scan.defer_update_channel_list = false;
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     }
 
 #ifdef WLAN_AP_STA_CONCURRENCY
@@ -6668,8 +6672,11 @@ eHalStatus csrProcessMacAddrSpoofCommand( tpAniSirGlobal pMac, tSmeCmd *pCommand
       // spoof mac address
       vos_mem_copy((tANI_U8 *)pMsg->macAddr,
            (tANI_U8 *)pCommand->u.macAddrSpoofCmd.macAddr, sizeof(tSirMacAddr));
+<<<<<<< HEAD
       vos_mem_copy((tANI_U8 *)pMac->roam.spoof_mac_addr,
            (tANI_U8 *)pCommand->u.macAddrSpoofCmd.macAddr, sizeof(tSirMacAddr));
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
       pMsg->spoof_mac_oui =
        pal_cpu_to_be16(pCommand->u.macAddrSpoofCmd.spoof_mac_oui);
 

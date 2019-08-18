@@ -2226,6 +2226,7 @@ void vos_dump_thread_stacks(int threadId)
    vos_dump_stack(TX_Thread);
    vos_dump_stack(RX_Thread);
 }
+<<<<<<< HEAD
 
 int vos_get_gfp_flags(void)
 {
@@ -2236,3 +2237,5 @@ int vos_get_gfp_flags(void)
 
    return flags;
 }
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0

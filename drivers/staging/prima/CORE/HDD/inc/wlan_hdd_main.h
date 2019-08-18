@@ -863,7 +863,10 @@ typedef struct hdd_hostapd_state_s
     int bssState;
     vos_event_t vosEvent;
     VOS_STATUS vosStatus;
+<<<<<<< HEAD
     vos_event_t sta_discon_event;
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     v_BOOL_t bCommit; 
 
 } hdd_hostapd_state_t;
@@ -1369,7 +1372,11 @@ struct hdd_adapter_s
    v_BOOL_t isLinkLayerStatsSet;
 #endif
    /* DSCP to UP QoS Mapping */
+<<<<<<< HEAD
    sme_QosWmmUpType hddWmmDscpToUpMap[WLAN_MAX_DSCP+1];
+=======
+   sme_QosWmmUpType hddWmmDscpToUpMap[WLAN_HDD_MAX_DSCP+1];
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
    /* Lock for active sessions while processing deauth/Disassoc */
    spinlock_t lock_for_active_session;
    tSirFwStatsResult  fwStatsRsp;
@@ -1488,6 +1495,11 @@ struct hdd_fw_mem_dump_req_ctx {
  */
 typedef void (*hdd_fw_mem_dump_req_cb)(void *context);
 
+<<<<<<< HEAD
+=======
+int memdump_init(void);
+int memdump_deinit(void);
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 void wlan_hdd_fw_mem_dump_cb(void *,tAniFwrDumpRsp *);
 int wlan_hdd_fw_mem_dump_req(hdd_context_t * pHddCtx);
 void wlan_hdd_fw_mem_dump_req_cb(void *context);
@@ -2370,6 +2382,18 @@ int hdd_parse_disable_chan_cmd(hdd_adapter_t *adapter, tANI_U8 *ptr);
 int hdd_get_disable_ch_list(hdd_context_t *hdd_ctx, tANI_U8 *buf,
                             uint32_t buf_len);
 
+<<<<<<< HEAD
+=======
+/**
+ * hdd_is_memdump_supported() - to check if memdump feature support
+ *
+ * This function is used to check if memdump feature is supported in
+ * the host driver
+ *
+ * Return: true if supported and false otherwise
+ */
+bool hdd_is_memdump_supported(void);
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
 /**
  * hdd_is_cli_iface_up() - check if there is any cli iface up

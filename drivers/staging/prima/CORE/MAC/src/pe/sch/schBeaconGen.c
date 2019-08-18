@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2012-2017, 2019 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2012-2017 The Linux Foundation. All rights reserved.
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
  *
  * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
  *
@@ -797,6 +801,7 @@ void writeBeaconToMemory(tpAniSirGlobal pMac, tANI_U16 size, tANI_U16 length, tp
     // copy end of beacon only if length > 0
     if (length > 0)
     {
+<<<<<<< HEAD
         if (size + pMac->sch.schObject.gSchBeaconOffsetEnd >
             SCH_MAX_BEACON_SIZE) {
             PELOGE(schLog(pMac, LOGE,
@@ -804,6 +809,8 @@ void writeBeaconToMemory(tpAniSirGlobal pMac, tANI_U16 size, tANI_U16 length, tp
                    size, pMac->sch.schObject.gSchBeaconOffsetEnd);)
             return;
         }
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         for (i=0; i < pMac->sch.schObject.gSchBeaconOffsetEnd; i++)
             pMac->sch.schObject.gSchBeaconFrameBegin[size++] = pMac->sch.schObject.gSchBeaconFrameEnd[i];
     }

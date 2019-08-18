@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2012-2020 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2012-2018 The Linux Foundation. All rights reserved.
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
  *
  * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
  *
@@ -121,6 +125,7 @@ static tCsrRoamSession csrRoamRoamSession[CSR_ROAM_SESSION_MAX];
 /*-------------------------------------------------------------------------- 
   Type declarations
   ------------------------------------------------------------------------*/
+<<<<<<< HEAD
 
 #ifdef WLAN_FEATURE_SAE
 /**
@@ -166,6 +171,8 @@ static inline VOS_STATUS csr_sae_callback(tpAniSirGlobal mac_ctx,
 }
 #endif
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #ifdef FEATURE_WLAN_DIAG_SUPPORT_CSR
 int diagAuthTypeFromCSRType(eCsrAuthType authType)
 {
@@ -3367,11 +3374,16 @@ eHalStatus csrRoamPrepareBssConfig(tpAniSirGlobal pMac, tCsrRoamProfile *pProfil
                 pBssConfig->uCfgDot11Mode = eCSR_CFG_DOT11_MODE_11A;
             }
         }
+<<<<<<< HEAD
         smsLog(pMac, LOG1,
                FL("phyMode %d uCfgDot11Mode %d negotiatedAuthType %d"),
                pProfile->phyMode, pBssConfig->uCfgDot11Mode,
                pProfile->negotiatedAuthType);
 
+=======
+        smsLog(pMac, LOG1, FL("phyMode %d uCfgDot11Mode %d"),
+                              pProfile->phyMode, pBssConfig->uCfgDot11Mode);
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         //Qos
         if ((pBssConfig->uCfgDot11Mode != eCSR_CFG_DOT11_MODE_11N) &&
                 (pMac->roam.configParam.WMMSupportMode == eCsrRoamWmmNoQos))
@@ -3408,10 +3420,13 @@ eHalStatus csrRoamPrepareBssConfig(tpAniSirGlobal pMac, tCsrRoamProfile *pProfil
             case eCSR_AUTH_TYPE_AUTOSWITCH:
                 pBssConfig->authType = eSIR_AUTO_SWITCH;
                 break;
+<<<<<<< HEAD
             case eCSR_AUTH_TYPE_SAE:
                 pBssConfig->authType = eSIR_AUTH_TYPE_SAE;
                 break;
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         }
         //short slot time
         if( eCSR_CFG_DOT11_MODE_11B != cfgDot11Mode )
@@ -3554,10 +3569,13 @@ static eHalStatus csrRoamPrepareBssConfigFromProfile(tpAniSirGlobal pMac, tCsrRo
         case eCSR_AUTH_TYPE_AUTOSWITCH:
             pBssConfig->authType = eSIR_AUTO_SWITCH;
             break;
+<<<<<<< HEAD
         case eCSR_AUTH_TYPE_SAE:
             pBssConfig->authType = eSIR_AUTH_TYPE_SAE;
             break;
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     }
     //short slot time
     if( WNI_CFG_PHY_MODE_11B != pBssConfig->uCfgDot11Mode )
@@ -4610,11 +4628,14 @@ static void csrRoamAssignDefaultParam( tpAniSirGlobal pMac, tSmeCmd *pCommand )
         case eCSR_AUTH_TYPE_AUTOSWITCH:
              pCommand->u.roamCmd.roamProfile.negotiatedAuthType = eCSR_AUTH_TYPE_AUTOSWITCH;
              break;
+<<<<<<< HEAD
         case eCSR_AUTH_TYPE_SAE:
              pCommand->u.roamCmd.roamProfile.negotiatedAuthType =
                                     eCSR_AUTH_TYPE_SAE;
              break;
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     }
     pCommand->u.roamCmd.roamProfile.negotiatedUCEncryptionType = 
     pCommand->u.roamCmd.roamProfile.EncryptionType.encryptionType[0]; 
@@ -5352,7 +5373,11 @@ eHalStatus csrRoamSaveSecurityRspIE(tpAniSirGlobal pMac,
        (eCSR_AUTH_TYPE_RSN_PSK_SHA256 == authType) ||
        (eCSR_AUTH_TYPE_RSN_8021X_SHA256 == authType)
 #endif /* FEATURE_WLAN_WAPI */
+<<<<<<< HEAD
       || (eCSR_AUTH_TYPE_SAE == authType))
+=======
+        )
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     {
         if( !pIesLocal && (!HAL_STATUS_SUCCESS(csrGetParsedBssDescriptionIEs(pMac, pSirBssDesc, &pIesLocal))) )
         {
@@ -6749,6 +6774,7 @@ eHalStatus csrRoamCopyConnectedProfile(tpAniSirGlobal pMac, tANI_U32 sessionId, 
     do
     {
         vos_mem_set(pDstProfile, sizeof(tCsrRoamProfile), 0);
+<<<<<<< HEAD
 
         pDstProfile->BSSIDs.bssid = vos_mem_malloc(sizeof(tCsrBssid));
         if ( NULL == pDstProfile->BSSIDs.bssid )
@@ -6788,6 +6814,50 @@ eHalStatus csrRoamCopyConnectedProfile(tpAniSirGlobal pMac, tANI_U32 sessionId, 
         vos_mem_copy(&pDstProfile->SSIDs.SSIDList[0].SSID,
                      &pSrcProfile->SSID, sizeof(tSirMacSSid));
 
+=======
+        if(pSrcProfile->bssid)
+        {
+            pDstProfile->BSSIDs.bssid = vos_mem_malloc(sizeof(tCsrBssid));
+            if ( NULL == pDstProfile->BSSIDs.bssid )
+                status = eHAL_STATUS_FAILURE;
+            else
+                status = eHAL_STATUS_SUCCESS;
+            if(!HAL_STATUS_SUCCESS(status))
+            {
+                smsLog( pMac, LOGE,
+                    FL("failed to allocate memory for BSSID"
+                    "%02x:%02x:%02x:%02x:%02x:%02x"),
+                    pSrcProfile->bssid[0], pSrcProfile->bssid[1], pSrcProfile->bssid[2],
+                    pSrcProfile->bssid[3], pSrcProfile->bssid[4], pSrcProfile->bssid[5]);
+                break;
+            }
+            pDstProfile->BSSIDs.numOfBSSIDs = 1;
+            vos_mem_copy(pDstProfile->BSSIDs.bssid, pSrcProfile->bssid,
+                         sizeof(tCsrBssid));
+        }
+        if(pSrcProfile->SSID.ssId)
+        {
+            pDstProfile->SSIDs.SSIDList = vos_mem_malloc(sizeof(tCsrSSIDInfo));
+            if ( NULL == pDstProfile->SSIDs.SSIDList )
+                status = eHAL_STATUS_FAILURE;
+            else
+                status = eHAL_STATUS_SUCCESS;
+            if(!HAL_STATUS_SUCCESS(status))
+            {
+                smsLog( pMac, LOGE,
+                 FL("failed to allocate memory for SSIDList"
+                    "%02x:%02x:%02x:%02x:%02x:%02x"),
+                    pSrcProfile->bssid[0], pSrcProfile->bssid[1], pSrcProfile->bssid[2],
+                    pSrcProfile->bssid[3], pSrcProfile->bssid[4], pSrcProfile->bssid[5]);
+                break;
+            }
+            pDstProfile->SSIDs.numOfSSIDs = 1;
+            pDstProfile->SSIDs.SSIDList[0].handoffPermitted = pSrcProfile->handoffPermitted;
+            pDstProfile->SSIDs.SSIDList[0].ssidHidden = pSrcProfile->ssidHidden;
+            vos_mem_copy(&pDstProfile->SSIDs.SSIDList[0].SSID,
+                         &pSrcProfile->SSID, sizeof(tSirMacSSid));
+        }
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         if(pSrcProfile->nAddIEAssocLength)
         {
             pDstProfile->pAddIEAssoc = vos_mem_malloc(pSrcProfile->nAddIEAssocLength);
@@ -9065,11 +9135,14 @@ void csrRoamingStateMsgProcessor( tpAniSirGlobal pMac, void *pMsgBuf )
                                pRoamInfo, 0, eCSR_ROAM_LOST_LINK_PARAMS_IND, result);
                 break;
             }
+<<<<<<< HEAD
         case eWNI_SME_TRIGGER_SAE:
              smsLog(pMac, LOG1, FL("Invoke SAE callback"));
              csr_sae_callback(pMac, pSmeRsp);
              break;
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         default:
             smsLog(pMac, LOG1,
                    FL("Unexpected message type = %d[0x%X] received in substate %s"),
@@ -9812,7 +9885,11 @@ tANI_BOOLEAN csrRoamIssueWmStatusChange( tpAniSirGlobal pMac, tANI_U32 sessionId
                          pSmeRsp,
                          sizeof( pCommand->u.wmStatusChangeCmd.u.DeauthIndMsg ));
         }
+<<<<<<< HEAD
         if( HAL_STATUS_SUCCESS( csrQueueSmeCommand(pMac, pCommand, eANI_BOOLEAN_FALSE) ) )
+=======
+        if( HAL_STATUS_SUCCESS( csrQueueSmeCommand(pMac, pCommand, eANI_BOOLEAN_TRUE) ) )
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         {
             fCommandQueued = eANI_BOOLEAN_TRUE;
         }
@@ -12871,6 +12948,7 @@ tANI_U32 csrRoamGetNumBKIDCache(tpAniSirGlobal pMac, tANI_U32 sessionId)
    return (pMac->roam.roamSession[sessionId].NumBkidCache);
 }
 #endif /* FEATURE_WLAN_WAPI */
+<<<<<<< HEAD
 
 static void csr_update_pmk_cache(tCsrRoamSession *pSession,
         tPmkidCacheInfo *pmksa)
@@ -12914,6 +12992,8 @@ static void csr_update_pmk_cache(tCsrRoamSession *pSession,
         pSession->NumPmkidCache = CSR_MAX_PMKID_ALLOWED;
 }
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 eHalStatus csrRoamSetPMKIDCache( tpAniSirGlobal pMac, tANI_U32 sessionId,
                                  tPmkidCacheInfo *pPMKIDCache,
                                  tANI_U32 numItems,
@@ -12965,10 +13045,32 @@ eHalStatus csrRoamSetPMKIDCache( tpAniSirGlobal pMac, tANI_U32 sessionId,
                 pmksa = &pPMKIDCache[i];
 
                 /* Delete the entry if present */
+<<<<<<< HEAD
                 csrRoamDelPMKIDfromCache(pMac,sessionId,pmksa,FALSE);
 
                 csr_update_pmk_cache(pSession, pmksa);
 
+=======
+                csrRoamDelPMKIDfromCache(pMac,sessionId,pmksa->BSSID,FALSE);
+
+                /* Add entry to the cache */
+                vos_mem_copy(
+                   pSession->PmkidCacheInfo[pSession->CurCacheIndex].BSSID,
+                   pmksa->BSSID, VOS_MAC_ADDR_SIZE);
+                vos_mem_copy(
+                   pSession->PmkidCacheInfo[pSession->CurCacheIndex].PMKID,
+                   pmksa->PMKID, CSR_RSN_PMKID_SIZE);
+
+                /* Increment the CSR local cache index */
+                if (pSession->CurCacheIndex < (CSR_MAX_PMKID_ALLOWED - 1))
+                    pSession->CurCacheIndex++;
+                else
+                    pSession->CurCacheIndex = 0;
+
+                pSession->NumPmkidCache++;
+                if(pSession->NumPmkidCache > CSR_MAX_PMKID_ALLOWED)
+                    pSession->NumPmkidCache = CSR_MAX_PMKID_ALLOWED;
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
             }
         }
     }
@@ -12977,9 +13079,15 @@ eHalStatus csrRoamSetPMKIDCache( tpAniSirGlobal pMac, tANI_U32 sessionId,
 
 eHalStatus csrRoamDelPMKIDfromCache( tpAniSirGlobal pMac, tANI_U32 sessionId,
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,18,0))
+<<<<<<< HEAD
                                      tPmkidCacheInfo *pmksa,
 #else
                                      tPmkidCacheInfo *pmksa,
+=======
+                                     const tANI_U8 *pBSSId,
+#else
+                                     tANI_U8 *pBSSId,
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #endif
                                      tANI_BOOLEAN flush_cache )
 {
@@ -12988,7 +13096,10 @@ eHalStatus csrRoamDelPMKIDfromCache( tpAniSirGlobal pMac, tANI_U32 sessionId,
     tANI_U32 Index;
     tANI_U32 CurIndex;
     tANI_U32 i;
+<<<<<<< HEAD
     tPmkidCacheInfo *cached_pmksa;
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     if(!pSession)
     {
@@ -13004,6 +13115,7 @@ eHalStatus csrRoamDelPMKIDfromCache( tpAniSirGlobal pMac, tANI_U32 sessionId,
 
     if (!flush_cache) {
         for (Index = 0; Index < CSR_MAX_PMKID_ALLOWED; Index++) {
+<<<<<<< HEAD
              cached_pmksa = &pSession->PmkidCacheInfo[Index];
              if (((!cached_pmksa->ssid_len) &&
                   vos_is_macaddr_equal((v_MACADDR_t *)cached_pmksa->BSSID,
@@ -13019,13 +13131,27 @@ eHalStatus csrRoamDelPMKIDfromCache( tpAniSirGlobal pMac, tANI_U32 sessionId,
             if(fMatchFound) {
                 /* Clear this - the matched entry */
                 vos_mem_zero(cached_pmksa, sizeof(tPmkidCacheInfo));
+=======
+            if (vos_mem_compare(pSession->PmkidCacheInfo[Index].BSSID,
+                pBSSId, VOS_MAC_ADDR_SIZE)) {
+                fMatchFound = 1;
+
+                /* Clear this - the matched entry */
+                vos_mem_zero(&pSession->PmkidCacheInfo[Index],
+                             sizeof(tPmkidCacheInfo));
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
                 break;
             }
         }
 
         if (Index == CSR_MAX_PMKID_ALLOWED && !fMatchFound) {
+<<<<<<< HEAD
             smsLog(pMac, LOG1, FL("No such PMKSA entry exists "));
 
+=======
+            smsLog(pMac, LOG1, FL("No such PMKSA entry exists "MAC_ADDRESS_STR),
+                   MAC_ADDR_ARRAY(pBSSId));
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         }
         else {
             /* Match Found */
@@ -13427,6 +13553,7 @@ static eHalStatus csrRoamStartWds( tpAniSirGlobal pMac, tANI_U32 sessionId, tCsr
     return( status );
 }
 
+<<<<<<< HEAD
 #ifdef WLAN_FEATURE_SAE
 /*
  * csr_update_sae_config: Copy SAE info to join request
@@ -13461,6 +13588,8 @@ static bool csr_update_sae_config(tSirMacAddr bssid, tpAniSirGlobal mac,
 }
 #endif
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 ////////////////////Mail box
 
 //pBuf is caller allocated memory point to &(tSirSmeJoinReq->rsnIE.rsnIEdata[ 0 ]) + pMsg->rsnIE.length;
@@ -13660,8 +13789,11 @@ eHalStatus csrSendJoinReqMsg( tpAniSirGlobal pMac, tANI_U32 sessionId, tSirBssDe
         //Persona
         *pBuf = (tANI_U8)pProfile->csrPersona;
         pBuf++;
+<<<<<<< HEAD
         *pBuf = csr_update_sae_config(pBssDescription->bssId, pMac, pSession);
         pBuf++;
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         *pBuf = (tANI_U8)pProfile->bOSENAssociation;
         pBuf++;
         *pBuf = (tANI_U8)pProfile->bWPSAssociation;
@@ -15788,7 +15920,11 @@ eHalStatus csrSendMBStartBssReqMsg( tpAniSirGlobal pMac, tANI_U32 sessionId, eCs
         //Persona
         *pBuf = (tANI_U8)pParam->bssPersona;
         pBuf++;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         //txLdpcIniFeatureEnabled
         *pBuf = (tANI_U8)(tANI_U8)pMac->roam.configParam.txLdpcEnable;
         pBuf++;
@@ -17787,6 +17923,7 @@ eHalStatus csrRoamOffloadScan(tpAniSirGlobal pMac, tANI_U8 command, tANI_U8 reas
 
    currChannelListInfo = &pNeighborRoamInfo->roamChannelInfo.currentChannelListInfo;
 
+<<<<<<< HEAD
    pSession = CSR_GET_SESSION( pMac, sessionId );
    if (!pSession) {
        VOS_TRACE(VOS_MODULE_ID_SME, VOS_TRACE_LEVEL_ERROR,
@@ -17794,6 +17931,8 @@ eHalStatus csrRoamOffloadScan(tpAniSirGlobal pMac, tANI_U8 command, tANI_U8 reas
        return eHAL_STATUS_FAILURE;
    }
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
    if (0 == csrRoamIsRoamOffloadScanEnabled(pMac))
    {
       smsLog( pMac, LOGE,"isRoamOffloadScanEnabled not set");
@@ -17806,6 +17945,7 @@ eHalStatus csrRoamOffloadScan(tpAniSirGlobal pMac, tANI_U8 command, tANI_U8 reas
         return eHAL_STATUS_FAILURE;
    }
 
+<<<<<<< HEAD
    /* Roaming is not supported currently for SAE authentication */
    if (pSession->pCurRoamProfile &&
        CSR_IS_AUTH_TYPE_SAE(pSession->pCurRoamProfile->AuthType.authType[0])) {
@@ -17821,6 +17961,8 @@ eHalStatus csrRoamOffloadScan(tpAniSirGlobal pMac, tANI_U8 command, tANI_U8 reas
         return eHAL_STATUS_SUCCESS;
    }
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
    /*The Dynamic Config Items Update may happen even if the state is in INIT.
     * It is important to ensure that the command is passed down to the FW only
     * if the Infra Station is in a connected state.A connected station could also be
@@ -17862,6 +18004,16 @@ eHalStatus csrRoamOffloadScan(tpAniSirGlobal pMac, tANI_U8 command, tANI_U8 reas
             "%s: Not able to find the sessionId for Roam Offload scan request", __func__);
           return eHAL_STATUS_FAILURE;
       }
+<<<<<<< HEAD
+=======
+      pSession = CSR_GET_SESSION( pMac, sessionId );
+      if (NULL == pSession)
+      {
+          VOS_TRACE(VOS_MODULE_ID_SME, VOS_TRACE_LEVEL_ERROR,
+                 "%s:pSession is null", __func__);
+          return eHAL_STATUS_FAILURE;
+      }
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
       pBssDesc = pSession->pConnectBssDesc;
       if (pBssDesc == NULL)
       {

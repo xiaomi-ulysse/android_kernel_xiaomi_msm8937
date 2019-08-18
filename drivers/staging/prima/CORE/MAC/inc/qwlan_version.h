@@ -46,6 +46,10 @@ BRIEF DESCRIPTION:
 
 #define QWLAN_VERSION_BUILD            85
 
+<<<<<<< HEAD
 #define QWLAN_VERSIONSTR               "3.0.11.85.9"
+=======
+#define QWLAN_VERSIONSTR               "3.0.11.85"
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
 #endif /* QWLAN_VERSION_H */

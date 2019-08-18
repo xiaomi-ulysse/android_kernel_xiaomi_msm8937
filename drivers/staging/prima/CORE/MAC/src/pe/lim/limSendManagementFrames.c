@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2011-2019 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2011-2018 The Linux Foundation. All rights reserved.
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
  *
  * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
  *
@@ -7333,6 +7337,7 @@ limSendRMCActionFrame(tpAniSirGlobal  pMac,
 } // End limSendRMCActionFrame.
 
 #endif /* WLAN_FEATURE_RMC */
+<<<<<<< HEAD
 
 /**
  * lim_tx_mgmt_frame() - Transmits Auth mgmt frame
@@ -7407,3 +7412,5 @@ void lim_send_mgmt_frame_tx(tpAniSirGlobal mac_ctx, tpSirMsgQ msg)
     vos_mem_copy(frame, mb_msg->data, msg_len);
     lim_tx_mgmt_frame(mac_ctx, mb_msg, msg_len, packet, frame);
 }
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0

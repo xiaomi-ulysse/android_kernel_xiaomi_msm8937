@@ -143,6 +143,7 @@ typedef struct {
 }__attribute__((packed)) qcom_ie_age ;
 #endif
 
+<<<<<<< HEAD
 #ifndef WLAN_AKM_SUITE_SAE
 #define WLAN_AKM_SUITE_SAE 0x000FAC08
 #endif
@@ -152,6 +153,8 @@ typedef struct {
 #endif
 
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 enum qca_nl80211_vendor_subcmds {
     QCA_NL80211_VENDOR_SUBCMD_UNSPEC = 0,
     QCA_NL80211_VENDOR_SUBCMD_TEST = 1,
@@ -209,6 +212,11 @@ enum qca_nl80211_vendor_subcmds {
 
     /* Get Wifi Specific Info */
     QCA_NL80211_VENDOR_SUBCMD_GET_WIFI_INFO = 61,
+<<<<<<< HEAD
+=======
+    /* Start Wifi Memory Dump */
+    QCA_NL80211_VENDOR_SUBCMD_WIFI_LOGGER_MEMORY_DUMP = 63,
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     /*
      * APIs corresponding to the sub commands 65-68 are deprecated.
@@ -489,6 +497,10 @@ enum qca_nl80211_vendor_subcmds_index {
     /*EXT TDLS*/
     QCA_NL80211_VENDOR_SUBCMD_TDLS_STATE_CHANGE_INDEX,
     QCA_NL80211_VENDOR_SUBCMD_NAN_INDEX,
+<<<<<<< HEAD
+=======
+    QCA_NL80211_VENDOR_SUBCMD_WIFI_LOGGER_MEMORY_DUMP_INDEX,
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     QCA_NL80211_VENDOR_SUBCMD_MONITOR_RSSI_INDEX,
     QCA_NL80211_VENDOR_SUBCMD_EXTSCAN_HOTLIST_AP_LOST_INDEX,
@@ -1648,6 +1660,10 @@ enum qca_wlan_vendor_attr_offloaded_packets
  * @WIFI_LOGGER_WATCHDOG_TIMER_SUPPORTED - monitor FW health
  */
 enum wifi_logger_supported_features {
+<<<<<<< HEAD
+=======
+    WIFI_LOGGER_MEMORY_DUMP_SUPPORTED = (1 << (0)),
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     WIFI_LOGGER_PER_PACKET_TX_RX_STATUS_SUPPORTED = (1 << (1)),
     WIFI_LOGGER_CONNECT_EVENT_SUPPORTED = (1 << (2)),
     WIFI_LOGGER_POWER_EVENT_SUPPORTED = (1 << (3)),
@@ -1841,6 +1857,30 @@ backported_cfg80211_vendor_event_alloc(struct wiphy *wiphy,
 int wlan_hdd_send_hang_reason_event(hdd_context_t *hdd_ctx,
 				    unsigned int reason);
 
+<<<<<<< HEAD
+=======
+/**
+ * enum qca_wlan_vendor_attr_memory_dump - values for memory dump attributes
+ * @QCA_WLAN_VENDOR_ATTR_MEMORY_DUMP_INVALID - Invalid
+ * @QCA_WLAN_VENDOR_ATTR_REQUEST_ID - Indicate request ID
+ * @QCA_WLAN_VENDOR_ATTR_MEMDUMP_SIZE - Indicate size of the memory dump
+ * @QCA_WLAN_VENDOR_ATTR_MEMORY_DUMP_AFTER_LAST - To keep track of the last enum
+ * @QCA_WLAN_VENDOR_ATTR_MEMORY_DUMP_MAX - max value possible for this type
+ *
+ * enum values are used for NL attributes for data used by
+ * QCA_NL80211_VENDOR_SUBCMD_WIFI_LOGGER_MEMORY_DUMP sub command.
+ */
+enum qca_wlan_vendor_attr_memory_dump {
+    QCA_WLAN_VENDOR_ATTR_MEMORY_DUMP_INVALID = 0,
+    QCA_WLAN_VENDOR_ATTR_REQUEST_ID = 1,
+    QCA_WLAN_VENDOR_ATTR_MEMDUMP_SIZE = 2,
+
+    QCA_WLAN_VENDOR_ATTR_MEMORY_DUMP_AFTER_LAST,
+    QCA_WLAN_VENDOR_ATTR_MEMORY_DUMP_MAX =
+    QCA_WLAN_VENDOR_ATTR_MEMORY_DUMP_AFTER_LAST - 1,
+};
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #if defined(CFG80211_DISCONNECTED_V2) || \
 (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 2, 0))
 static inline void wlan_hdd_cfg80211_indicate_disconnect(struct net_device *dev,

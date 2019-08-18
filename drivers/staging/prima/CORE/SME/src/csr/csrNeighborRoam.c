@@ -3814,6 +3814,7 @@ VOS_STATUS csrNeighborRoamTransitToCFGChanScan(tpAniSirGlobal pMac)
     tpCsrChannelInfo    currChannelListInfo;
     tANI_U8   scanChannelList[WNI_CFG_VALID_CHANNEL_LIST_LEN];
     int       outputNumOfChannels = 0;
+<<<<<<< HEAD
     tANI_U32 sessionId = pNeighborRoamInfo->csrSessionId;
     VOS_STATUS vos_status;
 
@@ -3826,6 +3827,11 @@ VOS_STATUS csrNeighborRoamTransitToCFGChanScan(tpAniSirGlobal pMac)
         return vos_status;
     }
 
+=======
+#ifdef FEATURE_WLAN_LFR
+    tANI_U32 sessionId = pNeighborRoamInfo->csrSessionId;
+#endif
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     currChannelListInfo = &pNeighborRoamInfo->roamChannelInfo.currentChannelListInfo;
 
     if ( 

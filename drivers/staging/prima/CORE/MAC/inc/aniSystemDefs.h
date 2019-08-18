@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2012-2014, 2019  The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2012-2014 The Linux Foundation. All rights reserved.
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
  *
  * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
  *
@@ -84,8 +88,11 @@ typedef enum eAniAuthType
 #if defined WLAN_FEATURE_VOWIFI_11R
     eSIR_FT_AUTH,
 #endif
+<<<<<<< HEAD
     eSIR_AUTH_TYPE_SAE = 3,
     eSIR_AUTH_TYPE_OWE = 4,
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #if defined FEATURE_WLAN_ESE
     eSIR_LEAP_AUTH = 0x80,
 #endif

@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2012-2020 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2012-2019 The Linux Foundation. All rights reserved.
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
  *
  * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
  *
@@ -152,6 +156,7 @@ v_U8_t ccpRSNOui07[ HDD_RSN_OUI_SIZE ] = { 0x00, 0x0F, 0xAC, 0x06 }; // RSN-PSK-
 v_U8_t ccpRSNOui08[ HDD_RSN_OUI_SIZE ] = { 0x00, 0x0F, 0xAC, 0x05 };
 #endif
 
+<<<<<<< HEAD
 #ifdef WLAN_FEATURE_SAE
 v_U8_t ccp_rsn_oui_80[HDD_RSN_OUI_SIZE] = {0x00, 0x0F, 0xAC, 0x08};
 v_U8_t ccp_rsn_oui_90[HDD_RSN_OUI_SIZE] = {0x00, 0x0F, 0xAC, 0x09};
@@ -159,6 +164,8 @@ v_U8_t ccp_rsn_oui_90[HDD_RSN_OUI_SIZE] = {0x00, 0x0F, 0xAC, 0x09};
 /* OWE https://tools.ietf.org/html/rfc8110 */
 uint8_t ccp_rsn_oui_18[HDD_RSN_OUI_SIZE] = {0x00, 0x0F, 0xAC, 0x12};
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #if defined(WLAN_FEATURE_VOWIFI_11R)
 // Offset where the EID-Len-IE, start.
 #define FT_ASSOC_RSP_IES_OFFSET 6 /* Capability(2) + AID(2) + Status Code(2)*/
@@ -199,6 +206,7 @@ static eHalStatus hdd_RoamSetKeyCompleteHandler( hdd_adapter_t *pAdapter,
                                                 eRoamCmdStatus roamStatus,
                                                 eCsrRoamResult roamResult );
 
+<<<<<<< HEAD
 #if defined(WLAN_FEATURE_SAE) && \
 	defined(CFG80211_EXTERNAL_AUTH_SUPPORT)
 /**
@@ -246,6 +254,8 @@ static void wlan_hdd_sae_callback(hdd_adapter_t *adapter,
 { }
 #endif
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 v_VOID_t hdd_connSetConnectionState( hdd_station_ctx_t *pHddStaCtx,
                                         eConnectionState connState )
 {
@@ -552,11 +562,19 @@ void hdd_copy_ht_caps(struct ieee80211_ht_cap *hdd_ht_cap,
         hdd_ht_cap->mcs.rx_mask[i] =
             roam_ht_cap->supportedMCSSet[i];
 
+<<<<<<< HEAD
     hdd_ht_cap->mcs.rx_highest =
         ((short) (roam_ht_cap->supportedMCSSet[11]) << 8) |
         ((short) (roam_ht_cap->supportedMCSSet[10]));
     hdd_ht_cap->mcs.tx_params =
         roam_ht_cap->supportedMCSSet[12];
+=======
+        hdd_ht_cap->mcs.rx_highest =
+            ((short) (roam_ht_cap->supportedMCSSet[11]) << 8) |
+            ((short) (roam_ht_cap->supportedMCSSet[10]));
+        hdd_ht_cap->mcs.tx_params =
+            roam_ht_cap->supportedMCSSet[12];
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
 }
 
@@ -594,7 +612,11 @@ void hdd_copy_vht_caps(struct ieee80211_vht_cap *hdd_vht_cap,
     temp_vht_cap = roam_vht_cap->supportedChannelWidthSet &
         (IEEE80211_VHT_CAP_SUPP_CHAN_WIDTH_MASK >>
             VHT_CAP_SUPP_CHAN_WIDTH_MASK_SHIFT);
+<<<<<<< HEAD
     if (temp_vht_cap) {
+=======
+    if (temp_vht_cap)
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         if (roam_vht_cap->supportedChannelWidthSet &
             (IEEE80211_VHT_CAP_SUPP_CHAN_WIDTH_160MHZ >>
             VHT_CAP_SUPP_CHAN_WIDTH_MASK_SHIFT))
@@ -607,7 +629,10 @@ void hdd_copy_vht_caps(struct ieee80211_vht_cap *hdd_vht_cap,
             hdd_vht_cap->vht_cap_info |=
             temp_vht_cap <<
             IEEE80211_VHT_CAP_SUPP_CHAN_WIDTH_160_80PLUS80MHZ;
+<<<<<<< HEAD
     }
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     if (roam_vht_cap->ldpcCodingCap)
         hdd_vht_cap->vht_cap_info |= IEEE80211_VHT_CAP_RXLDPC;
     if (roam_vht_cap->shortGI80MHz)
@@ -952,10 +977,17 @@ static void hdd_SendFTAssocResponse(struct net_device *dev, hdd_adapter_t *pAdap
     unsigned int len = 0;
     u8 *pFTAssocRsp = NULL;
 
+<<<<<<< HEAD
     if (pCsrRoamInfo->nAssocRspLength < FT_ASSOC_RSP_IES_OFFSET)
     {
         hddLog(LOGE,
             "%s: Invalid assoc rsp length %d",
+=======
+    if (pCsrRoamInfo->nAssocRspLength == 0)
+    {
+        hddLog(LOGE,
+            "%s: pCsrRoamInfo->nAssocRspLength=%d",
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
             __func__, (int)pCsrRoamInfo->nAssocRspLength);
         return;
     }
@@ -974,6 +1006,7 @@ static void hdd_SendFTAssocResponse(struct net_device *dev, hdd_adapter_t *pAdap
         (unsigned int)pFTAssocRsp[0],
         (unsigned int)pFTAssocRsp[1]);
 
+<<<<<<< HEAD
     /* Send the Assoc Resp, the supplicant needs this for initial Auth. */
     len = pCsrRoamInfo->nAssocRspLength - FT_ASSOC_RSP_IES_OFFSET;
     if (len > IW_GENERIC_IE_MAX) {
@@ -984,6 +1017,8 @@ static void hdd_SendFTAssocResponse(struct net_device *dev, hdd_adapter_t *pAdap
     }
     wrqu.data.length = len;
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     // We need to send the IEs to the supplicant.
     buff = kmalloc(IW_GENERIC_IE_MAX, GFP_ATOMIC);
     if (buff == NULL)
@@ -992,6 +1027,12 @@ static void hdd_SendFTAssocResponse(struct net_device *dev, hdd_adapter_t *pAdap
         return;
     }
 
+<<<<<<< HEAD
+=======
+    // Send the Assoc Resp, the supplicant needs this for initial Auth.
+    len = pCsrRoamInfo->nAssocRspLength - FT_ASSOC_RSP_IES_OFFSET;
+    wrqu.data.length = len;
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     memset(buff, 0, IW_GENERIC_IE_MAX);
     memcpy(buff, pFTAssocRsp, len);
     wireless_send_event(dev, IWEVASSOCRESPIE, &wrqu, buff);
@@ -2238,10 +2279,15 @@ static void hdd_SendReAssocEvent(struct net_device *dev, hdd_adapter_t *pAdapter
         goto done;
     }
 
+<<<<<<< HEAD
     if (pCsrRoamInfo->nAssocRspLength < FT_ASSOC_RSP_IES_OFFSET) {
 
         hddLog(LOGE, "%s: Invalid assoc response length %d",
                __func__, pCsrRoamInfo->nAssocRspLength);
+=======
+    if (pCsrRoamInfo->nAssocRspLength == 0) {
+        hddLog(LOGE, "%s: Invalid assoc response length", __func__);
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         goto done;
     }
 
@@ -2258,11 +2304,14 @@ static void hdd_SendReAssocEvent(struct net_device *dev, hdd_adapter_t *pAdapter
 
     // Send the Assoc Resp, the supplicant needs this for initial Auth.
     len = pCsrRoamInfo->nAssocRspLength - FT_ASSOC_RSP_IES_OFFSET;
+<<<<<<< HEAD
     if (len > IW_GENERIC_IE_MAX) {
         hddLog(LOGE, "%s: Invalid assoc response length %d",
                 __func__, pCsrRoamInfo->nAssocRspLength);
          goto done;
     }
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     rspRsnLength = len;
     memcpy(rspRsnIe, pFTAssocRsp, len);
     memset(rspRsnIe + len, 0, IW_GENERIC_IE_MAX - len);
@@ -2496,6 +2545,7 @@ static eHalStatus hdd_AssociationCompletionHandler( hdd_adapter_t *pAdapter, tCs
                 }
                 return eHAL_STATUS_FAILURE;
             }
+<<<<<<< HEAD
 
             //Association Response
             pFTAssocRsp = (u8 *)(pRoamInfo->pbFrames +
@@ -2547,10 +2597,60 @@ static eHalStatus hdd_AssociationCompletionHandler( hdd_adapter_t *pAdapter, tCs
             hddLog(LOG1, "assocReqlen %d assocRsplen %d", assocReqlen,
                    assocRsplen);
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 #ifdef WLAN_FEATURE_VOWIFI_11R
             if(pRoamInfo->u.pConnectedProfile->AuthType == eCSR_AUTH_TYPE_FT_RSN ||
                 pRoamInfo->u.pConnectedProfile->AuthType == eCSR_AUTH_TYPE_FT_RSN_PSK )
             {
+<<<<<<< HEAD
+=======
+
+                //Association Response
+                pFTAssocRsp = (u8 *)(pRoamInfo->pbFrames + pRoamInfo->nBeaconLength +
+                                    pRoamInfo->nAssocReqLength);
+                if (pFTAssocRsp != NULL)
+                {
+                    // pFTAssocRsp needs to point to the IEs
+                    pFTAssocRsp += FT_ASSOC_RSP_IES_OFFSET;
+                    hddLog(LOG1, "%s: AssocRsp is now at %02x%02x", __func__,
+                                        (unsigned int)pFTAssocRsp[0],
+                                        (unsigned int)pFTAssocRsp[1]);
+                    assocRsplen = pRoamInfo->nAssocRspLength - FT_ASSOC_RSP_IES_OFFSET;
+                }
+                else
+                {
+                    hddLog(LOGE, "%s:AssocRsp is NULL", __func__);
+                    assocRsplen = 0;
+                }
+
+                //Association Request
+                pFTAssocReq = (u8 *)(pRoamInfo->pbFrames +
+                                     pRoamInfo->nBeaconLength);
+                if (pFTAssocReq != NULL)
+                {
+                    if(!ft_carrier_on)
+                    {
+                         // pFTAssocReq needs to point to the IEs
+                        pFTAssocReq += FT_ASSOC_REQ_IES_OFFSET;
+                        hddLog(LOG1, "%s: pFTAssocReq is now at %02x%02x", __func__,
+                                              (unsigned int)pFTAssocReq[0],
+                                              (unsigned int)pFTAssocReq[1]);
+                        assocReqlen = pRoamInfo->nAssocReqLength - FT_ASSOC_REQ_IES_OFFSET;
+                    }
+                    else
+                    {
+                        /* This should contain only the FTIEs */
+                        assocReqlen = pRoamInfo->nAssocReqLength;
+                    }
+                }
+                else
+                {
+                    hddLog(LOGE, "%s:AssocReq is NULL", __func__);
+                    assocReqlen = 0;
+                }
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
                 if(ft_carrier_on)
                 {
                     if ( !hddDisconInProgress )
@@ -2561,6 +2661,11 @@ static eHalStatus hdd_AssociationCompletionHandler( hdd_adapter_t *pAdapter, tCs
                                  "indication", __FUNCTION__, ft_carrier_on);
                         chan = ieee80211_get_channel(pAdapter->wdev.wiphy,
                                          (int)pRoamInfo->pBssDesc->channelId);
+<<<<<<< HEAD
+=======
+                        hddLog(LOG1, "assocReqlen %d assocRsplen %d", assocReqlen,
+                                         assocRsplen);
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
                         if (pHddCtx->cfg_ini &&
                             pHddCtx->cfg_ini->gEnableRoamDelayStats)
                         {
@@ -2639,8 +2744,13 @@ static eHalStatus hdd_AssociationCompletionHandler( hdd_adapter_t *pAdapter, tCs
                          /* inform connect result to nl80211 */
                          hdd_connect_result(dev, pRoamInfo->bssid,
                                 pRoamInfo,
+<<<<<<< HEAD
                                 pFTAssocReq, assocReqlen,
                                 pFTAssocRsp, assocRsplen,
+=======
+                                reqRsnIe, reqRsnLength,
+                                rspRsnIe, rspRsnLength,
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
                                 WLAN_STATUS_SUCCESS,
                                 GFP_KERNEL);
                     }
@@ -4401,12 +4511,15 @@ eHalStatus hdd_smeRoamCallback( void *pContext, tCsrRoamInfo *pRoamInfo, tANI_U3
               else
                   hddLog(LOG1, FL("UPDATE_SCAN_RESULT returned NULL"));
          }
+<<<<<<< HEAD
 
        case eCSR_ROAM_SAE_COMPUTE:
          if (pRoamInfo)
              wlan_hdd_sae_callback(pAdapter, pRoamInfo);
          break;
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
        case eCSR_ROAM_STA_CHANNEL_SWITCH:
          {
              hdd_adapter_t *pHostapdAdapter = NULL;
@@ -4453,6 +4566,7 @@ eHalStatus hdd_smeRoamCallback( void *pContext, tCsrRoamInfo *pRoamInfo, tANI_U3
     }
     return( halStatus );
 }
+<<<<<<< HEAD
 
 #ifdef WLAN_FEATURE_SAE
 /**
@@ -4479,6 +4593,11 @@ void hdd_translate_sae_rsn_to_csr_auth(int8_t auth_suite[4],
 eCsrAuthType hdd_TranslateRSNToCsrAuthType( u_int8_t auth_suite[4])
 {
     eCsrAuthType auth_type = eCSR_AUTH_TYPE_UNKNOWN;
+=======
+eCsrAuthType hdd_TranslateRSNToCsrAuthType( u_int8_t auth_suite[4])
+{
+    eCsrAuthType auth_type;
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     // is the auth type supported?
     if ( memcmp(auth_suite , ccpRSNOui01, 4) == 0)
     {
@@ -4516,6 +4635,7 @@ eCsrAuthType hdd_TranslateRSNToCsrAuthType( u_int8_t auth_suite[4])
         auth_type = eCSR_AUTH_TYPE_RSN_8021X_SHA256;
     } else
 #endif
+<<<<<<< HEAD
     if (!memcmp(auth_suite, ccp_rsn_oui_18, 4))
     {
        auth_type = eCSR_AUTH_TYPE_OWE;
@@ -4530,6 +4650,11 @@ eCsrAuthType hdd_TranslateRSNToCsrAuthType( u_int8_t auth_suite[4])
 
     hddLog(LOG1, FL("auth_type : %d"), auth_type);
 
+=======
+    {
+        auth_type = eCSR_AUTH_TYPE_UNKNOWN;
+    }
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     return auth_type;
 }
 
@@ -4664,7 +4789,10 @@ static tANI_S32 hdd_ProcessGENIE(hdd_adapter_t *pAdapter,
        flag to 0 */
     memset( &dot11WPAIE, 0 , sizeof(tDot11fIEWPA) );
     memset( &dot11RSNIE, 0 , sizeof(tDot11fIERSN) );
+<<<<<<< HEAD
     memset( PMKIDCache, 0 , sizeof(tPmkidCacheInfo) * 4);
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     // Type check
     if ( gen_ie[0] ==  DOT11F_EID_RSN)
@@ -4934,10 +5062,14 @@ int hdd_set_csr_auth_type ( hdd_adapter_t  *pAdapter, eCsrAuthType RSNAuthType)
     ENTER();
 
     pRoamProfile->AuthType.numEntries = 1;
+<<<<<<< HEAD
     hddLog( LOG1,
            "%s: authType = %d RSNAuthType %d wpa_versions %d key_mgmt : 0x%x",
            __func__, pHddStaCtx->conn_info.authType, RSNAuthType,
            pWextState->wpaVersion, pWextState->authKeyMgmt);
+=======
+    hddLog( LOG1, "%s: pHddStaCtx->conn_info.authType = %d", __func__, pHddStaCtx->conn_info.authType);
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
     switch( pHddStaCtx->conn_info.authType)
     {
@@ -4960,7 +5092,11 @@ int hdd_set_csr_auth_type ( hdd_adapter_t  *pAdapter, eCsrAuthType RSNAuthType)
                 hddLog( LOG1, "%s: set authType to CCKM WPA. AKM also 802.1X.", __func__);
                 pRoamProfile->AuthType.authType[0] = eCSR_AUTH_TYPE_CCKM_WPA;
             } else
+<<<<<<< HEAD
             if (RSNAuthType == eCSR_AUTH_TYPE_CCKM_WPA) {
+=======
+            if ((RSNAuthType == eCSR_AUTH_TYPE_CCKM_WPA)) {
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
                 hddLog( LOG1, "%s: Last chance to set authType to CCKM WPA.", __func__);
                 pRoamProfile->AuthType.authType[0] = eCSR_AUTH_TYPE_CCKM_WPA;
             } else
@@ -4984,7 +5120,11 @@ int hdd_set_csr_auth_type ( hdd_adapter_t  *pAdapter, eCsrAuthType RSNAuthType)
                 hddLog( LOG1, "%s: set authType to CCKM RSN. AKM also 802.1X.", __func__);
                 pRoamProfile->AuthType.authType[0] = eCSR_AUTH_TYPE_CCKM_RSN;
             } else
+<<<<<<< HEAD
             if (RSNAuthType == eCSR_AUTH_TYPE_CCKM_RSN) {
+=======
+            if ((RSNAuthType == eCSR_AUTH_TYPE_CCKM_RSN)) {
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
                 hddLog( LOG1, "%s: Last chance to set authType to CCKM RSN.", __func__);
                 pRoamProfile->AuthType.authType[0] = eCSR_AUTH_TYPE_CCKM_RSN;
             } else
@@ -5012,6 +5152,7 @@ int hdd_set_csr_auth_type ( hdd_adapter_t  *pAdapter, eCsrAuthType RSNAuthType)
                                             eCSR_AUTH_TYPE_RSN_8021X_SHA256;
             } else
 #endif
+<<<<<<< HEAD
             if ((RSNAuthType == eCSR_AUTH_TYPE_SAE) &&
                 ((pWextState->authKeyMgmt & IW_AUTH_KEY_MGMT_802_1X)
                  == IW_AUTH_KEY_MGMT_802_1X)) {
@@ -5028,6 +5169,9 @@ int hdd_set_csr_auth_type ( hdd_adapter_t  *pAdapter, eCsrAuthType RSNAuthType)
                /* SAE with open authentication case */
                pRoamProfile->AuthType.authType[0] = eCSR_AUTH_TYPE_SAE;
             } else
+=======
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
             if( (pWextState->authKeyMgmt & IW_AUTH_KEY_MGMT_802_1X)
                     == IW_AUTH_KEY_MGMT_802_1X) {
                pRoamProfile->AuthType.authType[0] = eCSR_AUTH_TYPE_RSN;
@@ -5035,8 +5179,12 @@ int hdd_set_csr_auth_type ( hdd_adapter_t  *pAdapter, eCsrAuthType RSNAuthType)
             if ( (pWextState->authKeyMgmt & IW_AUTH_KEY_MGMT_PSK)
                     == IW_AUTH_KEY_MGMT_PSK) {
                pRoamProfile->AuthType.authType[0] = eCSR_AUTH_TYPE_RSN_PSK;
+<<<<<<< HEAD
             } else
             {
+=======
+            } else {
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
                pRoamProfile->AuthType.authType[0] = eCSR_AUTH_TYPE_UNKNOWN;
             }
         }
@@ -5046,10 +5194,13 @@ int hdd_set_csr_auth_type ( hdd_adapter_t  *pAdapter, eCsrAuthType RSNAuthType)
 
           pRoamProfile->AuthType.authType[0] = eCSR_AUTH_TYPE_SHARED_KEY;
           break;
+<<<<<<< HEAD
        case eCSR_AUTH_TYPE_SAE:
           pRoamProfile->AuthType.authType[0] = eCSR_AUTH_TYPE_SAE;
           break;
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         default:
 
 #ifdef FEATURE_WLAN_ESE

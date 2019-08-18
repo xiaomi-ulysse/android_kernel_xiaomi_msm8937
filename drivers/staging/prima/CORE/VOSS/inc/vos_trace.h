@@ -113,7 +113,10 @@ typedef enum
 
 #else
 #define MTRACE(p) {  }
+<<<<<<< HEAD
 #define CASE_RETURN_STRING( str ) { }
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
 #endif
 

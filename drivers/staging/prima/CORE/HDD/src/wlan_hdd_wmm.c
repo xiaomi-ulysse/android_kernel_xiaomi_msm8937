@@ -84,6 +84,12 @@
 #define WMM_TRACE_LEVEL_INFO_LOW   VOS_TRACE_LEVEL_INFO_LOW
 #endif
 
+<<<<<<< HEAD
+=======
+
+#define WLAN_HDD_MAX_DSCP 0x3f
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 // DHCP Port number
 #define DHCP_SOURCE_PORT 0x4400
 #define DHCP_DESTINATION_PORT 0x4300
@@ -1709,7 +1715,11 @@ VOS_STATUS hdd_wmm_init ( hdd_adapter_t *pAdapter )
              "%s: Entered", __func__);
 
    // DSCP to User Priority Lookup Table
+<<<<<<< HEAD
    for (dscp = 0; dscp <= WLAN_MAX_DSCP; dscp++)
+=======
+   for (dscp = 0; dscp <= WLAN_HDD_MAX_DSCP; dscp++)
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
    {
       hddWmmDscpToUpMap[dscp] = SME_QOS_WMM_UP_BE;
    }

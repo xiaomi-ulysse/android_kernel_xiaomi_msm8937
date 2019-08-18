@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2011-2017, 2019-2020 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2011-2017 The Linux Foundation. All rights reserved.
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
  *
  * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
  *
@@ -70,6 +74,7 @@ tANI_U8 csrRSNOui[][ CSR_RSN_OUI_SIZE ] = {
     { 0x00, 0x40, 0x96, 0x00 }, // CCKM
     { 0x00, 0x0F, 0xAC, 0x06 },  // BIP (encryption type) or RSN-PSK-SHA256 (authentication type)
     /* RSN-8021X-SHA256 (authentication type) */
+<<<<<<< HEAD
     { 0x00, 0x0F, 0xAC, 0x05 },
 #ifdef WLAN_FEATURE_SAE
 #define ENUM_SAE 9
@@ -86,6 +91,9 @@ tANI_U8 csrRSNOui[][ CSR_RSN_OUI_SIZE ] = {
 #define ENUM_OWE 11
     /* OWE https://tools.ietf.org/html/rfc8110 */
     {0x00, 0x0F, 0xAC, 0x12},
+=======
+    { 0x00, 0x0F, 0xAC, 0x05 }
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 };
 
 #ifdef FEATURE_WLAN_WAPI
@@ -1321,7 +1329,10 @@ get_eRoamCmdStatus_str(eRoamCmdStatus val)
         CASE_RETURN_STR(eCSR_ROAM_LOST_LINK_PARAMS_IND);
         CASE_RETURN_STR(eCSR_ROAM_ECSA_BCN_TX_IND);
         CASE_RETURN_STR(eCSR_ROAM_ECSA_CHAN_CHANGE_RSP);
+<<<<<<< HEAD
         CASE_RETURN_STR(eCSR_ROAM_SAE_COMPUTE);
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     default:
         return "unknown";
     }
@@ -2861,6 +2872,7 @@ tANI_BOOLEAN csrIsProfileRSN( tCsrRoamProfile *pProfile )
         case eCSR_AUTH_TYPE_RSN_PSK_SHA256:
         case eCSR_AUTH_TYPE_RSN_8021X_SHA256:
 #endif
+<<<<<<< HEAD
             fRSNProfile = true;
             break;
         case eCSR_AUTH_TYPE_SAE:
@@ -2869,6 +2881,9 @@ tANI_BOOLEAN csrIsProfileRSN( tCsrRoamProfile *pProfile )
 
         case eCSR_AUTH_TYPE_OWE:
             fRSNProfile = true;
+=======
+            fRSNProfile = TRUE;
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
             break;
 
         default:
@@ -3614,6 +3629,7 @@ static tANI_BOOLEAN csrIsAuthRSN8021xSha256(tpAniSirGlobal pMac,
 }
 #endif
 
+<<<<<<< HEAD
 #ifdef WLAN_FEATURE_SAE
 /**
  * csr_is_auth_wpa_sae() - check whether oui is SAE
@@ -3650,6 +3666,8 @@ static bool csr_is_auth_wpa_owe(tpAniSirGlobal mac,
             (mac, all_suites, suite_count, csrRSNOui[ENUM_OWE], oui);
 }
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 static tANI_BOOLEAN csrIsAuthWpa( tpAniSirGlobal pMac, tANI_U8 AllSuites[][CSR_WPA_OUI_SIZE],
                                 tANI_U8 cAllSuites,
                                 tANI_U8 Oui[] )
@@ -3767,6 +3785,7 @@ tANI_U8 csrGetOUIIndexFromCipher( eCsrEncryptionType enType )
         return OUIIndex;
 }
 
+<<<<<<< HEAD
 #ifdef WLAN_FEATURE_SAE
 /**
  * csr_check_sae_auth() - update negotiated auth if matches to SAE auth type
@@ -3809,6 +3828,8 @@ static void csr_check_sae_auth(tpAniSirGlobal mac_ctx,
 }
 #endif
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 tANI_BOOLEAN csrGetRSNInformation( tHalHandle hHal, tCsrAuthList *pAuthType, eCsrEncryptionType enType, tCsrEncryptionList *pMCEncryption,
                                    tDot11fIERSN *pRSNIe,
                            tANI_U8 *UnicastCypher,
@@ -3871,11 +3892,14 @@ tANI_BOOLEAN csrGetRSNInformation( tHalHandle hHal, tCsrAuthList *pAuthType, eCs
             for (i = 0 ; i < pAuthType->numEntries; i++)
             {
                 //Ciphers are supported, Match authentication algorithm and pick first matching authtype.
+<<<<<<< HEAD
 
                 /* Set SAE as first preference */
                 csr_check_sae_auth(pMac, AuthSuites, cAuthSuites,
                                    Authentication, pAuthType, i, &negAuthType);
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
  #ifdef WLAN_FEATURE_VOWIFI_11R
                 /* Changed the AKM suites according to order of preference */
                 if ( csrIsFTAuthRSN( pMac, AuthSuites, cAuthSuites, Authentication ) )
@@ -3921,12 +3945,15 @@ tANI_BOOLEAN csrGetRSNInformation( tHalHandle hHal, tCsrAuthList *pAuthType, eCs
                         negAuthType = eCSR_AUTH_TYPE_RSN_8021X_SHA256;
                 }
 #endif
+<<<<<<< HEAD
                 if ((negAuthType == eCSR_AUTH_TYPE_UNKNOWN) &&
                     csr_is_auth_wpa_owe(pMac, AuthSuites,
                     cAuthSuites, Authentication)) {
                          if (eCSR_AUTH_TYPE_OWE == pAuthType->authType[i])
                               negAuthType = eCSR_AUTH_TYPE_OWE;
                 }
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
                 // The 1st auth type in the APs RSN IE, to match stations connecting
                 // profiles auth type will cause us to exit this loop
@@ -4095,6 +4122,7 @@ tANI_BOOLEAN csrIsRSNMatch( tHalHandle hHal, tCsrAuthList *pAuthType,
     return( fRSNMatch );
 }
 
+<<<<<<< HEAD
 bool csr_lookup_pmkid_using_bssid(tpAniSirGlobal mac,
                     tCsrRoamSession *session,
                     tPmkidCacheInfo *pmk_cache,
@@ -4119,6 +4147,10 @@ bool csr_lookup_pmkid_using_bssid(tpAniSirGlobal mac,
 tANI_BOOLEAN csrLookupPMKID(tpAniSirGlobal pMac, tANI_U32 sessionId,
                             tPmkidCacheInfo *pmk_cache)
 
+=======
+
+tANI_BOOLEAN csrLookupPMKID( tpAniSirGlobal pMac, tANI_U32 sessionId, tANI_U8 *pBSSId, tANI_U8 *pPMKId )
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 {
     tANI_BOOLEAN fRC = FALSE, fMatchFound = FALSE;
     tANI_U32 Index;
@@ -4138,6 +4170,7 @@ tANI_BOOLEAN csrLookupPMKID(tpAniSirGlobal pMac, tANI_U32 sessionId,
         pSession->fIgnorePMKIDCache = FALSE;
         return fRC;
     }
+<<<<<<< HEAD
 
     /* If not able to find using cache id or ssid_len is not present */
     fMatchFound = csr_lookup_pmkid_using_bssid(pMac, pSession, pmk_cache,
@@ -4161,6 +4194,28 @@ tANI_BOOLEAN csrLookupPMKID(tpAniSirGlobal pMac, tANI_U32 sessionId,
 
    fRC = TRUE;
 
+=======
+    
+    do
+    {
+        for( Index=0; Index < CSR_MAX_PMKID_ALLOWED; Index++ )
+        {
+            if( vos_mem_compare(pBSSId, pSession->PmkidCacheInfo[Index].BSSID, sizeof(tCsrBssid)) )
+            {
+                // match found
+                fMatchFound = TRUE;
+                break;
+            }
+        }
+
+        if( !fMatchFound ) break;
+
+        vos_mem_copy(pPMKId, pSession->PmkidCacheInfo[Index].PMKID, CSR_RSN_PMKID_SIZE);
+
+        fRC = TRUE;
+    }
+    while( 0 );
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     smsLog(pMac, LOG1, "csrLookupPMKID called return match = %d pMac->roam.NumPmkidCache = %d",
         fRC, pSession->NumPmkidCache);
 
@@ -4180,7 +4235,11 @@ tANI_U8 csrConstructRSNIe( tHalHandle hHal, tANI_U32 sessionId, tCsrRoamProfile 
     tCsrRSNAuthIe *pAuthSuite;
     tCsrRSNCapabilities RSNCapabilities;
     tCsrRSNPMKIe        *pPMK;
+<<<<<<< HEAD
     tPmkidCacheInfo pmkid_cache;
+=======
+    tANI_U8 PMKId[CSR_RSN_PMKID_SIZE];
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     uint32_t ret;
 #ifdef WLAN_FEATURE_11W
     tANI_U8 *pGroupMgmtCipherSuite;
@@ -4191,8 +4250,11 @@ tANI_U8 csrConstructRSNIe( tHalHandle hHal, tANI_U32 sessionId, tCsrRoamProfile 
 
     smsLog(pMac, LOGW, "%s called...", __func__);
 
+<<<<<<< HEAD
     vos_mem_zero(&pmkid_cache, sizeof(pmkid_cache));
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     do
     {
         if ( !csrIsProfileRSN( pProfile ) ) break;
@@ -4250,19 +4312,30 @@ tANI_U8 csrConstructRSNIe( tHalHandle hHal, tANI_U32 sessionId, tCsrRoamProfile 
         *(tANI_U16 *)( &pAuthSuite->AuthOui[ 1 ] ) = *((tANI_U16 *)(&RSNCapabilities));
 
         pPMK = (tCsrRSNPMKIe *)( ((tANI_U8 *)(&pAuthSuite->AuthOui[ 1 ])) + sizeof(tANI_U16) );
+<<<<<<< HEAD
         vos_mem_copy((v_MACADDR_t *)pmkid_cache.BSSID,
                      (v_MACADDR_t *)pSirBssDesc->bssId, VOS_MAC_ADDR_SIZE);
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
         if (
 #ifdef FEATURE_WLAN_ESE
         (eCSR_AUTH_TYPE_CCKM_RSN != negAuthType) &&
 #endif
+<<<<<<< HEAD
         csrLookupPMKID( pMac, sessionId, &pmkid_cache))
         {
             pPMK->cPMKIDs = 1;
 
             vos_mem_copy(pPMK->PMKIDList[0].PMKID, pmkid_cache.PMKID,
                          CSR_RSN_PMKID_SIZE);
+=======
+        csrLookupPMKID( pMac, sessionId, pSirBssDesc->bssId, &(PMKId[0]) ) )
+        {
+            pPMK->cPMKIDs = 1;
+
+            vos_mem_copy(pPMK->PMKIDList[0].PMKID, PMKId, CSR_RSN_PMKID_SIZE);
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         }
         else
         {

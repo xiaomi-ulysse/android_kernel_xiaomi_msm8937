@@ -1769,10 +1769,16 @@ VOS_STATUS hdd_softap_rx_packet_cbk( v_VOID_t *vosContext,
 
       if (pHddCtx->rx_wow_dump) {
          if (!(VOS_PKT_PROTO_TYPE_ARP & proto_type) &&
+<<<<<<< HEAD
              !(VOS_PKT_PROTO_TYPE_EAPOL & proto_type)) {
             hdd_log_ip_addr(skb);
             pHddCtx->rx_wow_dump = false;
          }
+=======
+             !(VOS_PKT_PROTO_TYPE_EAPOL & proto_type))
+            hdd_log_ip_addr(skb);
+            pHddCtx->rx_wow_dump = false;
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
       }
 
       if (WLAN_RX_BCMC_STA_ID == pRxMetaInfo->ucDesSTAId)

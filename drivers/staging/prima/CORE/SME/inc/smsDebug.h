@@ -45,15 +45,21 @@
 #define __printf(a,b)
 #endif
 
+<<<<<<< HEAD
 #ifdef WLAN_DEBUG
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 void __printf(3,4)
 smsLog(tpAniSirGlobal pMac, tANI_U32 loglevel, const char *pString, ...);
 
 void __printf(3,4)
 pmcLog(tpAniSirGlobal pMac, tANI_U32 loglevel, const char *pString, ...);
+<<<<<<< HEAD
 #else
 #define smsLog(arg...)
 #define pmcLog(arg...)
 #endif
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
 #endif // __SMS_DEBUG_H__

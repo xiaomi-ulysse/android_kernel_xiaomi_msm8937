@@ -1076,7 +1076,10 @@ typedef struct tagCsrRoamStruct
     tANI_U32 deauthRspStatus;
     tANI_BOOLEAN pending_roam_disable;
     vos_spin_lock_t roam_state_lock;
+<<<<<<< HEAD
     tSirMacAddr spoof_mac_addr;
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 }tCsrRoamStruct;
 
 

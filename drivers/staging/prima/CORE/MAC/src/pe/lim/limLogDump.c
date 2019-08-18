@@ -305,7 +305,11 @@ char *dumpLim( tpAniSirGlobal pMac, char *p, tANI_U32 sessionId)
  ******************************************/
 char *triggerBeaconGen( tpAniSirGlobal pMac, char *p )
 {
+<<<<<<< HEAD
     tSirMsgQ mesg = { (tANI_U16) SIR_LIM_BEACON_GEN_IND, (tANI_U16) 0, NULL };
+=======
+    tSirMsgQ mesg = { (tANI_U16) SIR_LIM_BEACON_GEN_IND, (tANI_U16) 0, (tANI_U32) 0 };
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
     
     pMac->lim.gLimSmeState = eLIM_SME_NORMAL_STATE;
     MTRACE(macTrace(pMac, TRACE_CODE_SME_STATE, NO_SESSION, pMac->lim.gLimSmeState));

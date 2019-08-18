@@ -100,6 +100,7 @@ limSetChannel(tpAniSirGlobal pMac, tANI_U8 channel, tANI_U8 secChannelOffset, tP
 #define IS_MLM_SCAN_REQ_BACKGROUND_SCAN_AGGRESSIVE(pMac)    (pMac->lim.gpLimMlmScanReq->backgroundScanMode == eSIR_AGGRESSIVE_BACKGROUND_SCAN)
 #define IS_MLM_SCAN_REQ_BACKGROUND_SCAN_NORMAL(pMac)        (pMac->lim.gpLimMlmScanReq->backgroundScanMode == eSIR_NORMAL_BACKGROUND_SCAN)
 
+<<<<<<< HEAD
  /**
  * lim_process_sae_auth_timeout() - This function is called to process sae
  * auth timeout
@@ -143,6 +144,8 @@ static void lim_process_sae_auth_timeout(tpAniSirGlobal mac_ctx)
      }
 }
 
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 /**
  * limProcessMlmReqMessages()
  *
@@ -223,9 +226,12 @@ limProcessMlmReqMessages(tpAniSirGlobal pMac, tpSirMsgQ Msg)
         case LIM_MLM_ADDBA_REQ:             limProcessMlmAddBAReq( pMac, Msg->bodyptr ); break;
         case LIM_MLM_ADDBA_RSP:             limProcessMlmAddBARsp( pMac, Msg->bodyptr ); break;
         case LIM_MLM_DELBA_REQ:             limProcessMlmDelBAReq( pMac, Msg->bodyptr ); break;
+<<<<<<< HEAD
         case SIR_LIM_AUTH_SAE_TIMEOUT:
             lim_process_sae_auth_timeout(pMac);
             break;
+=======
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         case LIM_MLM_TSPEC_REQ:                 
         default:
             break;
@@ -864,6 +870,7 @@ void limDoSendAuthMgmtFrame(tpAniSirGlobal pMac, tpPESession psessionEntry)
 {
         tSirMacAuthFrameBody    authFrameBody;
 
+<<<<<<< HEAD
         /* Mark auth algo as open when auth type is SAE and PMK is cached */
         if ((pMac->lim.gpLimMlmAuthReq->authType == eSIR_AUTH_TYPE_SAE) &&
              psessionEntry->sae_pmk_cached) {
@@ -873,6 +880,11 @@ void limDoSendAuthMgmtFrame(tpAniSirGlobal pMac, tpPESession psessionEntry)
                              (tANI_U8) pMac->lim.gpLimMlmAuthReq->authType;
          }
         //Prepare & send Authentication frame
+=======
+        //Prepare & send Authentication frame
+        authFrameBody.authAlgoNumber =
+                        (tANI_U8) pMac->lim.gpLimMlmAuthReq->authType;
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         authFrameBody.authTransactionSeqNumber = SIR_MAC_AUTH_FRAME_1;
         authFrameBody.authStatusCode = 0;
         pMac->authAckStatus = LIM_AUTH_ACK_NOT_RCD;
@@ -2514,6 +2526,7 @@ error:
     limPostSmeMessage(pMac, LIM_MLM_JOIN_CNF, (tANI_U32 *) &mlmJoinCnf);
 } /*** limProcessMlmJoinReq() ***/
 
+<<<<<<< HEAD
 #ifdef WLAN_FEATURE_SAE
 /**
  * lim_process_mlm_auth_req_sae() - Handle SAE authentication
@@ -2587,6 +2600,9 @@ static VOS_STATUS lim_process_mlm_auth_req_sae(tpAniSirGlobal mac_ctx,
         return VOS_STATUS_E_NOSUPPORT;
 }
 #endif
+=======
+
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
 /**
  * limProcessMlmAuthReq()
@@ -2734,6 +2750,7 @@ limProcessMlmAuthReq(tpAniSirGlobal pMac, tANI_U32 *pMsgBuf)
                                  pMac->lim.gpLimMlmAuthReq->peerMacAddr);
 
         psessionEntry->limPrevMlmState = psessionEntry->limMlmState;
+<<<<<<< HEAD
         if ((pMac->lim.gpLimMlmAuthReq->authType == eSIR_AUTH_TYPE_SAE) &&
              !psessionEntry->sae_pmk_cached) {
             if (lim_process_mlm_auth_req_sae(pMac, psessionEntry) !=
@@ -2749,6 +2766,9 @@ limProcessMlmAuthReq(tpAniSirGlobal pMac, tANI_U32 *pMsgBuf)
             psessionEntry->limMlmState = eLIM_MLM_WT_AUTH_FRAME2_STATE;
         }
 
+=======
+        psessionEntry->limMlmState = eLIM_MLM_WT_AUTH_FRAME2_STATE;
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         MTRACE(macTrace(pMac, TRACE_CODE_MLM_STATE, psessionEntry->peSessionId, psessionEntry->limMlmState));
 
         //assign appropriate sessionId to the timer object
@@ -4148,6 +4168,7 @@ tLimMlmRemoveKeyCnf  mlmRemoveKeyCnf;
         return;
     }
 
+<<<<<<< HEAD
     /**
       * Check if there exists a context for the
       * peer entity for which keys need to be removed.
@@ -4177,6 +4198,37 @@ tLimMlmRemoveKeyCnf  mlmRemoveKeyCnf;
     else
       staIdx = pStaDs->staIndex;
 
+=======
+  /**
+    * Check if there exists a context for the
+    * peer entity for which keys need to be removed.
+    */
+  pStaDs = dphLookupHashEntry( pMac, pMlmRemoveKeyReq->peerMacAddr, &aid, &psessionEntry->dph.dphHashTable );
+  if ((pStaDs == NULL) ||
+         (pStaDs &&
+         (pStaDs->mlmStaContext.mlmState !=
+                       eLIM_MLM_LINK_ESTABLISHED_STATE)))
+  {
+     /**
+       * Received LIM_MLM_REMOVEKEY_REQ for STA
+       * that does not have context or in some
+       * transit state. Log error.
+       */
+      limLog( pMac, LOGW,
+          FL("Received MLM_REMOVEKEYS_REQ for STA that either has no context or in some transit state, Addr = "));
+      limPrintMacAddr( pMac, pMlmRemoveKeyReq->peerMacAddr, LOGW );
+
+      // Prepare and Send LIM_MLM_REMOVEKEY_CNF
+      mlmRemoveKeyCnf.resultCode = eSIR_SME_INVALID_PARAMETERS;
+      mlmRemoveKeyCnf.sessionId = pMlmRemoveKeyReq->sessionId;
+      
+
+      goto end;
+  }
+  else
+    staIdx = pStaDs->staIndex;
+  
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
 
     psessionEntry->limMlmState = eLIM_MLM_WT_REMOVE_STA_KEY_STATE;
@@ -4255,7 +4307,18 @@ limProcessMinChannelTimeout(tpAniSirGlobal pMac)
         {
             // This shouldn't be the case, but when this happens, this timeout should be for the last channelId. 
             // Get the channelNum as close to correct as possible.
+<<<<<<< HEAD
             channelNum = pMac->lim.gpLimMlmScanReq->channelList.channelNumber[pMac->lim.gpLimMlmScanReq->channelList.numChannels - 1];
+=======
+            if(pMac->lim.gpLimMlmScanReq->channelList.channelNumber)
+            {
+                channelNum = pMac->lim.gpLimMlmScanReq->channelList.channelNumber[pMac->lim.gpLimMlmScanReq->channelList.numChannels - 1];
+            }
+            else
+            {
+               channelNum = 1;
+            }
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         }
 
         limLog(pMac, LOGW,
@@ -4324,7 +4387,18 @@ limProcessMaxChannelTimeout(tpAniSirGlobal pMac)
         }
         else
         {
+<<<<<<< HEAD
             channelNum = pMac->lim.gpLimMlmScanReq->channelList.channelNumber[pMac->lim.gpLimMlmScanReq->channelList.numChannels - 1];
+=======
+            if(pMac->lim.gpLimMlmScanReq->channelList.channelNumber)
+            {
+                channelNum = pMac->lim.gpLimMlmScanReq->channelList.channelNumber[pMac->lim.gpLimMlmScanReq->channelList.numChannels - 1];
+            }
+            else
+            {
+               channelNum = 1;
+            }
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
         }
         limLog(pMac, LOGW,
            FL("Sending End Scan req from MAX_CH_TIMEOUT in state %d on ch-%d"),
@@ -5408,8 +5482,13 @@ ePhyChanBondState limGet11ACPhyCBState(tpAniSirGlobal pMac, tANI_U8 channel, tAN
         return htSecondaryChannelOffset;
     }
 
+<<<<<<< HEAD
     if ( htSecondaryChannelOffset 
                  == PHY_DOUBLE_CHANNEL_LOW_PRIMARY
+=======
+    if ( (htSecondaryChannelOffset 
+                 == PHY_DOUBLE_CHANNEL_LOW_PRIMARY)
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
        )
     {
         if ((channel + 2 ) == peerCenterChan )
@@ -5423,8 +5502,13 @@ ePhyChanBondState limGet11ACPhyCBState(tpAniSirGlobal pMac, tANI_U8 channel, tAN
                        FL("Invalid Channel Number = %d Center Chan = %d "),
                                  channel, peerCenterChan);
     }
+<<<<<<< HEAD
     if ( htSecondaryChannelOffset 
                  == PHY_DOUBLE_CHANNEL_HIGH_PRIMARY
+=======
+    if ( (htSecondaryChannelOffset 
+                 == PHY_DOUBLE_CHANNEL_HIGH_PRIMARY)
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
        )
     {
         if ((channel - 2 ) == peerCenterChan )

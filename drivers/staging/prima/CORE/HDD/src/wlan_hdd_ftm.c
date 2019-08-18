@@ -4736,8 +4736,14 @@ static VOS_STATUS wlan_ftm_priv_get_rx_rssi(hdd_adapter_t *pAdapter,char *buf)
         goto done;
     }
 
+<<<<<<< HEAD
    ret = snprintf(buf, WE_FTM_MAX_STR_LEN, " R0:%d",
                       pMsgBody->GetRxRssi.rssi.rx[0]);
+=======
+   ret = snprintf(buf, WE_FTM_MAX_STR_LEN, " R0:%d, R1:%d",
+                      pMsgBody->GetRxRssi.rssi.rx[0],
+                  pMsgBody->GetRxRssi.rssi.rx[1]);
+>>>>>>> Merge tag 'LA.UM.7.6.r1-05500-89xx.0' of https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/prima into lineage-16.0
 
    if( ret < 0 || ret >= WE_FTM_MAX_STR_LEN )
    {

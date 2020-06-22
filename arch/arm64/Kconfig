@@ -812,17 +812,50 @@ config ULYSSE
 config UTER
 	    bool "Based on Platform msm8953"
 
+config MACH_XIAOMI
+	bool "Enable Support for Xiaomi Devices"
+	select ARCH_MSM
+	help
+	  This enables support for Xiaomi devices.
+
+config MACH_XIAOMI_MSM8937
+	bool "Enable Support for Xiaomi MSM8937 Devices"
+	select MACH_XIAOMI
+	select ARCH_MSM8937
+	help
+	  This enables support for Xiaomi MSM8937 devices.
+
+config MACH_XIAOMI_MSM8917
+	bool "Enable Support for Xiaomi MSM8917 Devices"
+	select MACH_XIAOMI
+	select ARCH_MSM8917
+	help
+	  This enables support for Xiaomi MSM8917 devices.
+
 config MACH_XIAOMI_UGGLITE
-	select UGGLITE
+	bool "Enable Support for Xiaomi Redmi Note 5A Lite(ugglite)"
+	select MACH_XIAOMI_MSM8917
+	help
+	  This enables support for Xiaomi Redmi Note 5A Lite(ugglite).
 
 config MACH_XIAOMI_UGGLITE_TREBLE
-	select UGGLITE
+        bool "Enable Support for Xiaomi Redmi Note 5A(ugg)"
+        select MACH_XIAOMI_MSM8937
+        help
+          This enables support for Xiaomi Redmi Note 5A(ugg).
 
 config MACH_XIAOMI_UGG
-	select UGG
+	bool "Enable Support for Xiaomi Redmi Note 5A(ugg)"
+	select MACH_XIAOMI_MSM8937
+	help
+	  This enables support for Xiaomi Redmi Note 5A(ugg).
 
 config MACH_XIAOMI_UGG_TREBLE
-	select UGG
+        bool "Enable Support for Xiaomi Redmi Note 5A(ugg)"
+        select MACH_XIAOMI_MSM8937
+        help
+          This enables support for Xiaomi Redmi Note 5A(ugg).
+
 config ARCH_HAS_CACHE_LINE_SIZE
 	def_bool y
 

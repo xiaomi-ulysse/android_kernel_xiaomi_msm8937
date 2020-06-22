@@ -34,6 +34,7 @@
 
 #define VSYNC_DELAY msecs_to_jiffies(17)
 
+char g_lcd_id[128];
 DEFINE_LED_TRIGGER(bl_led_trigger);
 
 void mdss_dsi_panel_pwm_cfg(struct mdss_dsi_ctrl_pdata *ctrl)

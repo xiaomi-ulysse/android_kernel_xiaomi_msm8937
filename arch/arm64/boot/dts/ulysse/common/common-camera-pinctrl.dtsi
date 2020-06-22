@@ -12,6 +12,7 @@
  * GNU General Public License for more details.
  */
 
+&soc {
 cam_flash_front0_default: cam_flash_front0_default {
 			mux {
 				pins = "gpio33","gpio34";
@@ -37,5 +38,5 @@ cam_flash_front0_sleep: cam_flash_front0_sleep {
 				drive-strength = <2>;
 			};
 		};
-
+};
 

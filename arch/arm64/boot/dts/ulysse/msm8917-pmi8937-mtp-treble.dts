@@ -23,16 +23,5 @@
 	model = "Qualcomm Technologies, Inc. MSM8917-PMI8937 MTP";
 	compatible = "qcom,msm8917-mtp", "qcom,msm8917", "qcom,mtp";
 	qcom,board-id= <8 0>;
-	qcom,pmic-id = <0x10019 0x020037 0x0 0x0>;
-};
-
-
-&firmware {
-	android {
-		fstab {
-			vendor {
-                		status = "ok";
-			};
-		};
-	};
+	qcom,pmic-id = <0x10019 0x0 0x0 0x0>;
 };

@@ -16,3 +16,4 @@
 #include "ugglite-general.dtsi"
 #include "ugglite-mtp.dtsi"
 #include "ugglite-pinctrl.dtsi"
+#include "ugglite-regulator.dtsi"

@@ -81,6 +81,27 @@
 	};
 };
 
+&spmi_bus {
+	qcom,pm8937@0 {
+		qcom,power-on@800 {
+			qcom,pon_1 {
+				qcom,support-reset = <1>;
+				qcom,s1-timer = <4480>;
+				qcom,s2-timer = <2000>;
+				qcom,s2-type = <8>;
+			};
+			qcom,pon_3 {
+				qcom,pon-type = <3>;
+				qcom,pull-up = <1>;
+				qcom,support-reset = <1>;
+				qcom,s1-timer = <4480>;
+				qcom,s2-timer = <1000>;
+				qcom,s2-type = <1>;
+			};
+		};
+	};
+};
+
 &usb_otg{
 	interrupts = <0 134 0>,<0 140 0>,<0 136 0>;
 	interrupt-names = "core_irq", "async_irq","phy_irq";
@@ -91,7 +112,18 @@
 
 &firmware {
 	android {
+		compatible = "android,firmware";
 		fstab {
+			compatible = "android,fstab";
+			vendor {
+				compatible = "android,vendor";
+				dev = "/dev/block/platform/soc/7824900.sdhci/by-name/cust";
+ 				type = "ext4";
+				mnt_flags = "ro,barrier=1,discard";                              	
+				fsmgr_flags = "wait";
+                               	status = "ok";
+			};
+
 			system {
 				compatible = "android,system";
 				dev = "/dev/block/platform/soc/7824900.sdhci/by-name/system";
@@ -99,11 +131,6 @@
 				mnt_flags = "ro,barrier=1,discard";
 				fsmgr_flags = "wait";
 				status = "ok";
-			};
-			vendor {
-				dev = "/dev/block/platform/soc/7824900.sdhci/by-name/cust";
-                               	fsmgr_flags = "wait";
-                               	status = "disabled";
 			};
 		};
 	};

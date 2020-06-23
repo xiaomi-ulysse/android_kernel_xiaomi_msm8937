@@ -5,7 +5,7 @@ dtb-$(CONFIG_MACH_XIAOMI_UGG) += msm8940-pmi8937-mtp-treble.dtb
 endif
 
 ifeq ($(CONFIG_MACH_XIAOMI_UGGLITE_TREBLE),y)
-dtb-$(CONFIG_MACH_XIAOMI_UGGLITE_TREBLE) += msm8917-pmi8937-mtp-treble.dtb
+dtb-$(CONFIG_MACH_XIAOMI_UGGLITE_TREBLE) += ugglite-full.dtb
 else
 dtb-$(CONFIG_MACH_XIAOMI_UGGLITE) += msm8917-pmi8937-mtp.dtb
 endif

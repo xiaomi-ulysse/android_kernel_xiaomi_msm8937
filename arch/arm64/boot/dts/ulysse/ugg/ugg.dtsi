@@ -16,3 +16,4 @@
 #include "ugg-general.dtsi"
 #include "ugg-mtp.dtsi"
 #include "ugg-pinctrl.dtsi"
+#include "ugg-regulator.dtsi"

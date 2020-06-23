@@ -171,3 +171,32 @@
 		};
 	};
 };	
+
+&gpio_key_active{
+	mux {
+		pins = "gpio91", "gpio127";
+	};
+};
+&gpio_key_suspend {
+	mux {
+		pins = "gpio91", "gpio127";
+	};
+};
+
+&mdss_dsi_active {
+	mux {
+		pins = "gpio60", "gpio93";
+	};
+	config {
+		pins = "gpio60", "gpio93";
+	};
+};
+
+&mdss_dsi_suspend {
+	mux {
+		pins = "gpio60", "gpio93";
+		};
+	config {
+		pins = "gpio60", "gpio93";
+	};
+};

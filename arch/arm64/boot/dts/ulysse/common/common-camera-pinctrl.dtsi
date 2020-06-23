@@ -13,30 +13,30 @@
  */
 
 &soc {
-cam_flash_front0_default: cam_flash_front0_default {
-			mux {
-				pins = "gpio33","gpio34";
-				function = "gpio";
-			};
-
-			config {
-				pins = "gpio33","gpio34";
-				bias-disable;
-				drive-strength = <2>;
-			};
+	cam_flash_front0_default: cam_flash_front0_default {
+		mux {
+			pins = "gpio33","gpio34";
+			function = "gpio";
 		};
 
-cam_flash_front0_sleep: cam_flash_front0_sleep {
-			mux {
-				pins = "gpio33","gpio34";
-				function = "gpio";
-			};
-
-			config {
-				pins = "gpio33","gpio34";
-				bias-disable;
-				drive-strength = <2>;
-			};
+		config {
+			pins = "gpio33","gpio34";
+			bias-disable;
+			drive-strength = <2>;
 		};
+	};
+
+	cam_flash_front0_sleep: cam_flash_front0_sleep {
+		mux {
+			pins = "gpio33","gpio34";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio33","gpio34";
+			bias-disable;
+			drive-strength = <2>;
+		};
+	};
 };
 

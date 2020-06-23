@@ -22,24 +22,6 @@
 	model = "Qualcomm Technologies, Inc. MSM8940-PMI8937 MTP";
 	compatible = "qcom,msm8940-mtp", "qcom,msm8940", "qcom,mtp";
 	qcom,board-id= <8 0>;
-	qcom,pmic-id = <0x10019 0x020037 0x0 0x0>;
+	qcom,pmics-id = <0x10019 0x0 0x0 0x0>;
 };
 
-&firmware {
-	android {
-		fstab {
-			vendor {
-                		status = "ok";
-			};
-		};
-	};
-};
-
-&usb_otg{
-	interrupts = <0 134 0>,<0 140 0>,<0 136 0>;
-	interrupt-names = "core_irq", "async_irq","phy_irq";
-	qcom,hsusb-otg-mode = <3>;
-	vbus_otg-supply = <&bq2560x_otg_supply>;
-	qcom,hsusb-otg-phy-init-seq =
-	<0x38 0x81 0xffffffff>;
-};

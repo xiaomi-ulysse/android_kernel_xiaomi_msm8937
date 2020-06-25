@@ -21,8 +21,16 @@ int of_setprop(const void *phandle, const char *name, const void *buf,
 /* Console functions */
 void of_console_init(void);
 
-typedef u16			__be16;
 typedef u32			__be32;
-typedef u64			__be64;
+
+#ifdef __LITTLE_ENDIAN__
+#define cpu_to_be32(x) swab32(x)
+#define be32_to_cpu(x) swab32(x)
+#else
+#define cpu_to_be32(x) (x)
+#define be32_to_cpu(x) (x)
+#endif
+
+#define PROM_ERROR (-1u)
 
 #endif /* _PPC_BOOT_OF_H_ */

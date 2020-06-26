@@ -1,0 +1,239 @@
+/*
+ * Copyright (c) 2015-2017, The Linux Foundation. All rights reserved.
+ * Copyright (C) 2018 XiaoMi, Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+#include "dsi-panel-hx-otm1901a-720p-video.dtsi"
+#include "dsi-panel-tm-otm1901a-720p-video.dtsi"
+#include "dsi-panel-shenchao-ili9881c-720p-video.dtsi"
+#include "msm8917-camera-sensor-mtp-ugglite.dtsi"
+#include "msm8917-pinctrl-ugglite.dtsi"
+#include "msm8917-pm-ugglite.dtsi"
+#include "msm-audio-ugglite.dtsi"
+
+/ {
+	aliases {
+		/* smdtty devices */
+		smd1 = &smdtty_apps_fm;
+		smd2 = &smdtty_apps_riva_bt_acl;
+		smd3 = &smdtty_apps_riva_bt_cmd;
+		smd4 = &smdtty_mbalbridge;
+		smd5 = &smdtty_apps_riva_ant_cmd;
+		smd6 = &smdtty_apps_riva_ant_data;
+		smd7 = &smdtty_data1;
+		smd8 = &smdtty_data4;
+		smd11 = &smdtty_data11;
+		smd21 = &smdtty_data21;
+		smd36 = &smdtty_loopback;
+		spi3 = &spi_3;
+		i2c2 = &i2c_2;
+		i2c5 = &i2c_5;
+		i2c3 = &i2c_3;
+		i2c6 = &i2c_6;
+		sdhc1 = &sdhc_1; /* SDC1 eMMC slot */
+		sdhc2 = &sdhc_2; /* SDC2 for SD card */
+	};
+	reserved-memory {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+		other_ext_mem: other_ext_region@0 {
+			compatible = "removed-dma-pool";
+			no-map;
+			reg = <0x0 0x84a00000 0x0 0x1E00000>;
+		};
+	};
+};
+
+/delete-node/ &led_flash0;
+
+&soc{
+		qcom,bcl {
+			/delete-property/ qcom,bcl-enable;
+		};
+
+		
+		/delete-node/ pericom-type-c@1d;
+		
+		i2c_6: i2c@7af6000 {
+			compatible = "qcom,i2c-msm-v2";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg-names = "qup_phys_addr";
+			reg = <0x7af6000 0x600>;
+			interrupt-names = "qup_irq";
+			interrupts = <0 300 0>;
+			qcom,clk-freq-out = <100000>;
+			qcom,clk-freq-in  = <19200000>;
+			clock-names = "iface_clk", "core_clk";
+			clocks = <&clock_gcc clk_gcc_blsp2_ahb_clk>,
+				<&clock_gcc clk_gcc_blsp2_qup2_i2c_apps_clk>;
+
+			pinctrl-names = "i2c_active", "i2c_sleep";
+			pinctrl-0 = <&i2c_6_active>;
+			pinctrl-1 = <&i2c_6_sleep>;
+			qcom,noise-rjct-scl = <0>;
+			qcom,noise-rjct-sda = <0>;
+			qcom,master-id = <84>;
+			dmas = <&dma_blsp2 6 64 0x20000020 0x20>,
+				<&dma_blsp2 7 32 0x20000020 0x20>;
+			dma-names = "tx", "rx";
+			status = "ok";
+		};
+
+		usb@78db000 {
+			/delete-property/ vbus_otg-supply;
+		};
+
+		qcom,wdt@b017000 {
+			qcom,bark-time = <15000>;
+		};
+		sn_fuse: snfuse@0xA4128 {
+			compatible = "qcom,sn-fuse";
+			reg = <0xA4128 0x4>,
+				 <0xA6034 0x4>;
+			reg-names = "sn-base","fuse-state";
+		};
+		qcom_seecom: qseecom@84a00000 {
+			compatible = "qcom,qseecom";
+			reg = <0x84a00000 0x1900000>;
+			reg-names = "secapp-region";
+			qcom,hlos-num-ce-hw-instances = <1>;
+			qcom,hlos-ce-hw-instance = <0>;
+			qcom,qsee-ce-hw-instance = <0>;
+			qcom,disk-encrypt-pipe-pair = <2>;
+			qcom,support-fde;
+			qcom,msm-bus,name = "qseecom-noc";
+			qcom,msm-bus,num-cases = <4>;
+			qcom,msm-bus,num-paths = <1>;
+			qcom,support-bus-scaling;
+			qcom,msm-bus,vectors-KBps =
+				<55 512 0 0>,
+				<55 512 0 0>,
+				<55 512 120000 1200000>,
+				<55 512 393600 3936000>;
+			clocks = <&clock_gcc clk_crypto_clk_src>,
+				 <&clock_gcc clk_gcc_crypto_clk>,
+				 <&clock_gcc clk_gcc_crypto_ahb_clk>,
+				 <&clock_gcc clk_gcc_crypto_axi_clk>;
+			clock-names = "core_clk_src", "core_clk",
+					"iface_clk", "bus_clk";
+			qcom,ce-opp-freq = <100000000>;
+		};
+
+		/delete-node/ qseecom@85b00000;
+
+
+};
+
+&mdss_dsi0 {
+	qcom,regulator-ldo-mode;
+	qcom,dsi-pref-prim-pan = <&dsi_sc_ili9881c_720p_video>;
+	pinctrl-names = "mdss_default", "mdss_sleep";
+	pinctrl-0 = <&mdss_dsi_active>;
+	pinctrl-1 = <&mdss_dsi_suspend>;
+
+	qcom,platform-reset-gpio = <&tlmm 60 0>;
+	qcom,platform-bklight-en-gpio = <&tlmm 93 1>;
+	/* lab-supply = <&tps65132_pos>;
+	ibb-supply = <&tps65132_neg>; */
+	qcom,ocp2131-enp-gpio = <&tlmm 12 0>;
+	qcom,ocp2131-enn-gpio = <&tlmm 13 0>;
+};
+
+&wsa881x_i2c_e {
+	status = "disable";
+};
+
+&wsa881x_i2c_f {
+	status = "disable";
+};
+
+&pm8937_mpps {
+	mpp@a100 { /*MPP_02 for ADC*/
+		status = "okay";
+	};
+};
+
+&pm8937_vadc {
+	chan@11 {
+		label = "batt_rid";
+		reg = <0x11>;
+		qcom,decimation = <0>;
+		qcom,pre-div-channel-scaling = <0>;
+		qcom,calibration-type = "ratiometric";
+		qcom,scale-function = <0>;
+		qcom,hw-settle-time = <2>;
+		qcom,fast-avg-setup = <0>;
+
+		/delete-property/ qcom,vadc-thermal-node;
+		status = "okay";
+	};
+};
+
+&rpm_bus {
+	rpm-regulator-ldoa22 {
+		status = "okay";
+		pm8917_l22: regulator-l22 {
+			regulator-name = "pm8917_l22";
+			regulator-min-microvolt = <2800000>;
+			regulator-max-microvolt = <2800000>;
+			regulator-max-microvolt = <3300000>;
+			qcom,init-voltage = <2800000>;
+			status = "okay";
+		};
+	};
+
+};
+
+&spmi_bus {
+	qcom,pm8937@0 {
+		qcom,power-on@800 {
+			qcom,pon_1 {
+				qcom,support-reset = <1>;
+				qcom,s1-timer = <4480>;
+				qcom,s2-timer = <2000>;
+				qcom,s2-type = <8>;
+			};
+			qcom,pon_3 {
+				qcom,pon-type = <3>;
+				qcom,pull-up = <1>;
+				qcom,support-reset = <1>;
+				qcom,s1-timer = <4480>;
+				qcom,s2-timer = <1000>;
+				qcom,s2-type = <1>;
+			};
+		};
+	};
+	/delete-node/ qcom,pmi8937@2;
+	/delete-node/ qcom,pmi8937@3;
+
+};
+
+&pm8937_pwm {
+		     compatible = "qcom,qpnp-pwm";
+		     reg = <0xbc00 0x100>;
+		     reg-names = "qpnp-lpg-channel-base";
+		     qcom,channel-id = <0>;
+		     qcom,supported-sizes = <6>,<9>;
+		     qcom,period = <4000000>;
+		     qcom,mode-select = <0>;
+		     qcom,dtest-line = <2>;
+		     qcom,dtest-output = <2>;
+		     #pwm-cells = <2>;
+		     status = "okay";
+
+		     qcom,pwm {
+			     qcom,duty = <2000000>;
+			     label = "pwm";
+		     };
+	};

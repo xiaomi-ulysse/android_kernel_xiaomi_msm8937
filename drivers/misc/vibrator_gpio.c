@@ -1,4 +1,3 @@
-
 /* drivers/misc/timed_gpio.c
  *
  * Copyright (C) 2008 Google, Inc.
@@ -45,7 +44,7 @@ static enum hrtimer_restart vibrator_timer_func(struct hrtimer *timer)
 {
 	struct vibrator_gpio_data *pdata =
 		container_of(timer, struct vibrator_gpio_data, vib_timer);
-	pr_err("vibrator_timer_func pdata->gpio=%d\n",pdata->gpio);
+	pr_debug("vibrator_timer_func pdata->gpio=%d\n",pdata->gpio);
 
 	gpio_direction_output(pdata->gpio, pdata->active_low ? 1 : 0);
 
@@ -79,7 +78,7 @@ static void vibrator_enable(struct timed_output_dev *dev, int value)
 
 	hrtimer_cancel(&pdata->vib_timer);
 	gpio_direction_output(pdata->gpio, pdata->active_low ? !value : !!value);
-	pr_err("gpio_enable data->gpio=%d\n",pdata->gpio);
+	pr_debug("gpio_enable data->gpio=%d\n",pdata->gpio);
 
 	if (value >= 0)
 	{

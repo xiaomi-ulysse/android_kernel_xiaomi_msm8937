@@ -1015,11 +1015,9 @@ static struct rt6_info *ip6_pol_route_output(struct net *net, struct fib6_table 
 	return ip6_pol_route(net, table, fl6->flowi6_oif, fl6, flags);
 }
 
-struct dst_entry *ip6_route_output(struct net *net, const struct sock *sk,
-				    struct flowi6 *fl6)
+struct dst_entry *ip6_route_output_flags(struct net *net, const struct sock *sk,
+					 struct flowi6 *fl6, int flags)
 {
-	int flags = 0;
-
 	fl6->flowi6_iif = LOOPBACK_IFINDEX;
 
 	if ((sk && sk->sk_bound_dev_if) || rt6_need_strict(&fl6->daddr))
@@ -1032,7 +1030,7 @@ struct dst_entry *ip6_route_output(struct net *net, const struct sock *sk,
 
 	return fib6_rule_lookup(net, fl6, flags, ip6_pol_route_output);
 }
-EXPORT_SYMBOL(ip6_route_output);
+EXPORT_SYMBOL_GPL(ip6_route_output_flags);
 
 struct dst_entry *ip6_blackhole_route(struct net *net, struct dst_entry *dst_orig)
 {
@@ -2547,7 +2545,7 @@ static int rt6_fill_node(struct net *net,
 		table = rt->rt6i_table->tb6_id;
 	else
 		table = RT6_TABLE_UNSPEC;
-	rtm->rtm_table = table;
+	rtm->rtm_table = table < 256 ? table : RT_TABLE_COMPAT;
 	if (nla_put_u32(skb, RTA_TABLE, table))
 		goto nla_put_failure;
 	if (rt->rt6i_flags & RTF_REJECT) {

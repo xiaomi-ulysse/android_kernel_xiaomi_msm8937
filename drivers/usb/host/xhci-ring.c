@@ -1580,6 +1580,7 @@ static void handle_port_status(struct xhci_hcd *xhci,
 			bus_state->port_remote_wakeup |= 1 << faked_port_index;
 			xhci_test_and_clear_bit(xhci, port_array,
 					faked_port_index, PORT_PLC);
+			usb_hcd_start_port_resume(&hcd->self, faked_port_index);
 			xhci_set_link_state(xhci, port_array, faked_port_index,
 						XDEV_U0);
 			/* Need to wait until the next link state change
@@ -1599,10 +1600,13 @@ static void handle_port_status(struct xhci_hcd *xhci,
 		}
 	}
 
-	if ((temp & PORT_PLC) && (temp & PORT_PLS_MASK) == XDEV_U0 &&
-			DEV_SUPERSPEED(temp)) {
+	if ((temp & PORT_PLC) &&
+	    DEV_SUPERSPEED(temp) &&
+	    ((temp & PORT_PLS_MASK) == XDEV_U0 ||
+	     (temp & PORT_PLS_MASK) == XDEV_U1 ||
+	     (temp & PORT_PLS_MASK) == XDEV_U2)) {
 		xhci_dbg(xhci, "resume SS port %d finished\n", port_id);
-		/* We've just brought the device into U0 through either the
+		/* We've just brought the device into U0/1/2 through either the
 		 * Resume state after a device remote wakeup, or through the
 		 * U3Exit state after a host-initiated resume.  If it's a device
 		 * initiated remote wake, don't pass up the link state change,
@@ -1614,8 +1618,6 @@ static void handle_port_status(struct xhci_hcd *xhci,
 		if (slot_id && xhci->devs[slot_id])
 			xhci_ring_device(xhci, slot_id);
 		if (bus_state->port_remote_wakeup & (1 << faked_port_index)) {
-			bus_state->port_remote_wakeup &=
-				~(1 << faked_port_index);
 			xhci_test_and_clear_bit(xhci, port_array,
 					faked_port_index, PORT_PLC);
 			usb_wakeup_notification(hcd->self.root_hub,
@@ -3694,7 +3696,7 @@ static unsigned int xhci_get_burst_count(struct xhci_hcd *xhci,
 {
 	unsigned int max_burst;
 
-	if (xhci->hci_version < 0x100 || udev->speed != USB_SPEED_SUPER)
+	if (xhci->hci_version < 0x100 || udev->speed < USB_SPEED_SUPER)
 		return 0;
 
 	max_burst = urb->ep->ss_ep_comp.bMaxBurst;
@@ -3720,6 +3722,7 @@ static unsigned int xhci_get_last_burst_packet_count(struct xhci_hcd *xhci,
 		return 0;
 
 	switch (udev->speed) {
+	case USB_SPEED_SUPER_PLUS:
 	case USB_SPEED_SUPER:
 		/* bMaxBurst is zero based: 0 means 1 packet per burst */
 		max_burst = urb->ep->ss_ep_comp.bMaxBurst;

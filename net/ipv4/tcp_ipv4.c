@@ -241,7 +241,7 @@ int tcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
 							   inet->inet_sport,
 							   usin->sin_port);
 
-	inet->inet_id = tp->write_seq ^ jiffies;
+	inet->inet_id = prandom_u32();
 
 	err = tcp_connect(sk);
 
@@ -432,13 +432,14 @@ void tcp_v4_err(struct sk_buff *icmp_skb, u32 info)
 		if (sock_owned_by_user(sk))
 			break;
 
+		skb = tcp_write_queue_head(sk);
+		if (WARN_ON_ONCE(!skb))
+			break;
+
 		icsk->icsk_backoff--;
 		icsk->icsk_rto = tp->srtt_us ? __tcp_set_rto(tp) :
 					       TCP_TIMEOUT_INIT;
 		icsk->icsk_rto = inet_csk_rto_backoff(icsk, TCP_RTO_MAX);
-
-		skb = tcp_write_queue_head(sk);
-		BUG_ON(!skb);
 
 		remaining = icsk->icsk_rto -
 			    min(icsk->icsk_rto,
@@ -709,7 +710,8 @@ release_sk1:
    outside socket context is ugly, certainly. What can I do?
  */
 
-static void tcp_v4_send_ack(const struct sock *sk, struct sk_buff *skb,
+static void tcp_v4_send_ack(struct net *net,
+			    const struct sock *sk, struct sk_buff *skb,
 			    u32 seq, u32 ack,
 			    u32 win, u32 tsval, u32 tsecr, int oif,
 			    struct tcp_md5sig_key *key,
@@ -725,7 +727,6 @@ static void tcp_v4_send_ack(const struct sock *sk, struct sk_buff *skb,
 			];
 	} rep;
 	struct ip_reply_arg arg;
-	struct net *net = sock_net(sk);
 
 	memset(&rep.th, 0, sizeof(struct tcphdr));
 	memset(&arg, 0, sizeof(arg));
@@ -788,7 +789,8 @@ static void tcp_v4_timewait_ack(struct sock *sk, struct sk_buff *skb)
 	struct inet_timewait_sock *tw = inet_twsk(sk);
 	struct tcp_timewait_sock *tcptw = tcp_twsk(sk);
 
-	tcp_v4_send_ack(sk, skb, tcptw->tw_snd_nxt, tcptw->tw_rcv_nxt,
+		tcp_v4_send_ack(sock_net(sk), sk, skb,
+				tcptw->tw_snd_nxt, tcptw->tw_rcv_nxt,
 			tcptw->tw_rcv_wnd >> tw->tw_rcv_wscale,
 			tcp_time_stamp + tcptw->tw_ts_offset,
 			tcptw->tw_ts_recent,
@@ -807,8 +809,9 @@ static void tcp_v4_reqsk_send_ack(struct sock *sk, struct sk_buff *skb,
 	/* sk->sk_state == TCP_LISTEN -> for regular TCP_SYN_RECV
 	 * sk->sk_state == TCP_SYN_RECV -> for Fast Open.
 	 */
-	tcp_v4_send_ack(sk, skb, (sk->sk_state == TCP_LISTEN) ?
-			tcp_rsk(req)->snt_isn + 1 : tcp_sk(sk)->snd_nxt,
+	u32 seq = (sk->sk_state == TCP_LISTEN) ? tcp_rsk(req)->snt_isn + 1 :
+					     tcp_sk(sk)->snd_nxt;
+	tcp_v4_send_ack(sock_net(sk), sk, skb, seq,
 			tcp_rsk(req)->rcv_nxt, req->rcv_wnd,
 			tcp_time_stamp,
 			req->ts_recent,
@@ -1339,7 +1342,7 @@ struct sock *tcp_v4_syn_recv_sock(struct sock *sk, struct sk_buff *skb,
 	inet_set_txhash(newsk);
 	if (inet_opt)
 		inet_csk(newsk)->icsk_ext_hdr_len = inet_opt->opt.optlen;
-	newinet->inet_id = newtp->write_seq ^ jiffies;
+	newinet->inet_id = prandom_u32();
 
 	if (!dst) {
 		dst = inet_csk_route_child_sock(sk, newsk, req);
@@ -2483,6 +2486,7 @@ static int __net_init tcp_sk_init(struct net *net)
 		*per_cpu_ptr(net->ipv4.tcp_sk, cpu) = sk;
 	}
 	net->ipv4.sysctl_tcp_ecn = 2;
+	net->ipv4.sysctl_tcp_min_snd_mss = TCP_MIN_SND_MSS;
 	return 0;
 
 fail:

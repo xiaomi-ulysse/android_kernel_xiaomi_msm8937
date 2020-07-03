@@ -217,6 +217,8 @@ struct cfs_bandwidth {
 	/* statistics */
 	int nr_periods, nr_throttled;
 	u64 throttled_time;
+
+	bool distribute_running;
 #endif
 };
 
@@ -1516,7 +1518,7 @@ static __always_inline bool static_branch_##name(struct static_key *key) \
 extern struct static_key sched_feat_keys[__SCHED_FEAT_NR];
 #define sched_feat(x) (static_branch_##x(&sched_feat_keys[__SCHED_FEAT_##x]))
 #else /* !(SCHED_DEBUG && HAVE_JUMP_LABEL) */
-#define sched_feat(x) (sysctl_sched_features & (1UL << __SCHED_FEAT_##x))
+#define sched_feat(x) !!(sysctl_sched_features & (1UL << __SCHED_FEAT_##x))
 #endif /* SCHED_DEBUG && HAVE_JUMP_LABEL */
 
 #ifdef CONFIG_NUMA_BALANCING
@@ -2233,6 +2235,19 @@ static inline u64 irq_time_read(int cpu)
 }
 #endif /* CONFIG_64BIT */
 #endif /* CONFIG_IRQ_TIME_ACCOUNTING */
+
+static inline void account_reset_rq(struct rq *rq)
+{
+#ifdef CONFIG_IRQ_TIME_ACCOUNTING
+	rq->prev_irq_time = 0;
+#endif
+#ifdef CONFIG_PARAVIRT
+	rq->prev_steal_time = 0;
+#endif
+#ifdef CONFIG_PARAVIRT_TIME_ACCOUNTING
+	rq->prev_steal_time_rq = 0;
+#endif
+}
 
 /*
  * task_may_not_preempt - check whether a task may not be preemptible soon

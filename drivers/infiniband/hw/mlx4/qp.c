@@ -361,7 +361,7 @@ static int send_wqe_overhead(enum mlx4_ib_qp_type type, u32 flags)
 			sizeof (struct mlx4_wqe_raddr_seg);
 	case MLX4_IB_QPT_RC:
 		return sizeof (struct mlx4_wqe_ctrl_seg) +
-			sizeof (struct mlx4_wqe_atomic_seg) +
+			sizeof (struct mlx4_wqe_masked_atomic_seg) +
 			sizeof (struct mlx4_wqe_raddr_seg);
 	case MLX4_IB_QPT_SMI:
 	case MLX4_IB_QPT_GSI:
@@ -1109,8 +1109,10 @@ struct ib_qp *mlx4_ib_create_qp(struct ib_pd *pd,
 	{
 		err = create_qp_common(to_mdev(pd->device), pd, init_attr,
 				       udata, 0, &qp, gfp);
-		if (err)
+		if (err) {
+			kfree(qp);
 			return ERR_PTR(err);
+		}
 
 		qp->ibqp.qp_num = qp->mqp.qpn;
 		qp->xrcdn = xrcdn;
@@ -1994,6 +1996,7 @@ static int build_sriov_qp0_header(struct mlx4_ib_sqp *sqp,
 	int send_size;
 	int header_size;
 	int spc;
+	int err;
 	int i;
 
 	if (wr->opcode != IB_WR_SEND)
@@ -2028,7 +2031,9 @@ static int build_sriov_qp0_header(struct mlx4_ib_sqp *sqp,
 
 	sqp->ud_header.lrh.virtual_lane    = 0;
 	sqp->ud_header.bth.solicited_event = !!(wr->send_flags & IB_SEND_SOLICITED);
-	ib_get_cached_pkey(ib_dev, sqp->qp.port, 0, &pkey);
+	err = ib_get_cached_pkey(ib_dev, sqp->qp.port, 0, &pkey);
+	if (err)
+		return err;
 	sqp->ud_header.bth.pkey = cpu_to_be16(pkey);
 	if (sqp->qp.mlx4_ib_qp_type == MLX4_IB_QPT_TUN_SMI_OWNER)
 		sqp->ud_header.bth.destination_qpn = cpu_to_be32(wr->wr.ud.remote_qpn);
@@ -2255,9 +2260,14 @@ static int build_mlx_header(struct mlx4_ib_sqp *sqp, struct ib_send_wr *wr,
 	}
 	sqp->ud_header.bth.solicited_event = !!(wr->send_flags & IB_SEND_SOLICITED);
 	if (!sqp->qp.ibqp.qp_num)
-		ib_get_cached_pkey(ib_dev, sqp->qp.port, sqp->pkey_index, &pkey);
+		err = ib_get_cached_pkey(ib_dev, sqp->qp.port, sqp->pkey_index,
+					 &pkey);
 	else
-		ib_get_cached_pkey(ib_dev, sqp->qp.port, wr->wr.ud.pkey_index, &pkey);
+		err = ib_get_cached_pkey(ib_dev, sqp->qp.port, wr->wr.ud.pkey_index,
+					 &pkey);
+	if (err)
+		return err;
+
 	sqp->ud_header.bth.pkey = cpu_to_be16(pkey);
 	sqp->ud_header.bth.destination_qpn = cpu_to_be32(wr->wr.ud.remote_qpn);
 	sqp->ud_header.bth.psn = cpu_to_be32((sqp->send_psn++) & ((1 << 24) - 1));

@@ -179,10 +179,16 @@ static inline struct lowpan_peer *peer_lookup_dst(struct lowpan_dev *dev,
 					list);
 
 	if (!rt) {
-		nexthop = &lowpan_cb(skb)->gw;
-
-		if (ipv6_addr_any(nexthop))
-			return NULL;
+		if (ipv6_addr_any(&lowpan_cb(skb)->gw)) {
+			/* There is neither route nor gateway,
+			 * probably the destination is a direct peer.
+			 */
+			nexthop = daddr;
+		} else {
+			/* There is a known gateway
+			 */
+			nexthop = &lowpan_cb(skb)->gw;
+		}
 	} else {
 		nexthop = rt6_nexthop(rt);
 
@@ -318,6 +324,9 @@ static int recv_pkt(struct sk_buff *skb, struct net_device *dev,
 
 	/* check that it's our buffer */
 	if (skb->data[0] == LOWPAN_DISPATCH_IPV6) {
+		/* Pull off the 1-byte of 6lowpan header. */
+		skb_pull(skb, 1);
+
 		/* Copy the packet so that the IPv6 header is
 		 * properly aligned.
 		 */

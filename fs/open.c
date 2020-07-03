@@ -355,6 +355,25 @@ SYSCALL_DEFINE3(faccessat, int, dfd, const char __user *, filename, int, mode)
 				override_cred->cap_permitted;
 	}
 
+	/*
+	 * The new set of credentials can *only* be used in
+	 * task-synchronous circumstances, and does not need
+	 * RCU freeing, unless somebody then takes a separate
+	 * reference to it.
+	 *
+	 * NOTE! This is _only_ true because this credential
+	 * is used purely for override_creds() that installs
+	 * it as the subjective cred. Other threads will be
+	 * accessing ->real_cred, not the subjective cred.
+	 *
+	 * If somebody _does_ make a copy of this (using the
+	 * 'get_current_cred()' function), that will clear the
+	 * non_rcu field, because now that other user may be
+	 * expecting RCU freeing. But normal thread-synchronous
+	 * cred accesses will keep things non-RCY.
+	 */
+	override_cred->non_rcu = 1;
+
 	old_cred = override_creds(override_cred);
 retry:
 	res = user_path_at(dfd, filename, lookup_flags, &path);
@@ -832,16 +851,12 @@ EXPORT_SYMBOL(finish_no_open);
 int vfs_open(const struct path *path, struct file *file,
 	     const struct cred *cred)
 {
-	struct dentry *dentry = path->dentry;
-	struct inode *inode = dentry->d_inode;
+	struct inode *inode = vfs_select_inode(path->dentry, file->f_flags);
+
+	if (IS_ERR(inode))
+		return PTR_ERR(inode);
 
 	file->f_path = *path;
-	if (dentry->d_flags & DCACHE_OP_SELECT_INODE) {
-		inode = dentry->d_op->d_select_inode(dentry, file->f_flags);
-		if (IS_ERR(inode))
-			return PTR_ERR(inode);
-	}
-
 	return do_dentry_open(file, inode, NULL, cred);
 }
 
@@ -1139,3 +1154,21 @@ int nonseekable_open(struct inode *inode, struct file *filp)
 }
 
 EXPORT_SYMBOL(nonseekable_open);
+
+/*
+ * stream_open is used by subsystems that want stream-like file descriptors.
+ * Such file descriptors are not seekable and don't have notion of position
+ * (file.f_pos is always 0). Contrary to file descriptors of other regular
+ * files, .read() and .write() can run simultaneously.
+ *
+ * stream_open never fails and is marked to return int so that it could be
+ * directly used as file_operations.open .
+ */
+int stream_open(struct inode *inode, struct file *filp)
+{
+	filp->f_mode &= ~(FMODE_LSEEK | FMODE_PREAD | FMODE_PWRITE | FMODE_ATOMIC_POS);
+	filp->f_mode |= FMODE_STREAM;
+	return 0;
+}
+
+EXPORT_SYMBOL(stream_open);

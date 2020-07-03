@@ -253,17 +253,6 @@ static void __team_option_inst_mark_removed_port(struct team *team,
 	}
 }
 
-static bool __team_option_inst_tmp_find(const struct list_head *opts,
-					const struct team_option_inst *needle)
-{
-	struct team_option_inst *opt_inst;
-
-	list_for_each_entry(opt_inst, opts, tmp_list)
-		if (opt_inst == needle)
-			return true;
-	return false;
-}
-
 static int __team_options_register(struct team *team,
 				   const struct team_option *option,
 				   size_t option_count)
@@ -483,6 +472,9 @@ static const struct team_mode *team_mode_get(const char *kind)
 	struct team_mode_item *mitem;
 	const struct team_mode *mode = NULL;
 
+	if (!try_module_get(THIS_MODULE))
+		return NULL;
+
 	spin_lock(&mode_list_lock);
 	mitem = __find_mode(kind);
 	if (!mitem) {
@@ -498,6 +490,7 @@ static const struct team_mode *team_mode_get(const char *kind)
 	}
 
 	spin_unlock(&mode_list_lock);
+	module_put(THIS_MODULE);
 	return mode;
 }
 
@@ -986,7 +979,7 @@ static void team_port_disable(struct team *team,
 			    NETIF_F_FRAGLIST | NETIF_F_ALL_TSO | \
 			    NETIF_F_HIGHDMA | NETIF_F_LRO)
 
-static void __team_compute_features(struct team *team)
+static void ___team_compute_features(struct team *team)
 {
 	struct team_port *port;
 	netdev_features_t vlan_features = TEAM_VLAN_FEATURES &
@@ -1011,15 +1004,20 @@ static void __team_compute_features(struct team *team)
 	team->dev->priv_flags &= ~IFF_XMIT_DST_RELEASE;
 	if (dst_release_flag == (IFF_XMIT_DST_RELEASE | IFF_XMIT_DST_RELEASE_PERM))
 		team->dev->priv_flags |= IFF_XMIT_DST_RELEASE;
+}
 
+static void __team_compute_features(struct team *team)
+{
+	___team_compute_features(team);
 	netdev_change_features(team->dev);
 }
 
 static void team_compute_features(struct team *team)
 {
 	mutex_lock(&team->lock);
-	__team_compute_features(team);
+	___team_compute_features(team);
 	mutex_unlock(&team->lock);
+	netdev_change_features(team->dev);
 }
 
 static int team_port_enter(struct team *team, struct team_port *port)
@@ -1140,6 +1138,17 @@ static int team_port_add(struct team *team, struct net_device *port_dev)
 	if (team_port_exists(port_dev)) {
 		netdev_err(dev, "Device %s is already a port "
 				"of a team device\n", portname);
+		return -EBUSY;
+	}
+
+	if (dev == port_dev) {
+		netdev_err(dev, "Cannot enslave team device to itself\n");
+		return -EINVAL;
+	}
+
+	if (netdev_has_upper_dev(dev, port_dev)) {
+		netdev_err(dev, "Device %s is already an upper device of the team interface\n",
+			   portname);
 		return -EBUSY;
 	}
 
@@ -2079,12 +2088,12 @@ static void team_setup(struct net_device *dev)
 	dev->features |= NETIF_F_NETNS_LOCAL;
 
 	dev->hw_features = TEAM_VLAN_FEATURES |
-			   NETIF_F_HW_VLAN_CTAG_TX |
 			   NETIF_F_HW_VLAN_CTAG_RX |
 			   NETIF_F_HW_VLAN_CTAG_FILTER;
 
 	dev->hw_features &= ~(NETIF_F_ALL_CSUM & ~NETIF_F_HW_CSUM);
 	dev->features |= dev->hw_features;
+	dev->features |= NETIF_F_HW_VLAN_CTAG_TX;
 }
 
 static int team_newlink(struct net *src_net, struct net_device *dev,
@@ -2157,6 +2166,8 @@ team_nl_option_policy[TEAM_ATTR_OPTION_MAX + 1] = {
 	[TEAM_ATTR_OPTION_CHANGED]		= { .type = NLA_FLAG },
 	[TEAM_ATTR_OPTION_TYPE]			= { .type = NLA_U8 },
 	[TEAM_ATTR_OPTION_DATA]			= { .type = NLA_BINARY },
+	[TEAM_ATTR_OPTION_PORT_IFINDEX]		= { .type = NLA_U32 },
+	[TEAM_ATTR_OPTION_ARRAY_INDEX]		= { .type = NLA_U32 },
 };
 
 static int team_nl_cmd_noop(struct sk_buff *skb, struct genl_info *info)
@@ -2430,7 +2441,6 @@ static int team_nl_cmd_options_set(struct sk_buff *skb, struct genl_info *info)
 	int err = 0;
 	int i;
 	struct nlattr *nl_option;
-	LIST_HEAD(opt_inst_list);
 
 	team = team_nl_team_get(info);
 	if (!team)
@@ -2446,6 +2456,7 @@ static int team_nl_cmd_options_set(struct sk_buff *skb, struct genl_info *info)
 		struct nlattr *opt_attrs[TEAM_ATTR_OPTION_MAX + 1];
 		struct nlattr *attr;
 		struct nlattr *attr_data;
+		LIST_HEAD(opt_inst_list);
 		enum team_option_type opt_type;
 		int opt_port_ifindex = 0; /* != 0 for per-port options */
 		u32 opt_array_index = 0;
@@ -2549,23 +2560,17 @@ static int team_nl_cmd_options_set(struct sk_buff *skb, struct genl_info *info)
 			if (err)
 				goto team_put;
 			opt_inst->changed = true;
-
-			/* dumb/evil user-space can send us duplicate opt,
-			 * keep only the last one
-			 */
-			if (__team_option_inst_tmp_find(&opt_inst_list,
-							opt_inst))
-				continue;
-
 			list_add(&opt_inst->tmp_list, &opt_inst_list);
 		}
 		if (!opt_found) {
 			err = -ENOENT;
 			goto team_put;
 		}
-	}
 
-	err = team_nl_send_event_options_get(team, &opt_inst_list);
+		err = team_nl_send_event_options_get(team, &opt_inst_list);
+		if (err)
+			break;
+	}
 
 team_put:
 	team_nl_team_put(team);

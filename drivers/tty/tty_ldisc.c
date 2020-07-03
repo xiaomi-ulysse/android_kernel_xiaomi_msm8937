@@ -22,9 +22,8 @@
 #undef LDISC_DEBUG_HANGUP
 
 #ifdef LDISC_DEBUG_HANGUP
-#define tty_ldisc_debug(tty, f, args...) ({				       \
-	char __b[64];							       \
-	printk(KERN_DEBUG "%s: %s: " f, __func__, tty_name(tty, __b), ##args); \
+#define tty_ldisc_debug(tty, f, args...) ({				  \
+	printk(KERN_DEBUG "%s: %s: " f, __func__, tty_name(tty), ##args); \
 })
 #else
 #define tty_ldisc_debug(tty, f, args...)
@@ -151,6 +150,13 @@ static void put_ldops(struct tty_ldisc_ops *ldops)
  *		takes tty_ldiscs_lock to guard against ldisc races
  */
 
+#if defined(CONFIG_LDISC_AUTOLOAD)
+	#define INITIAL_AUTOLOAD_STATE	1
+#else
+	#define INITIAL_AUTOLOAD_STATE	0
+#endif
+static int tty_ldisc_autoload = INITIAL_AUTOLOAD_STATE;
+
 static struct tty_ldisc *tty_ldisc_get(struct tty_struct *tty, int disc)
 {
 	struct tty_ldisc *ld;
@@ -165,6 +171,8 @@ static struct tty_ldisc *tty_ldisc_get(struct tty_struct *tty, int disc)
 	 */
 	ldops = get_ldops(disc);
 	if (IS_ERR(ldops)) {
+		if (!capable(CAP_SYS_MODULE) && !tty_ldisc_autoload)
+			return ERR_PTR(-EPERM);
 		request_module("tty-ldisc-%d", disc);
 		ldops = get_ldops(disc);
 		if (IS_ERR(ldops))
@@ -483,7 +491,6 @@ static void tty_ldisc_close(struct tty_struct *tty, struct tty_ldisc *ld)
 
 static void tty_ldisc_restore(struct tty_struct *tty, struct tty_ldisc *old)
 {
-	char buf[64];
 	struct tty_ldisc *new_ldisc;
 	int r;
 
@@ -504,7 +511,7 @@ static void tty_ldisc_restore(struct tty_struct *tty, struct tty_ldisc *old)
 		if (r < 0)
 			panic("Couldn't open N_TTY ldisc for "
 			      "%s --- error %d.",
-			      tty_name(tty, buf), r);
+			      tty_name(tty), r);
 	}
 }
 
@@ -830,4 +837,42 @@ void tty_ldisc_begin(void)
 {
 	/* Setup the default TTY line discipline. */
 	(void) tty_register_ldisc(N_TTY, &tty_ldisc_N_TTY);
+}
+
+static int zero;
+static int one = 1;
+static struct ctl_table tty_table[] = {
+	{
+		.procname	= "ldisc_autoload",
+		.data		= &tty_ldisc_autoload,
+		.maxlen		= sizeof(tty_ldisc_autoload),
+		.mode		= 0644,
+		.proc_handler	= proc_dointvec,
+		.extra1		= &zero,
+		.extra2		= &one,
+	},
+	{ }
+};
+
+static struct ctl_table tty_dir_table[] = {
+	{
+		.procname	= "tty",
+		.mode		= 0555,
+		.child		= tty_table,
+	},
+	{ }
+};
+
+static struct ctl_table tty_root_table[] = {
+	{
+		.procname	= "dev",
+		.mode		= 0555,
+		.child		= tty_dir_table,
+	},
+	{ }
+};
+
+void tty_sysctl_init(void)
+{
+	register_sysctl_table(tty_root_table);
 }

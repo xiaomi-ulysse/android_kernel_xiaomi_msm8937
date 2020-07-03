@@ -1065,7 +1065,7 @@ static void enic_rq_indicate_buf(struct vnic_rq *rq,
 		 * CHECSUM_UNNECESSARY.
 		 */
 		if ((netdev->features & NETIF_F_RXCSUM) && tcp_udp_csum_ok &&
-		    ipv4_csum_ok)
+		    (ipv4_csum_ok || ipv6))
 			skb->ip_summed = CHECKSUM_UNNECESSARY;
 
 		if (vlan_stripped)
@@ -1683,10 +1683,10 @@ static int enic_stop(struct net_device *netdev)
 	}
 
 	netif_carrier_off(netdev);
-	netif_tx_disable(netdev);
 	if (vnic_dev_get_intr_mode(enic->vdev) == VNIC_DEV_INTR_MODE_MSIX)
 		for (i = 0; i < enic->wq_count; i++)
 			napi_disable(&enic->napi[enic_cq_wq(enic, i)]);
+	netif_tx_disable(netdev);
 
 	if (!enic_is_dynamic(enic) && !enic_is_sriov_vf(enic))
 		enic_dev_del_station_addr(enic);

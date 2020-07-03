@@ -122,6 +122,7 @@ static struct buffer_head *__ext4_read_dirblock(struct inode *inode,
 	if (!is_dx_block && type == INDEX) {
 		ext4_error_inode(inode, __func__, line, block,
 		       "directory leaf block found instead of index block");
+		brelse(bh);
 		return ERR_PTR(-EIO);
 	}
 	if (!ext4_has_metadata_csum(inode->i_sb) ||
@@ -1407,6 +1408,7 @@ restart:
 		/*
 		 * We deal with the read-ahead logic here.
 		 */
+		cond_resched();
 		if (ra_ptr >= ra_max) {
 			/* Refill the readahead buffer */
 			ra_ptr = 0;
@@ -2822,7 +2824,9 @@ int ext4_orphan_add(handle_t *handle, struct inode *inode)
 			list_del_init(&EXT4_I(inode)->i_orphan);
 			mutex_unlock(&sbi->s_orphan_lock);
 		}
-	}
+	} else
+		brelse(iloc.bh);
+
 	jbd_debug(4, "superblock will point to %lu\n", inode->i_ino);
 	jbd_debug(4, "orphan inode %lu will point to %d\n",
 			inode->i_ino, NEXT_ORPHAN(inode));
@@ -3020,19 +3024,18 @@ static int ext4_unlink(struct inode *dir, struct dentry *dentry)
 	if (IS_DIRSYNC(dir))
 		ext4_handle_sync(handle);
 
-	if (!inode->i_nlink) {
-		ext4_warning(inode->i_sb,
-			     "Deleting nonexistent file (%lu), %d",
-			     inode->i_ino, inode->i_nlink);
-		set_nlink(inode, 1);
-	}
 	retval = ext4_delete_entry(handle, dir, de, bh);
 	if (retval)
 		goto end_unlink;
 	dir->i_ctime = dir->i_mtime = ext4_current_time(dir);
 	ext4_update_dx_flag(dir);
 	ext4_mark_inode_dirty(handle, dir);
-	drop_nlink(inode);
+	if (!inode->i_nlink)
+		ext4_warning(inode->i_sb,
+			     "Deleting nonexistent file (%lu), %d",
+			     inode->i_ino, inode->i_nlink);
+	else
+		drop_nlink(inode);
 	if (!inode->i_nlink)
 		ext4_orphan_add(handle, inode);
 	inode->i_ctime = ext4_current_time(inode);

@@ -211,9 +211,7 @@ int tty_unthrottle_safe(struct tty_struct *tty)
 void tty_wait_until_sent(struct tty_struct *tty, long timeout)
 {
 #ifdef TTY_DEBUG_WAIT_UNTIL_SENT
-	char buf[64];
-
-	printk(KERN_DEBUG "%s wait until sent...\n", tty_name(tty, buf));
+	printk(KERN_DEBUG "%s wait until sent...\n", tty_name(tty));
 #endif
 	if (!timeout)
 		timeout = MAX_SCHEDULE_TIMEOUT;
@@ -327,7 +325,7 @@ speed_t tty_termios_baud_rate(struct ktermios *termios)
 		else
 			cbaud += 15;
 	}
-	return baud_table[cbaud];
+	return cbaud >= n_baud_table ? 0 : baud_table[cbaud];
 }
 EXPORT_SYMBOL(tty_termios_baud_rate);
 
@@ -363,7 +361,7 @@ speed_t tty_termios_input_baud_rate(struct ktermios *termios)
 		else
 			cbaud += 15;
 	}
-	return baud_table[cbaud];
+	return cbaud >= n_baud_table ? 0 : baud_table[cbaud];
 #else
 	return tty_termios_baud_rate(termios);
 #endif

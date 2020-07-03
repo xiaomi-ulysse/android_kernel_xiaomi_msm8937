@@ -392,6 +392,8 @@ static int pppoe_rcv_core(struct sock *sk, struct sk_buff *skb)
 
 		if (!__pppoe_xmit(sk_pppox(relay_po), skb))
 			goto abort_put;
+
+		sock_put(sk_pppox(relay_po));
 	} else {
 		if (sock_queue_rcv_skb(sk, skb))
 			goto abort_kfree;
@@ -1121,6 +1123,9 @@ static const struct proto_ops pppoe_ops = {
 	.recvmsg	= pppoe_recvmsg,
 	.mmap		= sock_no_mmap,
 	.ioctl		= pppox_ioctl,
+#ifdef CONFIG_COMPAT
+	.compat_ioctl	= pppox_compat_ioctl,
+#endif
 };
 
 static const struct pppox_proto pppoe_proto = {

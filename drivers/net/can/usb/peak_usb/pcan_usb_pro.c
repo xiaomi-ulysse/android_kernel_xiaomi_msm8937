@@ -135,7 +135,7 @@ static u8 *pcan_msg_init_empty(struct pcan_usb_pro_msg *pm,
 /*
  * add one record to a message being built
  */
-static int pcan_msg_add_rec(struct pcan_usb_pro_msg *pm, u8 id, ...)
+static int pcan_msg_add_rec(struct pcan_usb_pro_msg *pm, int id, ...)
 {
 	int len, i;
 	u8 *pc;
@@ -508,7 +508,7 @@ static int pcan_usb_pro_drv_loaded(struct peak_usb_device *dev, int loaded)
 	u8 *buffer;
 	int err;
 
-	buffer = kmalloc(PCAN_USBPRO_FCT_DRVLD_REQ_LEN, GFP_KERNEL);
+	buffer = kzalloc(PCAN_USBPRO_FCT_DRVLD_REQ_LEN, GFP_KERNEL);
 	if (!buffer)
 		return -ENOMEM;
 

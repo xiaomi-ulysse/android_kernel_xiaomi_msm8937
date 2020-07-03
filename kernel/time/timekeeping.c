@@ -39,7 +39,9 @@
 static struct {
 	seqcount_t		seq;
 	struct timekeeper	timekeeper;
-} tk_core ____cacheline_aligned;
+} tk_core ____cacheline_aligned = {
+	.seq = SEQCNT_ZERO(tk_core.seq),
+};
 
 static DEFINE_RAW_SPINLOCK(timekeeper_lock);
 static struct timekeeper shadow_timekeeper;
@@ -756,7 +758,7 @@ int timekeeping_inject_offset(struct timespec *ts)
 	struct timespec64 ts64, tmp;
 	int ret = 0;
 
-	if ((unsigned long)ts->tv_nsec >= NSEC_PER_SEC)
+	if (!timespec_inject_offset_valid(ts))
 		return -EINVAL;
 
 	ts64 = timespec_to_timespec64(*ts);

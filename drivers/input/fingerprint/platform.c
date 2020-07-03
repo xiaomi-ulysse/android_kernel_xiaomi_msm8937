@@ -20,7 +20,7 @@ int gf_parse_dts(struct gf_dev* gf_dev)
 	int rc = 0;
 
 
-	gf_dev->reset_gpio = of_get_named_gpio(gf_dev->spi->dev.of_node, "goodix, gpio_reset", 0);
+	gf_dev->reset_gpio = of_get_named_gpio(gf_dev->spi->dev.of_node, "goodix,gpio_reset", 0);
 	if(!gpio_is_valid(gf_dev->reset_gpio)) {
 		pr_info("RESET GPIO is invalid.\n");
 		return -1;
@@ -36,7 +36,7 @@ int gf_parse_dts(struct gf_dev* gf_dev)
 		gpio_free(gf_dev->reset_gpio);
 #endif
 	}
-	gf_dev->irq_gpio = of_get_named_gpio(gf_dev->spi->dev.of_node, "goodix, gpio_irq", 0);
+	gf_dev->irq_gpio = of_get_named_gpio(gf_dev->spi->dev.of_node, "goodix,gpio_irq", 0);
 	if(!gpio_is_valid(gf_dev->irq_gpio)) {
 		pr_info("IRQ GPIO is invalid.\n");
 		return -1;

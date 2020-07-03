@@ -14,7 +14,6 @@
 # Based on the ia64 boot/Makefile.
 #
 
-include $(srctree)/arch/arm64/boot/dts/ulysse/Makefile
 
 targets := Image Image.gz
 

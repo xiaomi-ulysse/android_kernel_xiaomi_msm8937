@@ -121,6 +121,14 @@ static void page_cache_tree_delete(struct address_space *mapping,
 	VM_BUG_ON(!PageLocked(page));
 
 	__radix_tree_lookup(&mapping->page_tree, page->index, &node, &slot);
+	
+	 if (!node) {
+
+		/*
+        	 * We need a node to properly account shadow entries.
+		 */
+		shadow = NULL;
+	}
 
 	if (shadow) {
 		mapping->nrshadows++;

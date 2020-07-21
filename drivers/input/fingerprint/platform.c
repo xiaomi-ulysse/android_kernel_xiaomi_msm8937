@@ -129,4 +129,3 @@ int gf_irq_num(struct gf_dev *gf_dev)
 			return -1;
 	}
 }
-
